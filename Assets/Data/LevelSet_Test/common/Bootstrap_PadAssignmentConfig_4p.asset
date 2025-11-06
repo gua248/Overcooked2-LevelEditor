@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7049966fa64daf3d7929ec55bd429179, type: 3}
+  m_Name: Bootstrap_PadAssignmentConfig_4p
+  m_EditorClassIdentifier: 
+  Config:
+    m_playerConfigs:
+    - Player: 0
+      Pad: 0
+      Side: 2
+      MachineId: 0
+      AmbiControlsMapping: {fileID: 11400000, guid: f7ff8f0c338daf94ba00ad3c8734e60d,
+        type: 2}
+      UIHandedness: 2
+    - Player: 1
+      Pad: 1
+      Side: 2
+      MachineId: 0
+      AmbiControlsMapping: {fileID: 11400000, guid: f7ff8f0c338daf94ba00ad3c8734e60d,
+        type: 2}
+      UIHandedness: 2
+    - Player: 2
+      Pad: 2
+      Side: 2
+      MachineId: 0
+      AmbiControlsMapping: {fileID: 11400000, guid: f7ff8f0c338daf94ba00ad3c8734e60d,
+        type: 2}
+      UIHandedness: 2
+    - Player: 3
+      Pad: 3
+      Side: 2
+      MachineId: 0
+      AmbiControlsMapping: {fileID: 11400000, guid: f7ff8f0c338daf94ba00ad3c8734e60d,
+        type: 2}
+      UIHandedness: 2

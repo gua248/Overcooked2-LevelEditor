@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Plate
+  - DirtyPlate
+  - PlateReturn
+  - Canvas
+  - Pre-Ingredient
+  - Ingredient
+  - Crate
+  - CookingUtensil
+  - ChoppingStation
+  - PlateStation
+  - RatSpawn
+  - Table
+  - CookingStation
+  - GameSession
+  - GameMetaEnvironment
+  - DynamicParentController
+  - Hazard
+  - Travelator
+  - MovingPlatform
+  - NetworkStatic
+  - EmissiveToBake
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Players
+  - Ground
+  - Walls
+  - Worktops
+  - PlayersRespawn
+  - AttachedBackpack
+  - Attachments
+  - HeldAttachments
+  - 
+  - Beings
+  - PlayerTriggerZone
+  - 
+  - PlateStationBlock
+  - 
+  - CookingStationBlock
+  - BinBlock
+  - PushedObject
+  - PushedObjectBounds
+  - TableBlock
+  - Administration
+  - SlopedGround
+  - Camera
+  - KillPlane
+  - PausableUI
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
