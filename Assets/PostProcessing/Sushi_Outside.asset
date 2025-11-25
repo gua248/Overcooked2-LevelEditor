@@ -85,7 +85,7 @@ MonoBehaviour:
       radius: 0.03
       sampleCount: 10
       downsampling: 1
-      RotationTexture: {fileID: 2800000, guid: 4cd65995d5ae39b4899488c40e4f4a2f, type: 3}
+      RotationTexture: {fileID: 2800000, guid: 9072de79d5eb0e44ea20d9799d906ea3, type: 3}
       blurSize: 1
       distanceFalloff: 4
   - m_Enabled: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
       radius: 0.03
       sampleCount: 10
       downsampling: 1
-      RotationTexture: {fileID: 2800000, guid: 4cd65995d5ae39b4899488c40e4f4a2f, type: 3}
+      RotationTexture: {fileID: 2800000, guid: 9072de79d5eb0e44ea20d9799d906ea3, type: 3}
       blurSize: 1
       distanceFalloff: 4
   - m_Enabled: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
       radius: 0.03
       sampleCount: 10
       downsampling: 1
-      RotationTexture: {fileID: 2800000, guid: 4cd65995d5ae39b4899488c40e4f4a2f, type: 3}
+      RotationTexture: {fileID: 2800000, guid: 9072de79d5eb0e44ea20d9799d906ea3, type: 3}
       blurSize: 1
       distanceFalloff: 4
   - m_Enabled: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
       radius: 0.03
       sampleCount: 10
       downsampling: 1
-      RotationTexture: {fileID: 2800000, guid: 4cd65995d5ae39b4899488c40e4f4a2f, type: 3}
+      RotationTexture: {fileID: 2800000, guid: 9072de79d5eb0e44ea20d9799d906ea3, type: 3}
       blurSize: 1
       distanceFalloff: 4
   screenSpaceReflectionModels:
@@ -1004,19 +1004,19 @@ MonoBehaviour:
   userLutModels:
   - m_Enabled: 1
     m_Settings:
-      lut: {fileID: 2800000, guid: a1cda64893458c6448eb1b2666ab4698, type: 3}
+      lut: {fileID: 2800000, guid: 8e1149281f9d01f41b65053ec6a949ab, type: 3}
       contribution: 1
   - m_Enabled: 1
     m_Settings:
-      lut: {fileID: 2800000, guid: a1cda64893458c6448eb1b2666ab4698, type: 3}
+      lut: {fileID: 2800000, guid: 8e1149281f9d01f41b65053ec6a949ab, type: 3}
       contribution: 1
   - m_Enabled: 1
     m_Settings:
-      lut: {fileID: 2800000, guid: a1cda64893458c6448eb1b2666ab4698, type: 3}
+      lut: {fileID: 2800000, guid: 8e1149281f9d01f41b65053ec6a949ab, type: 3}
       contribution: 1
   - m_Enabled: 1
     m_Settings:
-      lut: {fileID: 2800000, guid: a1cda64893458c6448eb1b2666ab4698, type: 3}
+      lut: {fileID: 2800000, guid: 8e1149281f9d01f41b65053ec6a949ab, type: 3}
       contribution: 1
   chromaticAberrationModels:
   - m_Enabled: 0
@@ -1066,7 +1066,7 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.3
+      intensity: 0.341
       smoothness: 0.5
       roundness: 1
       mask: {fileID: 0}
@@ -1077,7 +1077,7 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.3
+      intensity: 0.444
       smoothness: 0.5
       roundness: 1
       mask: {fileID: 0}
@@ -1088,7 +1088,7 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.3
+      intensity: 0.444
       smoothness: 0.5
       roundness: 1
       mask: {fileID: 0}
@@ -1099,7 +1099,7 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.3
+      intensity: 0.444
       smoothness: 0.5
       roundness: 1
       mask: {fileID: 0}

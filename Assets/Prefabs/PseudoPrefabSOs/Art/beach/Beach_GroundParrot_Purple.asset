@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cff7c13895ab9e47a5e02d4619cc3b9, type: 3}
-  m_Name: DispenserSO
+  m_Name: Beach_GroundParrot_Purple
   m_EditorClassIdentifier: 
-  prefabName: dispenser_crate_01
-  bundleName: bundle47
-  assetPath: assets/prefabs/shared_kitchen/dispenser_crate_01.prefab
+  prefabName: Beach_GroundParrot_Purple
+  bundleName: bundle167
+  assetPath: Assets\downloadablecontent\dlc02\dlc_assets\prefabs\beach theme\Beach_GroundParrot_Purple.prefab

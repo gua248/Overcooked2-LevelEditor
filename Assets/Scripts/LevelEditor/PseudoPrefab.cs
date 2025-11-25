@@ -48,16 +48,20 @@ namespace LevelEditor
 
         private void HandleSpecificPrefabs()
         {
-            if (stub.pseudoPrefabSO.prefabName == "countertop_01_standard_dark_wood")
+            foreach (RendererInfo rendererInfo in childGameObject.RequestComponentsRecursive<RendererInfo>())
             {
-                RendererInfo rendererInfo = childGameObject.RequireComponentRecursive<RendererInfo>();
-                if (rendererInfo != null)
-                {
-                    rendererInfo.lightmapIndex = -1;
-                    rendererInfo.lightmapScaleOffset = Vector4.zero;
-                }
+                rendererInfo.lightmapIndex = -1;
+                rendererInfo.lightmapScaleOffset = Vector4.zero;
+            }
+
+            if (false) { }
+            else if (stub.pseudoPrefabSO.prefabName == "raft_water")
+            {
+                childGameObject.transform.Find("Reflection Plane").gameObject.SetActive(false);
+                childGameObject.transform.Find("sky").gameObject.SetActive(false);
             }
         }
+
 
         public void ClearChild()
         {

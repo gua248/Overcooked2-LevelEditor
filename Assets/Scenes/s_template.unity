@@ -647,6 +647,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 665316284}
   m_Script: {fileID: 11500000, guid: b3b3020cd743f2a49408c8f20306f0c2, type: 3}
+--- !u!1 &665316291 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1178911302888167, guid: 0f5c16e816bff8844849c119d5f0026b,
+    type: 2}
+  m_PrefabInternal: {fileID: 665316284}
 --- !u!1001 &699373265
 Prefab:
   m_ObjectHideFlags: 0
@@ -849,6 +854,7 @@ MonoBehaviour:
   RecipeUISO: {fileID: 11400000, guid: 2d28c3fb798830a418fa99b6ceb20b19, type: 2}
   RecipeUIGO: {fileID: 665316288}
   InLevelMusicSO: {fileID: 11400000, guid: 4821c699814fc6246853b9500ac41e8a, type: 2}
+  InLevelAmbiences: 
   RoundResultsSO: {fileID: 11400000, guid: 9073f6b68f335fe4ab5d65129cda1a1a, type: 2}
   AudioDirectorySOs:
   - {fileID: 11400000, guid: 45abe9378aa684144b655a71d85d422a, type: 2}
@@ -876,6 +882,8 @@ MonoBehaviour:
   BootstrapManagerGO: {fileID: 665316285}
   configTemplateSO: {fileID: 11400000, guid: 7e688d7b841d3d54bb0517c2615802c7, type: 2}
   levelInfo: {fileID: 0}
+  KillPlaneGO: {fileID: 665316291}
+  OnDeathEffectSO: {fileID: 0}
 --- !u!4 &975597278
 Transform:
   m_ObjectHideFlags: 0
@@ -1095,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e822a5279e858d9b8733ea55607d74e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 0a782d2b9608467478e99479e00e020e, type: 2}
+  profile: {fileID: 0}
 --- !u!114 &2005137853
 MonoBehaviour:
   m_ObjectHideFlags: 0

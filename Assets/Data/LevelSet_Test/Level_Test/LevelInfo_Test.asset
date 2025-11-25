@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Test 1
   levelNameZH: "\u6D4B\u8BD5 1"
-  screenshot: {fileID: 21300000, guid: 759b31773f04f8b468172feb96f5bbdf, type: 3}
+  screenshot: {fileID: 21300000, guid: de2f1c907558b8e4e8c2576629bb1fa3, type: 3}
   sceneName: s_test_level
   recipes:
   - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 956d0cf781ea09740814e8f80a4621bf, type: 2}
   useScore2: 0
   debugRecipeCount: 34
+  disableDynamicParenting: 1
   config_1p: {fileID: 11400000, guid: f09c4ff36419b0848a8b0c14d3b9ae00, type: 2}
   config_2p: {fileID: 11400000, guid: 4afb7f362618a09499b4e2ff1072b42d, type: 2}
   config_3p: {fileID: 11400000, guid: 26aa6bdfb4c3fb94d984edd3b6180983, type: 2}

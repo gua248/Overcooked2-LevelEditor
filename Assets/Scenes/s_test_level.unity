@@ -4533,6 +4533,7 @@ MonoBehaviour:
   RecipeUISO: {fileID: 11400000, guid: 2d28c3fb798830a418fa99b6ceb20b19, type: 2}
   RecipeUIGO: {fileID: 1926582766}
   InLevelMusicSO: {fileID: 11400000, guid: 4821c699814fc6246853b9500ac41e8a, type: 2}
+  InLevelAmbiences: 12000000
   RoundResultsSO: {fileID: 11400000, guid: 9073f6b68f335fe4ab5d65129cda1a1a, type: 2}
   AudioDirectorySOs:
   - {fileID: 11400000, guid: 45abe9378aa684144b655a71d85d422a, type: 2}
@@ -4559,6 +4560,8 @@ MonoBehaviour:
   BootstrapManagerGO: {fileID: 148550106}
   configTemplateSO: {fileID: 11400000, guid: 7e688d7b841d3d54bb0517c2615802c7, type: 2}
   levelInfo: {fileID: 11400000, guid: b4bfb84fd5e2d034faffb2259996e3d8, type: 2}
+  KillPlaneGO: {fileID: 1702287765}
+  OnDeathEffectSO: {fileID: 0}
 --- !u!4 &617352650
 Transform:
   m_ObjectHideFlags: 0
@@ -11248,6 +11251,7 @@ GameObject:
   - component: {fileID: 1510365822}
   - component: {fileID: 1510365821}
   - component: {fileID: 1510365820}
+  - component: {fileID: 1510365824}
   - component: {fileID: 1510365819}
   - component: {fileID: 1510365818}
   - component: {fileID: 1510365823}
@@ -11356,7 +11360,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e822a5279e858d9b8733ea55607d74e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 0a782d2b9608467478e99479e00e020e, type: 2}
+  profile: {fileID: 11400000, guid: 1e934fdd1c8f1e44c8166ba7e29f8c68, type: 2}
+--- !u!95 &1510365824
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1510365816}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 54a3dbc1fd9fc0c40b2714948559aa1b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1527531047
 Prefab:
   m_ObjectHideFlags: 0
@@ -12809,6 +12830,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f5c16e816bff8844849c119d5f0026b, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1702287765 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1178911302888167, guid: 0f5c16e816bff8844849c119d5f0026b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1702287764}
 --- !u!4 &1703067873 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4341917854781290, guid: a73b3f0cafd804944b6e93b0feac0a20,

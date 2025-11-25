@@ -17,6 +17,9 @@ namespace LevelEditorStub
         [SerializeField] public PseudoPrefabSORecipe[] recipes;
         [SerializeField] public bool useScore2 = false;
         [SerializeField] public int debugRecipeCount;
+
+        [SerializeField] public bool disableDynamicParenting = true;
+
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_1p;
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_2p;
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_3p;

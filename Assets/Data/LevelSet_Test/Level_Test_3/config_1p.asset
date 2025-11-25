@@ -16,7 +16,7 @@ MonoBehaviour:
   plateReturnTime: 7
   survivalTimeMultiplier: 1
   roundTime: 240
-  m_OneStarScore: 0
-  m_TwoStarScore: 0
-  m_ThreeStarScore: 0
-  m_FourStarScore: 0
+  m_OneStarScore: 400
+  m_TwoStarScore: 500
+  m_ThreeStarScore: 600
+  m_FourStarScore: 1000

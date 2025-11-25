@@ -13,22 +13,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Test 3
   levelNameZH: "\u6D4B\u8BD5 3"
-  screenshot: {fileID: 21300000, guid: bc0ebcf5e34f66c40909b950c895a00d, type: 3}
+  screenshot: {fileID: 21300000, guid: 6b5d58a6a8d1c114781ab2b42c3c4d71, type: 3}
   sceneName: s_test_level_3
   recipes:
-  - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
-  - {fileID: 11400000, guid: fedbf23992bef3c4b9157912f377ca61, type: 2}
-  - {fileID: 11400000, guid: 5b78a80caa87d7846aab091bb0492d69, type: 2}
-  - {fileID: 11400000, guid: 68f4e9cdbfeb9db4a81f0fc9f53c0bb6, type: 2}
+  - {fileID: 11400000, guid: 7ef61c9e0206c784cb28602c0d013a4b, type: 2}
+  - {fileID: 11400000, guid: 576b3ced1e3ff084696b2948e18790a3, type: 2}
+  - {fileID: 11400000, guid: d41b20c4dd4638942bf7476ee239a85a, type: 2}
   useScore2: 0
-  debugRecipeCount: 9
-  config_1p: {fileID: 11400000, guid: a39a6ed5046fdfb45b25d71c87732fef, type: 2}
-  config_2p: {fileID: 11400000, guid: bf7f29d8940b7a8409eac61cff7f1f50, type: 2}
-  config_3p: {fileID: 11400000, guid: a0dcf2ca2abbcd14ca1b458435cac3f8, type: 2}
-  config_4p: {fileID: 11400000, guid: 07832dcfa91e4954eb697b21c1dd6add, type: 2}
+  debugRecipeCount: 3
+  disableDynamicParenting: 0
+  config_1p: {fileID: 11400000, guid: 866f9da4a0d84604d90e7899b1d57c8f, type: 2}
+  config_2p: {fileID: 11400000, guid: 0444a4feda1cb3046959dfa8adf8232d, type: 2}
+  config_3p: {fileID: 11400000, guid: 3423bfe75668bb34bb146f194f7f4459, type: 2}
+  config_4p: {fileID: 11400000, guid: dea2f12aaa156b94e949502aeadd5699, type: 2}
   dependencies:
   - bundle3
   - bundle9
+  - bundle11
   - bundle15
   - bundle16
   - bundle17
@@ -36,5 +37,6 @@ MonoBehaviour:
   - bundle21
   - bundle29
   - bundle40
+  - bundle44
   - bundle46
   - bundle47

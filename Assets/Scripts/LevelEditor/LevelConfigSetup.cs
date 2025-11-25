@@ -23,6 +23,7 @@ namespace LevelEditor
             configTemplate.m_plateReturnTime = configPerPlayerCount.plateReturnTime;
             configTemplate.m_survivalConfig.m_timeMultiplier = configPerPlayerCount.survivalTimeMultiplier;
             configTemplate.m_objectives = new LevelObjectiveBase[0];
+            configTemplate.m_disableDynamicParenting = config.disableDynamicParenting;
 
             RecipeList recipeList = configTemplate.m_rounds[0].m_recipes;
             recipeList = ScriptableObject.Instantiate(recipeList);

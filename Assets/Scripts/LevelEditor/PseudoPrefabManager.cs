@@ -145,6 +145,9 @@ namespace LevelEditor
                 .GetField("m_inLevelMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset<AudioClip>(stub.InLevelMusicSO));
             component.GetType()
+                .GetField("m_inLevelAmbiences", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .SetValue(component, stub.InLevelAmbiences.Select(x => (GameLoopingAudioTag)x).ToArray());
+            component.GetType()
                 .GetField("m_summaryScreenMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset<AudioClip>(stub.RoundResultsSO));
             AudioDirectoryData[] m_audioDirectories = new AudioDirectoryData[stub.AudioDirectorySOs.Length];
@@ -191,6 +194,10 @@ namespace LevelEditor
             component.GetType()
                 .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, LevelConfigSetup.SetupConfig(stub.configTemplateSO, stub.levelInfo, 4));
+
+            component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
+            if (stub.OnDeathEffectSO != null)
+                (component as RespawnCollider).m_onDeathEffect = LoadAsset(stub.OnDeathEffectSO);
         }
 
         public static void ResetAllPseudoPrefabs()
@@ -243,6 +250,9 @@ namespace LevelEditor
                 .GetField("m_inLevelMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, null);
             component.GetType()
+                .GetField("m_inLevelAmbiences", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .SetValue(component, new GameLoopingAudioTag[0]);
+            component.GetType()
                 .GetField("m_summaryScreenMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, null);
             AudioDirectoryData[] m_audioDirectories = (AudioDirectoryData[])typeof(AudioManager)
@@ -283,6 +293,9 @@ namespace LevelEditor
             component.GetType()
                 .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, null);
+
+            component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
+            (component as RespawnCollider).m_onDeathEffect = null;
         }
 
         public static AssetBundle GetAssetBundle(string bundleName)
