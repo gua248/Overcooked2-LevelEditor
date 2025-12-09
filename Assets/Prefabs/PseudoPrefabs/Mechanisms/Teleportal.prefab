@@ -54,6 +54,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pseudoPrefabSO: {fileID: 11400000, guid: 1bbb184b375360a4291299ad746c5de4, type: 2}
   exitPortal: {fileID: 0}
+  portalColor: 0
+  doubleSided: 0
+  materialSOs:
+  - {fileID: 11400000, guid: 6077bdbe7eca1a54da36218e06cb2d9b, type: 2}
+  - {fileID: 11400000, guid: 0f055c8a3df0f484ea3d5e8b66a8dc8e, type: 2}
+  - {fileID: 11400000, guid: 6d11b5884dc9db34d9660755229410ca, type: 2}
+  - {fileID: 11400000, guid: 52c8956d33ea0fa429b4a5e80fc65a25, type: 2}
+  - {fileID: 11400000, guid: 721b01e3697cf4a4ea75c13b029821f0, type: 2}
+  - {fileID: 11400000, guid: 7770254c10053fa4bbc5496d60e17ed0, type: 2}
+  - {fileID: 11400000, guid: f994c6c908ae2114ab999bf2891c5e08, type: 2}
+  - {fileID: 11400000, guid: b9f9776b7b016c44fa0c0650b0dea164, type: 2}
+  - {fileID: 11400000, guid: 2210f298614930447a0df7c3d5b70d10, type: 2}
+  pfxMaterialSOs:
+  - {fileID: 11400000, guid: cd09dbad1da99fd4cb754ec665f740fd, type: 2}
+  - {fileID: 11400000, guid: cd09dbad1da99fd4cb754ec665f740fd, type: 2}
+  - {fileID: 11400000, guid: 309eb2d8f6b3f1f478fca6e6f758f654, type: 2}
+  - {fileID: 11400000, guid: a3f0c75af46c3b446894804baba14797, type: 2}
+  - {fileID: 11400000, guid: c968918d70d14ba4b84fa979479b840e, type: 2}
+  - {fileID: 11400000, guid: c968918d70d14ba4b84fa979479b840e, type: 2}
+  - {fileID: 11400000, guid: eda6ff9ccea8a5d4f87bf4da383fbc7e, type: 2}
+  - {fileID: 11400000, guid: 5f9f841bf52deee47b33c70b81799eb1, type: 2}
+  - {fileID: 11400000, guid: be136a134933cfe45a0cca773ec720f9, type: 2}
+  pfxColors:
+  - {r: 0.0627451, g: 0.5176471, b: 0.8392157, a: 1}
+  - {r: 0.09411765, g: 0.21176471, b: 0.7882353, a: 0}
+  - {r: 0.7294118, g: 0.08627451, b: 0.08627451, a: 0}
+  - {r: 0.8666667, g: 0.5568628, b: 0, a: 0}
+  - {r: 0.101960786, g: 0.78039217, b: 0.16470589, a: 0}
+  - {r: 0.039215688, g: 0.43529412, b: 0.02745098, a: 0}
+  - {r: 0.76862746, g: 0.08627451, b: 0.78039217, a: 0}
+  - {r: 0.95686275, g: 0, b: 0.69411767, a: 0}
+  - {r: 0.8901961, g: 0.27450982, b: 0, a: 0}
 --- !u!114 &114843761941381736
 MonoBehaviour:
   m_ObjectHideFlags: 1

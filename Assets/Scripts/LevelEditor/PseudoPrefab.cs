@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using LevelEditorStub;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using LevelEditorStub;
 
 
 namespace LevelEditor
@@ -40,6 +41,11 @@ namespace LevelEditor
                     .GetField("m_constrainY", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                     .SetValue(editorGridSnap, true);
             }
+            if (editorGridSnap != null && !Application.isPlaying &&
+                childGameObject.GetComponent<Teleportal>() != null)
+            {
+                editorGridSnap.enabled = false;
+            }
 
             HandleSpecificPrefabs();
 
@@ -60,8 +66,99 @@ namespace LevelEditor
                 childGameObject.transform.Find("Reflection Plane").gameObject.SetActive(false);
                 childGameObject.transform.Find("sky").gameObject.SetActive(false);
             }
-        }
 
+            else if (stub.pseudoPrefabSO.prefabName == "PFX_background_wizardshool_01")
+            {
+                childGameObject.transform.Find("cloudgroup1").gameObject.SetActive(false);
+                childGameObject.transform.Find("cloudgroup2").gameObject.SetActive(false);
+                childGameObject.transform.Find("cloudgroup3").gameObject.SetActive(false);
+                childGameObject.transform.Find("cloudgroup4").gameObject.SetActive(false);
+                childGameObject.transform.Find("cloudgroup5").gameObject.SetActive(false);
+                childGameObject.transform.Find("sparkles (1)/sparkles (2)").gameObject.SetActive(false);
+                childGameObject.transform.Find("sparkles (1)/sparkles (3)").gameObject.SetActive(false);
+                childGameObject.transform.Find("sparkles (1)/sparkles (4)").gameObject.SetActive(false);
+                childGameObject.transform.Find("sparkles (1)/sparkles (5)").gameObject.SetActive(false);
+                childGameObject.transform.Find("background").gameObject.SetActive(false);
+                childGameObject.transform.Find("Planes_dummies").gameObject.SetActive(false);
+
+                var color = new ParticleSystem.MinMaxGradient(new Color32(104, 0, 255, 255), new Color32(0, 255, 202, 255));
+                var gradient = new Gradient();
+                gradient.SetKeys(new GradientColorKey[]
+                {
+                    new GradientColorKey{color=Color.white, time=0f},
+                    new GradientColorKey{color=Color.white, time=1f},
+                }, new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey{alpha=0f, time=0f},
+                    new GradientAlphaKey{alpha=74/255f, time=.308f},
+                    new GradientAlphaKey{alpha=107/255f, time=.641f},
+                    new GradientAlphaKey{alpha=0f, time=1f},
+                });
+                var colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient);
+                Action<ParticleSystem> SetPFX = particleSystem =>
+                {
+                    ParticleSystem.MainModule main;
+                    ParticleSystem.ColorOverLifetimeModule colorOverLifetimeModule;
+                    Vector3 directionToCamera;
+                    Quaternion rotationToCamera;
+                    Vector3 eulerAngles;
+                    main = particleSystem.main;
+                    main.startColor = color;
+                    colorOverLifetimeModule = particleSystem.colorOverLifetime;
+                    colorOverLifetimeModule.color = colorOverLifetime;
+                    directionToCamera = Camera.main.transform.position - particleSystem.transform.position;
+                    directionToCamera = -particleSystem.transform.InverseTransformDirection(directionToCamera);
+                    rotationToCamera = Quaternion.LookRotation(directionToCamera);
+                    eulerAngles = rotationToCamera.eulerAngles;
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(eulerAngles.x * Mathf.Deg2Rad, eulerAngles.x * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(eulerAngles.y * Mathf.Deg2Rad, eulerAngles.y * Mathf.Deg2Rad);
+                    main.startRotationZ = new ParticleSystem.MinMaxCurve(180 * Mathf.Deg2Rad, -180 * Mathf.Deg2Rad) { mode = ParticleSystemCurveMode.TwoConstants };
+                    particleSystem.Stop();
+                    particleSystem.Clear();
+                    particleSystem.Play();
+                };
+                SetPFX(childGameObject.transform.Find("cloudgroup6").GetComponent<ParticleSystem>());
+                SetPFX(childGameObject.transform.Find("cloudgroup7").GetComponent<ParticleSystem>());
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName.StartsWith("wizard_shelf"))
+            {
+                Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
+                foreach (Light light in lights)
+                {
+#if UNITY_EDITOR
+                    light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                    light.intensity *= 0.4f;
+                }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "wizard_sconcecandle_01")
+            {
+                Light light = childGameObject.RequestComponentRecursive<Light>();
+                if (light != null)
+                {
+#if UNITY_EDITOR
+                    light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                    light.intensity *= 0.3f;
+                    light.range *= 0.5f;
+                }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "throne_torch")
+            {
+                Light light = childGameObject.RequestComponentRecursive<Light>();
+                if (light != null)
+                {
+#if UNITY_EDITOR
+                    light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                    light.color = new Color32(255, 153, 9, 255);
+                    light.range = 5f;
+                }
+            }
+        }
 
         public void ClearChild()
         {
