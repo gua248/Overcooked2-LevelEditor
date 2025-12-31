@@ -471,7 +471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 420415746}
   - component: {fileID: 420415745}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: MultiplayerGameCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +799,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967263
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570

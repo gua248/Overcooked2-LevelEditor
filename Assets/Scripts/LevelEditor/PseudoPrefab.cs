@@ -158,6 +158,24 @@ namespace LevelEditor
                     light.range = 5f;
                 }
             }
+
+            else if (gameObject.name.StartsWith("m_sp_cliff"))
+            {
+                Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
+                Material[] materials = renderer.sharedMaterials;
+                renderer.sharedMaterials = new Material[] { materials[0], materials[1] };
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "sp_rock_01")
+            {
+                childGameObject.transform.Find("Point light").gameObject.SetActive(false);
+                childGameObject.transform.Find("Point light (1)").gameObject.SetActive(false);
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "Alien_Tentacle_01")
+            {
+                childGameObject.AddComponent<AnimatorAudioComponent>();
+            }
         }
 
         public void ClearChild()
