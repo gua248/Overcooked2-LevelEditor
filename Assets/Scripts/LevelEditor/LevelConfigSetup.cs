@@ -28,15 +28,29 @@ namespace LevelEditor
             RecipeList recipeList = configTemplate.m_rounds[0].m_recipes;
             recipeList = ScriptableObject.Instantiate(recipeList);
             recipeList.name = config.name;
-            recipeList.m_recipes = config.recipes.Take(config.debugRecipeCount).Select(x =>
-            {
-                var entry = new RecipeList.Entry();
-                entry.m_weight = 1f; // this is unused in the game
-                entry.m_scoreForMeal = config.useScore2 ? x.score2 : x.score1;
-                entry.m_order = PseudoPrefabManager.LoadAsset<OrderDefinitionNode>(x);
-                return entry;
-            }).ToArray();
+            int takeNum = config.debugRecipeCount == 0 ? config.recipes.Length : config.debugRecipeCount;
+            recipeList.m_recipes = config.recipes
+                .Take(takeNum)
+                .Select(x => RecipeHelper.GetRecipe(x, config.useScore2))
+                .ToArray();
             configTemplate.m_rounds[0].m_recipes = recipeList;
+            if (config.recipes.Any(x => x is CustomRecipeSO))
+            {
+                RecipeMatchList theRecipeMatchList = configTemplate.m_recipeMatchingList;
+                RecipeMatchList newRecipeMatchList = ScriptableObject.CreateInstance<RecipeMatchList>();
+                newRecipeMatchList.name = "RecipeMatchList_" + config.name;
+                newRecipeMatchList.m_includeLists = new RecipeMatchList[] { theRecipeMatchList };
+                //newRecipeMatchList.m_recipes = config.recipes
+                //    .Where(x => x is CustomRecipeSO)
+                //    .Select(x => RecipeHelper.GetRecipeNode(x as CustomRecipeSO))
+                //    .ToArray();
+                newRecipeMatchList.m_recipes = recipeList.m_recipes
+                    .Select(x => x.m_order)
+                    .Where((x, index) => config.recipes[index] is CustomRecipeSO)
+                    .ToArray();
+                newRecipeMatchList.m_cookingSteps = new CookingStepData[0];
+                configTemplate.m_recipeMatchingList = newRecipeMatchList;
+            }
             configTemplate.m_rounds[0].m_roundTimer = configPerPlayerCount.roundTime;
 
             return configTemplate;

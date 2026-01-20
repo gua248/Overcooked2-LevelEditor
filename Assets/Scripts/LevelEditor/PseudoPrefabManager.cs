@@ -315,6 +315,13 @@ namespace LevelEditor
             return bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
         }
 
+        public static Sprite LoadSpriteAsset(PseudoPrefabSO pseudoPrefabSO)
+        {
+            AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            var sprite = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
+            return sprite.Length > 0 ? sprite[0] : null;
+        }
+
         private AssetBundle LoadAssetBundle(string assetBundleName, bool isLoadingAssetBundleManifest = false)
         {
             if (bundleDict.ContainsKey(assetBundleName) && bundleDict[assetBundleName] != null)

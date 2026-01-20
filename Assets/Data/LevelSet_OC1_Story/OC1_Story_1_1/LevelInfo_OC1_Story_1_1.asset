@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613355741a1a7e429f1ad97a816f6de, type: 3}
+  m_Name: LevelInfo_OC1_Story_1_1
+  m_EditorClassIdentifier: 
+  levelName: 1-1
+  levelNameZH: 1-1
+  screenshot: {fileID: 21300000, guid: 557ab3ade7a5a754cb0a8e5e166967fe, type: 3}
+  sceneName: s_oc1_story_1_1
+  recipes:
+  - {fileID: 11400000, guid: 46777af3b534f0c449ca60c4b173fbbc, type: 2}
+  - {fileID: 11400000, guid: f4341b4765fce7d4482fb0002ea8f101, type: 2}
+  - {fileID: 11400000, guid: df1cbeca261ab1646bd27c8cf7c3c1fc, type: 2}
+  - {fileID: 11400000, guid: 5b3d17ea5d6bc544b88181b1a621f99f, type: 2}
+  useScore2: 0
+  debugRecipeCount: 0
+  disableDynamicParenting: 1
+  config_1p: {fileID: 11400000, guid: 619a25d7a05a59a40962361cee4668ed, type: 2}
+  config_2p: {fileID: 11400000, guid: 82fd36f6905f01f4d9041c6a0362dc6c, type: 2}
+  config_3p: {fileID: 11400000, guid: dbc2c832dd1355b4787a3828a1b091ec, type: 2}
+  config_4p: {fileID: 11400000, guid: 252c93770a0dc3644abfa78e4127738a, type: 2}
+  dependencies:
+  - bundle47

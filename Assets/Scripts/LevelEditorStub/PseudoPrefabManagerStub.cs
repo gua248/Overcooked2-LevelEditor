@@ -13,11 +13,9 @@ namespace LevelEditorStub
         [SerializeField] public PseudoPrefabSO ReadySO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO TutorialSplashSO;
-        [HideInInspector]
         [SerializeField] public GameObject FlowManagerGO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO RecipeUISO;
-        [HideInInspector]
         [SerializeField] public GameObject RecipeUIGO;
 
         [SerializeField] public PseudoPrefabSO InLevelMusicSO;
@@ -28,7 +26,6 @@ namespace LevelEditorStub
         [SerializeField] public GameObject AudioManagerGO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO[] PFXSOs;
-        [HideInInspector]
         [SerializeField] public GameObject PlayerSwitchingManagerGO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO[] PlayerColourSOs;
@@ -36,7 +33,6 @@ namespace LevelEditorStub
         [SerializeField] public PseudoPrefabSO PlayerBlackCatSO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO GameMetaEnvironmentSO;
-        [HideInInspector]
         [SerializeField] public GameObject BootstrapManagerGO;
 
         [HideInInspector]

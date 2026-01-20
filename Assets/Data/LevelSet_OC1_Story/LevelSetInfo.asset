@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb6fcdbbf220346afc607651d1ab93, type: 3}
+  m_Name: LevelSetInfo
+  m_EditorClassIdentifier: 
+  levelSetName: Overcooked 1 - Story
+  levelSetNameZH: "\u80E1\u95F9\u53A8\u623F 1 - \u4E3B\u7EBF"
+  levelInfos:
+  - {fileID: 11400000, guid: 94ec21b3ff46f674b8fbd5463edddce0, type: 2}
+  - {fileID: 11400000, guid: 05e3fa12981ec1349b87fdd70c237e62, type: 2}
+  - {fileID: 11400000, guid: fd9b4bf92b78f784caebe39cac9283df, type: 2}
+  - {fileID: 11400000, guid: fffd3f17e74708d49aaf584083a941b4, type: 2}
+  - {fileID: 11400000, guid: 91fa1a6c942c214429fb3ed7126e5c35, type: 2}
+  - {fileID: 11400000, guid: 3d6a83ba4d4d8b84f9f111b870b3a6d7, type: 2}
+  - {fileID: 11400000, guid: b8077f91b885fdf408bf79963fa788f9, type: 2}

@@ -176,6 +176,65 @@ namespace LevelEditor
             {
                 childGameObject.AddComponent<AnimatorAudioComponent>();
             }
+
+            else if (stub.pseudoPrefabSO.prefabName == "restaurant_lantern" || stub.pseudoPrefabSO.prefabName == "restaurant_light_01")
+            {
+                Light light = childGameObject.RequestComponentRecursive<Light>();
+                if (light != null)
+                {
+#if UNITY_EDITOR
+                    light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                    light.range = 3f;
+                    light.intensity = 1f;
+                }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "decoration_wall_light 1")
+            {
+                Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
+                foreach (Light light in lights)
+                {
+#if UNITY_EDITOR
+                    light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                }
+            }
+
+            else if (gameObject.name.StartsWith("m_kitchen_firepit_02"))
+            {
+                childGameObject.transform.Find("PFX_Fire_Hazzard (1)").gameObject.SetActive(false);
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "fire_hazard")
+            {
+                childGameObject.transform.Find("heathaze").gameObject.SetActive(false);
+                childGameObject.transform.Find("glow (1)").gameObject.SetActive(false);
+
+                ParticleSystem ps = childGameObject.transform.Find("PFX_FireStatic").GetComponent<ParticleSystem>();
+                ParticleSystem.MainModule main = ps.main;
+                main.startLifetime = 2f;
+                main.startSpeed = 0f;
+                main.startSize = 0.8f;
+                main.gravityModifier = -0.35f;
+                main.maxParticles = 50;
+                ParticleSystem.EmissionModule emission = ps.emission;
+                emission.rateOverTime = 20;
+                ParticleSystem.ColorOverLifetimeModule colorOverLifetime = ps.colorOverLifetime;
+                var colorKeys = colorOverLifetime.color.gradient.colorKeys;
+                var gradient = new Gradient();
+                gradient.SetKeys(colorKeys, new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey{alpha=180/255f, time=0f},
+                    new GradientAlphaKey{alpha=0f, time=0.479f},
+                });
+                colorOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName.StartsWith("exterior_car_"))
+            {
+                childGameObject.AddComponent<AnimatorAudioComponent>();
+            }
         }
 
         public void ClearChild()

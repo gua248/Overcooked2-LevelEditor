@@ -14,7 +14,7 @@ namespace LevelEditorStub
         [SerializeField] public Sprite screenshot;
         [SerializeField] public string sceneName;
         
-        [SerializeField] public PseudoPrefabSORecipe[] recipes;
+        [SerializeField] public ScriptableObject[] recipes;
         [SerializeField] public bool useScore2 = false;
         [SerializeField] public int debugRecipeCount;
 

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fb008bcc8e793429b02c178c430815, type: 3}
+  m_Name: Soup_Onion_SO
+  m_EditorClassIdentifier: 
+  compositionSOs:
+  - {fileID: 11400000, guid: 1d97426e890100348ac91825774d1184, type: 2}
+  - {fileID: 11400000, guid: 1d97426e890100348ac91825774d1184, type: 2}
+  - {fileID: 11400000, guid: 1d97426e890100348ac91825774d1184, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 8687a65ff3d0dd94c91818e822af0aa4, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  cookingStepIcon: {fileID: 0}
+  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  modelSO: {fileID: 0}
+  model: {fileID: 1766377274927934, guid: afb547816bf79ba47959f18e2561b9bf, type: 2}
+  iconSO: {fileID: 0}
+  icon: {fileID: 21300000, guid: f1243ba2a5051334d9738bf8b1c75cd1, type: 3}
+  recipeName: Soup_Onion
+  uID: 9990000
+  score1: 60
+  score2: 60

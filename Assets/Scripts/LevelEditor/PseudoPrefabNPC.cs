@@ -12,7 +12,21 @@ namespace LevelEditor
         {
             PseudoPrefabNPCStub NPCStub = (PseudoPrefabNPCStub)stub;
             RuntimeAnimatorController controller = PseudoPrefabManager.LoadAsset<RuntimeAnimatorController>(NPCStub.animatorControllerSO);
-            childGameObject.GetComponent<Animator>().runtimeAnimatorController = controller;
+            Animator animator = childGameObject.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.runtimeAnimatorController = controller;
+            }
+
+            // HandleSpecificPrefabs
+            if (stub.pseudoPrefabSO.prefabName == "NPC_Walk_Anticlockwise")
+            {
+                animator = childGameObject.transform.Find("Path").GetComponent<Animator>();
+                if (animator != null)
+                {
+                    animator.runtimeAnimatorController = controller;
+                }
+            }
         }
     }
 }
