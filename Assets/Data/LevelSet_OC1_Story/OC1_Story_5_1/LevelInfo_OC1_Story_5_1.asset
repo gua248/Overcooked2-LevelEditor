@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613355741a1a7e429f1ad97a816f6de, type: 3}
+  m_Name: LevelInfo_OC1_Story_5_1
+  m_EditorClassIdentifier: 
+  levelName: 5-1
+  levelNameZH: 5-1
+  screenshot: {fileID: 21300000, guid: e4e82b31a7e969c47aad5f100cad2e6d, type: 3}
+  sceneName: s_oc1_story_5_1
+  recipes:
+  - {fileID: 11400000, guid: 03131c3b6e7cd284198075c9d409e3e9, type: 2}
+  - {fileID: 11400000, guid: cae38c81696a14c4da1ad76dc6140e00, type: 2}
+  useScore2: 0
+  debugRecipeCount: 0
+  disableDynamicParenting: 0
+  config_1p: {fileID: 11400000, guid: d33beb9c8f08f1345bbf105adcee8f25, type: 2}
+  config_2p: {fileID: 11400000, guid: 1d6601630b82a0444a172eca5d21e2f0, type: 2}
+  config_3p: {fileID: 11400000, guid: 85c8f6133838ff74e8ee7f593e8c0a3e, type: 2}
+  config_4p: {fileID: 11400000, guid: fefb1cdfadb693f4cb8eb5ed9ce442fd, type: 2}
+  dependencies:
+  - bundle47

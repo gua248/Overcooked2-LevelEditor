@@ -18,13 +18,14 @@ namespace LevelEditor
 
         private void Awake()
         {
+            stub = GetComponent<PseudoPrefabStub>();
+
             if (PseudoPrefabManager.Instance.GameEditState == GameEditState.Edit)
                 ResetChild();
         }
 
         public void ResetChild()
         {
-            stub = GetComponent<PseudoPrefabStub>();
             ClearChild();
 
             GameObject prefab = PseudoPrefabManager.LoadAsset(stub.pseudoPrefabSO);
@@ -34,7 +35,8 @@ namespace LevelEditor
             EditorGridSnap editorGridSnap = childGameObject.GetComponent<EditorGridSnap>();
             if (editorGridSnap != null && !Application.isPlaying &&
                 childGameObject.GetComponent<PlateStation>() == null &&
-                childGameObject.GetComponentInChildren<WashingStation>() == null)
+                childGameObject.GetComponentInChildren<WashingStation>() == null &&
+                childGameObject.GetComponent<TriggerZone>() == null)
             {
                 editorGridSnap.enabled = true;
                 editorGridSnap.GetType()
@@ -235,16 +237,119 @@ namespace LevelEditor
             {
                 childGameObject.AddComponent<AnimatorAudioComponent>();
             }
+
+            else if (stub.pseudoPrefabSO.prefabName == "p_dlc5_camp_fire_02")
+            {
+                childGameObject.transform.Find("pfx/Light").gameObject.SetActive(false);
+                ParticleSystem ps = childGameObject.transform.Find("pfx/glow (1)").GetComponent<ParticleSystem>();
+                ParticleSystem.MainModule main = ps.main;
+                main.startSize = 1.6f;
+            }
+
+            else if (
+                stub.pseudoPrefabSO.prefabName.StartsWith("snowmound_") ||
+                stub.pseudoPrefabSO.prefabName.StartsWith("snow_") ||
+                stub.pseudoPrefabSO.prefabName == "snowballpile_01")
+            {
+                Renderer renderer = childGameObject.GetComponent<Renderer>();
+                if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                {
+                    Material material = new Material(renderer.sharedMaterial);
+                    material.SetColor("_Colour", new Color32(204, 204, 204, 255));
+                    PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                }
+                renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+            }
+
+            else if (gameObject.name.StartsWith("noripple_m_dlc3_icecliff_"))
+            {
+                childGameObject.transform.Find("ripple").gameObject.SetActive(false);
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName.StartsWith("p_dlc09_box_lid_") || stub.pseudoPrefabSO.prefabName == "p_dlc09_wallbit_01")
+            {
+                Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
+                foreach (Renderer renderer in renderers)
+                {
+                    if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                    {
+                        Material material = new Material(renderer.sharedMaterial);
+                        material.SetColor("_SnowColour", new Color32(179, 179, 179, 255));
+                        PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                    }
+                    renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "NPC_Penguin")
+            {
+                Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
+                childGameObject.transform.Find("Penguin1:RoadKillOut").GetComponent<Renderer>().sharedMaterial = material;
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "DogSled" || stub.pseudoPrefabSO.prefabName == "DogSled_Luggage")
+            {
+                Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
+                childGameObject.GetComponent<Renderer>().sharedMaterial = material;
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName.StartsWith("p_dlc09_tent_"))
+            {
+                childGameObject.transform.Find("glow").gameObject.SetActive(false);
+                childGameObject.transform.Find("Point light").gameObject.SetActive(false);
+                Renderer renderer = childGameObject.transform.Find(stub.pseudoPrefabSO.prefabName.Replace("p_dlc09", "m_dlc5")).GetComponent<Renderer>();
+                if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                {
+                    Material material = new Material(renderer.sharedMaterial);
+                    material.SetColor("_SnowColour", new Color32(179, 179, 179, 255));
+                    PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                }
+                renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName.StartsWith("Space_Door_Airlock"))
+            {
+                childGameObject.AddComponent<AnimatorAudioComponent>();
+                Animator animator = childGameObject.GetComponent<Animator>();
+                foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
+                    trigger.m_targetAnimator = animator;
+                foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
+                    trigger.m_targetAnimator = animator;
+                if (gameObject.name.StartsWith("Space_Door_Airlock_Open"))
+                    animator.SetTrigger("Open");
+                if (gameObject.name.StartsWith("Space_Door_Airlock_Bool_Open"))
+                    animator.SetBool("IsOpen", true);
+            }
         }
 
         public void ClearChild()
         {
+            if (stub == null)
+                stub = GetComponent<PseudoPrefabStub>();
             var children = transform.Cast<Transform>().ToList();
             foreach (var child in children)
                 DestroyImmediate(child.gameObject);
             if (childGameObject != null)
                 DestroyImmediate(childGameObject);
             childGameObject = null;
+
+            HandleSpecificPrefabsClear();
+        }
+
+        private void HandleSpecificPrefabsClear()
+        {
+            if (false) { }
+            else if (stub.pseudoPrefabSO.prefabName == "Space_Door_Airlock")
+            {
+                foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
+                {
+                    trigger.m_targetAnimator = null;
+                }
+                foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
+                {
+                    trigger.m_targetAnimator = null;
+                }
+            }
         }
 
         public virtual void Setup()
@@ -263,8 +368,12 @@ namespace LevelEditor
         {
             if (childGameObject != null && !Application.isPlaying)
             {
-                transform.position = childGameObject.transform.position;
-                childGameObject.transform.localPosition = Vector3.zero;
+                EditorGridSnap editorGridSnap = childGameObject.GetComponent<EditorGridSnap>();
+                if (editorGridSnap != null && editorGridSnap.enabled)
+                {
+                    transform.position = childGameObject.transform.position;
+                    childGameObject.transform.localPosition = Vector3.zero;
+                }
             }
         }
     }

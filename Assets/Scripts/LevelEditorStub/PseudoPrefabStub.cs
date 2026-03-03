@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LevelEditorStub
 {
-    public class PseudoPrefabStub : MonoBehaviour
+    public class PseudoPrefabStub : Stub
     {
         [SerializeField] public PseudoPrefabSO pseudoPrefabSO;
     }

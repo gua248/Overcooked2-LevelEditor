@@ -1,6 +1,4 @@
 ﻿using LevelEditorStub;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -26,6 +24,26 @@ namespace LevelEditor
                 {
                     animator.runtimeAnimatorController = controller;
                 }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "DLC03_NPC_02")
+            {
+                int body = Random.Range(0, 3);
+                int hand = Random.Range(0, 3);
+                int scarf = Random.Range(0, 3);
+                int head = Random.Range(0, 10);
+
+                Transform parent = childGameObject.transform.Find("CHR_dlc3_NPC/Body");
+                foreach (Transform child in parent)
+                    child.gameObject.SetActive(false);
+                parent.GetChild(body).gameObject.SetActive(true);
+                parent.GetChild(hand + 3).gameObject.SetActive(true);
+                parent.GetChild(scarf + 6).gameObject.SetActive(true);
+
+                parent = childGameObject.transform.Find("CHR_dlc3_NPC/Heads");
+                foreach (Transform child in parent)
+                    child.gameObject.SetActive(false);
+                parent.GetChild(head).gameObject.SetActive(true);
             }
         }
     }

@@ -27,6 +27,8 @@ namespace LevelEditor
         private Dictionary<string, AssetBundle> bundleDict = new Dictionary<string, AssetBundle>();
         private AssetBundleManifest assetBundleManifest = null;
 
+        public Dictionary<string, Material> editedMaterials = new Dictionary<string, Material>();
+
         public bool prepareForBuilding;
 
         public GameEditState GameEditState
@@ -94,6 +96,7 @@ namespace LevelEditor
                     }
                 }
 
+                editedMaterials.Clear();
                 ResetAllPseudoPrefabs();
             }
         }
@@ -107,6 +110,7 @@ namespace LevelEditor
                 UnloadAssetBundle(key);
             }
             bundleDict.Clear();
+            editedMaterials.Clear();
             assetBundleManifest = null;
         }
 
@@ -207,6 +211,10 @@ namespace LevelEditor
                 pseudoPrefab.ResetChild();
             foreach (var pseudoPrefab in pseudoPrefabs)
                 pseudoPrefab.LateSetup();
+
+            PseudoParticleSystem[] pseudoParticleSystems = GameObject.FindObjectsOfType<PseudoParticleSystem>();
+            foreach (var pseudoParticleSystem in pseudoParticleSystems)
+                pseudoParticleSystem.Setup();
         }
 
         public static void ClearAllPseudoPrefabs()
@@ -214,6 +222,9 @@ namespace LevelEditor
             PseudoPrefab[] pseudoPrefabs = GameObject.FindObjectsOfType<PseudoPrefab>();
             foreach (var pseudoPrefab in pseudoPrefabs)
                 pseudoPrefab.ClearChild();
+            PseudoParticleSystem[] pseudoParticleSystems = GameObject.FindObjectsOfType<PseudoParticleSystem>();
+            foreach (var pseudoParticleSystem in pseudoParticleSystems)
+                pseudoParticleSystem.Clear();
         }
 
         public static void SetupAfterStartSynchronisingAllPseudoPrefabs()
@@ -315,11 +326,18 @@ namespace LevelEditor
             return bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
         }
 
-        public static Sprite LoadSpriteAsset(PseudoPrefabSO pseudoPrefabSO)
+        public static Sprite LoadSpriteSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             var sprite = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
             return sprite.Length > 0 ? sprite[0] : null;
+        }
+
+        public static Mesh LoadMeshSubAsset(PseudoPrefabSO pseudoPrefabSO)
+        {
+            AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            var mesh = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
+            return mesh.Length > 0 ? mesh[0] : null;
         }
 
         private AssetBundle LoadAssetBundle(string assetBundleName, bool isLoadingAssetBundleManifest = false)

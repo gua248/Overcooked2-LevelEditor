@@ -49,14 +49,14 @@ namespace LevelEditor
                 gui1.m_tileDefinition = new RecipeWidgetTile.TileDefinition();
                 gui1.m_tileDefinition.m_mainPictures = new List<Sprite> {
                     customRecipeSO.icon != null ? customRecipeSO.icon :
-                    customRecipeSO.iconSO != null ? PseudoPrefabManager.LoadSpriteAsset(customRecipeSO.iconSO) : null };
+                    customRecipeSO.iconSO != null ? PseudoPrefabManager.LoadSpriteSubAsset(customRecipeSO.iconSO) : null };
                 gui1.m_children = new List<int> { 1 };
                 RecipeWidgetUIController.RecipeTileData gui2 = new RecipeWidgetUIController.RecipeTileData();
                 gui2.m_tileDefinition = new RecipeWidgetTile.TileDefinition();
                 gui2.m_tileDefinition.m_mainPictures = ingredientOrderNodes.Select(x => x.m_iconSprite).ToList();
                 gui2.m_tileDefinition.m_modifierPictures = new List<Sprite> {
                     customRecipeSO.cookingStepIcon != null ? customRecipeSO.cookingStepIcon :
-                    customRecipeSO.cookingStepIconSO != null ? PseudoPrefabManager.LoadSpriteAsset(customRecipeSO.cookingStepIconSO) : null };
+                    customRecipeSO.cookingStepIconSO != null ? PseudoPrefabManager.LoadSpriteSubAsset(customRecipeSO.cookingStepIconSO) : null };
                 node.m_orderGuiDescription = new RecipeWidgetUIController.RecipeTileData[] { gui1, gui2 };
                 recipe = node;
             }
@@ -73,7 +73,7 @@ namespace LevelEditor
                 gui1.m_tileDefinition = new RecipeWidgetTile.TileDefinition();
                 gui1.m_tileDefinition.m_mainPictures = new List<Sprite> {
                     customRecipeSO.icon != null ? customRecipeSO.icon :
-                    customRecipeSO.iconSO != null ? PseudoPrefabManager.LoadSpriteAsset(customRecipeSO.iconSO) : null };
+                    customRecipeSO.iconSO != null ? PseudoPrefabManager.LoadSpriteSubAsset(customRecipeSO.iconSO) : null };
                 gui1.m_children = Enumerable.Range(1, orderNodes.Length).ToList();
 
                 RecipeWidgetUIController.RecipeTileData[] children = new RecipeWidgetUIController.RecipeTileData[orderNodes.Length];

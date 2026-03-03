@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d39ba5c172f9f1728ce28d7afd23c57, type: 3}
+  m_Name: PlayerPhysicsSurfaceProperties_Ice
+  m_EditorClassIdentifier: 
+  SpeedMultiplier: 1.5
+  Slippiness: 0.95
+  Slidiness: 0.95
+  UseOverrideGravityNormal: 0
+  OverrideGravityNormal: {x: 0, y: -1, z: 0}
+  GravityMultiplier: 1
