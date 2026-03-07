@@ -22,22 +22,42 @@ namespace LevelEditor
                 OrderToPrefabLookup oldLookup = cookableContainer.m_approvedContentsList;
                 OrderToPrefabLookup newLookup = ScriptableObject.Instantiate(oldLookup);
 
-                GameObject m_prefab = ((OrderToPrefabLookup.ContentPrefabLookup[])oldLookup.GetType()
+                var oldLookupArray = (OrderToPrefabLookup.ContentPrefabLookup[])oldLookup.GetType()
                     .GetField("m_lookupArray", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                    .GetValue(oldLookup))[0].m_prefab;
-                OrderToPrefabLookup.ContentPrefabLookup[] allowedIngredients = ingredientContainerStub.allowedIngredientSOs.Select(x =>
+                    .GetValue(oldLookup);
+                GameObject m_prefab_default = oldLookupArray[0].m_prefab;
+                OrderToPrefabLookup.ContentPrefabLookup[] allowedIngredients = ingredientContainerStub.allowedIngredientSOs.SelectMany(x =>
                 {
                     GameObject ingredient = PseudoPrefabManager.LoadAsset<GameObject>(x);
                     while (ingredient.GetComponent<WorkableItem>() != null)
                         ingredient = ingredient.GetComponent<WorkableItem>().m_nextPrefab;
                     IngredientPropertiesComponent ingredientPropertiesComponent = ingredient.GetComponent<IngredientPropertiesComponent>();
-                    return (IngredientOrderNode)ingredientPropertiesComponent.GetType()
+                    IngredientOrderNode ingredientOrderNode = (IngredientOrderNode)ingredientPropertiesComponent.GetType()
                         .GetField("m_ingredientOrderNode", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                         .GetValue(ingredientPropertiesComponent);
-                }).Select(x => new OrderToPrefabLookup.ContentPrefabLookup()
-                {
-                    m_content = x,
-                    m_prefab = m_prefab,
+                    var allLookup = oldLookupArray.Where(y =>
+                    {
+                        if (y.m_content == ingredientOrderNode) return true;
+                        if (y.m_content is CookedCompositeOrderNode)
+                        {
+                            CookedCompositeOrderNode cookedCompositeOrderNode = (CookedCompositeOrderNode)y.m_content;
+                            return cookedCompositeOrderNode.m_composition.Length == 1 && cookedCompositeOrderNode.m_composition[0] == ingredientOrderNode;
+                        }
+                        return false;
+                    });
+                    if (allLookup.Any())
+                    {
+                        return allLookup;
+                    }
+                    else
+                    {
+                        var lookup = new OrderToPrefabLookup.ContentPrefabLookup()
+                        {
+                            m_content = ingredientOrderNode,
+                            m_prefab = m_prefab_default,
+                        };
+                        return new OrderToPrefabLookup.ContentPrefabLookup[] { lookup };
+                    }
                 }).ToArray();
                 newLookup.GetType()
                     .GetField("m_lookupArray", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
