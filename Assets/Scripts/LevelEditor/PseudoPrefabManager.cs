@@ -105,6 +105,7 @@ namespace LevelEditor
         {
             UnSetAssetRef();
             ClearAllPseudoPrefabs();
+            RuntimePrefabManager.ClearAllRuntimePrefabs();
             foreach (var key in bundleDict.Keys.ToArray())
             {
                 UnloadAssetBundle(key);

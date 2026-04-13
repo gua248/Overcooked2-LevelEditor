@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 1-3
   levelNameZH: 1-3
-  screenshot: {fileID: 21300000, guid: 203823dda9ef1f14da4af9d67a7b6368, type: 3}
+  screenshot: {fileID: 21300000, guid: 4f88cff80d6004d409cf409dd871ed9d, type: 3}
   sceneName: s_oc1_story_1_3
   recipes:
   - {fileID: 11400000, guid: 46777af3b534f0c449ca60c4b173fbbc, type: 2}
@@ -21,10 +21,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df1cbeca261ab1646bd27c8cf7c3c1fc, type: 2}
   useScore2: 0
   debugRecipeCount: 0
+  optionalRecipeMatchListItems: []
   disableDynamicParenting: 1
   config_1p: {fileID: 11400000, guid: 50e7c919d43772a4f835c4707eb98790, type: 2}
   config_2p: {fileID: 11400000, guid: 94ad99d7e92208c4999994305cc546ed, type: 2}
   config_3p: {fileID: 11400000, guid: 45d7b402d6566764f86a6abc53228c4c, type: 2}
   config_4p: {fileID: 11400000, guid: 6962065d57917344d8e739aeac0fb73b, type: 2}
   dependencies:
+  - bundle11
   - bundle47

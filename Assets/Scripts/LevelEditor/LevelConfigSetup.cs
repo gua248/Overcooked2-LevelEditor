@@ -24,6 +24,7 @@ namespace LevelEditor
             configTemplate.m_survivalConfig.m_timeMultiplier = configPerPlayerCount.survivalTimeMultiplier;
             configTemplate.m_objectives = new LevelObjectiveBase[0];
             configTemplate.m_disableDynamicParenting = config.disableDynamicParenting;
+            configTemplate.m_rounds[0].m_roundTimer = configPerPlayerCount.roundTime;
 
             RecipeList recipeList = configTemplate.m_rounds[0].m_recipes;
             recipeList = ScriptableObject.Instantiate(recipeList);
@@ -34,24 +35,45 @@ namespace LevelEditor
                 .Select(x => RecipeHelper.GetRecipe(x, config.useScore2))
                 .ToArray();
             configTemplate.m_rounds[0].m_recipes = recipeList;
-            if (config.recipes.Any(x => x is CustomRecipeSO))
+
+            if (config.recipes.Any(x => x is CustomRecipeSO) ||
+                config.optionalRecipeMatchListItems != null && config.optionalRecipeMatchListItems.Length > 0)
             {
                 RecipeMatchList theRecipeMatchList = configTemplate.m_recipeMatchingList;
                 RecipeMatchList newRecipeMatchList = ScriptableObject.CreateInstance<RecipeMatchList>();
                 newRecipeMatchList.name = "RecipeMatchList_" + config.name;
                 newRecipeMatchList.m_includeLists = new RecipeMatchList[] { theRecipeMatchList };
-                //newRecipeMatchList.m_recipes = config.recipes
-                //    .Where(x => x is CustomRecipeSO)
-                //    .Select(x => RecipeHelper.GetRecipeNode(x as CustomRecipeSO))
-                //    .ToArray();
-                newRecipeMatchList.m_recipes = recipeList.m_recipes
-                    .Select(x => x.m_order)
-                    .Where((x, index) => config.recipes[index] is CustomRecipeSO)
-                    .ToArray();
                 newRecipeMatchList.m_cookingSteps = new CookingStepData[0];
+
+                List<OrderDefinitionNode> newRecipes = new List<OrderDefinitionNode>();
+                if (config.optionalRecipeMatchListItems != null && config.optionalRecipeMatchListItems.Length > 0)
+                {
+                    newRecipes = config.optionalRecipeMatchListItems
+                        .Select(x => RecipeHelper.GetOptionalRecipeNode(x))
+                        .ToList();
+                }
+                if (config.recipes.Any(x => x is CustomRecipeSO))
+                {
+                    for (int i = 0; i < recipeList.m_recipes.Length; i++)
+                    {
+                        if (!(config.recipes[i] is CustomRecipeSO)) continue;
+                        CustomRecipeSO customRecipeSO = (CustomRecipeSO)config.recipes[i];
+                        newRecipes.Add(recipeList.m_recipes[i].m_order);
+                        if (config.optionalRecipeMatchListItems == null || customRecipeSO.modelSO == null) continue;
+                        for (int j = 0; j < config.optionalRecipeMatchListItems.Length; j++)
+                        {
+                            if (customRecipeSO.modelSO == config.optionalRecipeMatchListItems[j].modelSO)
+                            {
+                                recipeList.m_recipes[i].m_order.m_platingPrefab = newRecipes[j].m_platingPrefab;
+                                break;
+                            }
+                        }
+                    }
+                }
+                newRecipeMatchList.m_recipes = newRecipes.ToArray();
+
                 configTemplate.m_recipeMatchingList = newRecipeMatchList;
             }
-            configTemplate.m_rounds[0].m_roundTimer = configPerPlayerCount.roundTime;
 
             return configTemplate;
         }

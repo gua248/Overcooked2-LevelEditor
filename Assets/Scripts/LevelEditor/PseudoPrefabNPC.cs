@@ -45,6 +45,21 @@ namespace LevelEditor
                     child.gameObject.SetActive(false);
                 parent.GetChild(head).gameObject.SetActive(true);
             }
+
+            else if (stub.pseudoPrefabSO.prefabName == "DLC07_NPCs_Keep" || stub.pseudoPrefabSO.prefabName == "DLC07_NPCs_Ghost")
+            {
+                animator = childGameObject.RequestComponentRecursive<Animator>();
+                if (animator != null)
+                {
+                    animator.runtimeAnimatorController = controller;
+                }
+                int head = Random.Range(0, 10);
+
+                Transform parent = childGameObject.transform.Find("m_dlc07_NPCs/Mesh/Heads");
+                foreach (Transform child in parent)
+                    child.gameObject.SetActive(false);
+                parent.GetChild(head).gameObject.SetActive(true);
+            }
         }
     }
 }

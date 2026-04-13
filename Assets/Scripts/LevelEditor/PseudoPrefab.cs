@@ -19,7 +19,10 @@ namespace LevelEditor
         private void Awake()
         {
             stub = GetComponent<PseudoPrefabStub>();
+        }
 
+        private void Start()
+        {
             if (PseudoPrefabManager.Instance.GameEditState == GameEditState.Edit)
                 ResetChild();
         }
@@ -43,8 +46,24 @@ namespace LevelEditor
                     .GetField("m_constrainY", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                     .SetValue(editorGridSnap, true);
             }
-            if (editorGridSnap != null && !Application.isPlaying &&
-                childGameObject.GetComponent<Teleportal>() != null)
+            if (editorGridSnap != null &&
+                gameObject.transform.FindParentRecursive("Animated Objects") != null)
+            {
+                editorGridSnap.enabled = false;
+                var location = childGameObject.GetComponent<StaticGridLocation>();
+                if (location != null)
+                {
+                    var dynamicGridLocation = childGameObject.AddComponent<DynamicGridLocation>();
+                    DestroyImmediate(location);
+                    dynamicGridLocation.enabled = false;
+                    dynamicGridLocation.enabled = true;
+                }
+            }
+            if (editorGridSnap != null && !Application.isPlaying && (
+                childGameObject.GetComponent<Teleportal>() != null || 
+                childGameObject.GetComponent<Plate>() != null ||
+                childGameObject.GetComponent<FireExtinguishSpray>() != null
+                ))
             {
                 editorGridSnap.enabled = false;
             }
@@ -166,6 +185,13 @@ namespace LevelEditor
                 Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
                 Material[] materials = renderer.sharedMaterials;
                 renderer.sharedMaterials = new Material[] { materials[0], materials[1] };
+                renderer.receiveShadows = true;
+            }
+
+            else if (gameObject.name.StartsWith("sp_cliff"))
+            {
+                Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
+                renderer.receiveShadows = true;
             }
 
             else if (stub.pseudoPrefabSO.prefabName == "sp_rock_01")
@@ -319,6 +345,35 @@ namespace LevelEditor
                     animator.SetTrigger("Open");
                 if (gameObject.name.StartsWith("Space_Door_Airlock_Bool_Open"))
                     animator.SetBool("IsOpen", true);
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName.StartsWith("p_dlc07_keep_flagstone_"))
+            {
+                Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
+                foreach (Renderer renderer in renderers)
+                {
+                    if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                    {
+                        Material material = new Material(renderer.sharedMaterial);
+                        material.SetColor("_ColourOverlay", new Color32(40, 40, 40, 255));
+                        PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                    }
+                    renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "countertop_01_chopping_board_gold")
+            {
+                foreach (Transform child in childGameObject.transform)
+                {
+                    if (child.gameObject.name == "PFX_MagicCloud_Levitate")
+                        child.gameObject.SetActive(false);
+                }
+            }
+
+            else if (stub.pseudoPrefabSO.prefabName == "workstation_plate_station_slim_01_no_block")
+            {
+                childGameObject.transform.Find("Block_Back").gameObject.SetActive(false);
             }
         }
 

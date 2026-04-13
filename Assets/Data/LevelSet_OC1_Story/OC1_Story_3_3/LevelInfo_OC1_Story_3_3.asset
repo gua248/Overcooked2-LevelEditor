@@ -13,13 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 3-3
   levelNameZH: 3-3
-  screenshot: {fileID: 21300000, guid: 914746a6449f9c84a80f4371baed6895, type: 3}
+  screenshot: {fileID: 21300000, guid: 682c8e9e3424a1f469427d10ed96e1da, type: 3}
   sceneName: s_oc1_story_3_3
   recipes:
-  - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
+  - {fileID: 11400000, guid: 46777af3b534f0c449ca60c4b173fbbc, type: 2}
+  - {fileID: 11400000, guid: f4341b4765fce7d4482fb0002ea8f101, type: 2}
+  - {fileID: 11400000, guid: df1cbeca261ab1646bd27c8cf7c3c1fc, type: 2}
+  - {fileID: 11400000, guid: bb786bba935dc824ea7ac976036ac282, type: 2}
+  - {fileID: 11400000, guid: 9de6975f255539d478455ccf1fd1ab96, type: 2}
+  - {fileID: 11400000, guid: b1a3f4a8d1cb70544bf367f6102d97e5, type: 2}
   useScore2: 0
   debugRecipeCount: 0
-  disableDynamicParenting: 1
+  optionalRecipeMatchListItems: []
+  disableDynamicParenting: 0
   config_1p: {fileID: 11400000, guid: eef01d90e038e344f879c1735714c478, type: 2}
   config_2p: {fileID: 11400000, guid: 75cdb3de8c30dfa459e0efd4106fb46f, type: 2}
   config_3p: {fileID: 11400000, guid: 4c8d4db732a54d042ac1cf734dca22c2, type: 2}
