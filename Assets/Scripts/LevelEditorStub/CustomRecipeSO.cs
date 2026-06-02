@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace LevelEditorStub
@@ -21,7 +22,6 @@ namespace LevelEditorStub
         [SerializeField] public string recipeName;
         [SerializeField] public int uID;
 
-        [SerializeField] public int score1;
-        [SerializeField] public int score2;
+        [SerializeField] public int score;
     }
 }

@@ -32,7 +32,7 @@ namespace LevelEditor
             int takeNum = config.debugRecipeCount == 0 ? config.recipes.Length : config.debugRecipeCount;
             recipeList.m_recipes = config.recipes
                 .Take(takeNum)
-                .Select(x => RecipeHelper.GetRecipe(x, config.useScore2))
+                .Select(x => RecipeHelper.GetRecipe(x))
                 .ToArray();
             configTemplate.m_rounds[0].m_recipes = recipeList;
 

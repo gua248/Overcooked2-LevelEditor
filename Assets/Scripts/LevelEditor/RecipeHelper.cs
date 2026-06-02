@@ -11,14 +11,14 @@ namespace LevelEditor
 {
     public static class RecipeHelper
     {
-        public static RecipeList.Entry GetRecipe(ScriptableObject recipeSO, bool useScore2)
+        public static RecipeList.Entry GetRecipe(ScriptableObject recipeSO)
         {
             if (recipeSO is PseudoPrefabSORecipe)
             {
                 PseudoPrefabSORecipe x = (PseudoPrefabSORecipe)recipeSO;
                 var entry = new RecipeList.Entry();
                 entry.m_weight = 1f; // this is unused in the game
-                entry.m_scoreForMeal = useScore2 ? x.score2 : x.score1;
+                entry.m_scoreForMeal = x.score;
                 entry.m_order = PseudoPrefabManager.LoadAsset<OrderDefinitionNode>(x);
                 return entry;
             }
@@ -27,7 +27,7 @@ namespace LevelEditor
                 CustomRecipeSO customRecipeSO = (CustomRecipeSO)recipeSO;
                 var entry = new RecipeList.Entry();
                 entry.m_weight = 1f; // this is unused in the game
-                entry.m_scoreForMeal = useScore2 ? customRecipeSO.score2 : customRecipeSO.score1;
+                entry.m_scoreForMeal = customRecipeSO.score;
                 entry.m_order = GetRecipeNode(customRecipeSO);
                 return entry;
             }

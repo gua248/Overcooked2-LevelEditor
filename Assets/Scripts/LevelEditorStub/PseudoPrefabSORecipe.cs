@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace LevelEditorStub
@@ -8,7 +9,6 @@ namespace LevelEditorStub
     [CreateAssetMenu(menuName = "LevelEditor/PseudoPrefabSORecipe")]
     public class PseudoPrefabSORecipe : PseudoPrefabSO
     {
-        public int score1;
-        public int score2;
+        public int score;
     }
 }

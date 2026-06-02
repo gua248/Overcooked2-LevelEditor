@@ -5,7 +5,7 @@
 
 /[Aa]ssets/StreamingAssets/
 /[Aa]ssets/AssetBundles/
-
+/[Aa]ssets/Scripts/Assembly-CSharp/
 
 .utmp/
 /[Ll]ibrary/

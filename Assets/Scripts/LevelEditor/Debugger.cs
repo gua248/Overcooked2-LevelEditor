@@ -1,21 +1,16 @@
-﻿using AssetBundles;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using InControl;
-using LevelEditorStub;
 
 
 namespace LevelEditor
 {
     [ExecuteInEditMode]
     [DefaultExecutionOrder(-99)]
-    public class Debugger : MonoBehaviour {
-
-        [SerializeField] PseudoPrefabSO pseudo;
-        private AudioSource audioSource;
-
+    public class Debugger : MonoBehaviour
+    {
         [SerializeField] Key debugKeyPickup = Key.Space;
         [SerializeField] Key debugKeyInteract = Key.G;
         [SerializeField] Key debugKeyDash = Key.F;
@@ -23,9 +18,9 @@ namespace LevelEditor
         [SerializeField] Key debugKeyShift = Key.H;
 
         [SerializeField] private FlowControllerBase flowController;
+
         private void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
             //Debug.Log("Debug.Awake." + (Application.isPlaying ? "Play" : "Edit"));
             if (Application.isPlaying && Application.isEditor)
             {
@@ -40,8 +35,11 @@ namespace LevelEditor
                 PCPadInputProvider.RestoreDefaultBindings();
             }
 
-            int singleplayerChopTimeMultiplier = (Application.isPlaying && Application.isEditor) ? 1 : 5;
-            flowController.m_gameConfig.SingleplayerChopTimeMultiplier = singleplayerChopTimeMultiplier;
+            if (flowController != null)
+            {
+                int singleplayerChopTimeMultiplier = (Application.isPlaying && Application.isEditor) ? 1 : 5;
+                flowController.m_gameConfig.SingleplayerChopTimeMultiplier = singleplayerChopTimeMultiplier;
+            }
         }
 
         private void Start()

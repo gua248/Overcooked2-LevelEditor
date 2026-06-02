@@ -4,7 +4,7 @@ using LevelEditor;
 
 public static class CreateAssetBundles
 {
-    [MenuItem("Assets/Build AssetBundles")]
+    [MenuItem("Tools/Build AssetBundles", false, 100)]
     static void BuildAllAssetBundles()
     {
         string assetBundleDirectory = "Assets/AssetBundles";
@@ -17,14 +17,27 @@ public static class CreateAssetBundles
                                         BuildTarget.StandaloneWindows);
     }
 
-    [MenuItem("Assets/Reload Pseudo Assets")]
+    [MenuItem("Tools/Build AssetBundles (ForceRebuild)", false, 101)]
+    static void BuildAllAssetBundlesForceRebuild()
+    {
+        string assetBundleDirectory = "Assets/AssetBundles";
+        if (!Directory.Exists(assetBundleDirectory))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+                                        BuildAssetBundleOptions.ForceRebuildAssetBundle,
+                                        BuildTarget.StandaloneWindows);
+    }
+
+    [MenuItem("Tools/Reload Pseudo Assets", false, 10)]
     static void ReloadPseudoAssets()
     {
         PseudoPrefabManager.Instance.DeInit();
         PseudoPrefabManager.Instance.Init();
     }
 
-    [MenuItem("Assets/Toggle Prepare For Building")]
+    [MenuItem("Tools/Toggle Prepare For Building", false, 11)]
     static void TogglePrepareForBuilding()
     {
         PseudoPrefabManager.Instance.prepareForBuilding = !PseudoPrefabManager.Instance.prepareForBuilding;

@@ -68,27 +68,31 @@ namespace LevelEditor
                 editorGridSnap.enabled = false;
             }
 
-            HandleSpecificPrefabs();
-
-            Setup();
-        }
-
-        private void HandleSpecificPrefabs()
-        {
             foreach (RendererInfo rendererInfo in childGameObject.RequestComponentsRecursive<RendererInfo>())
             {
                 rendererInfo.lightmapIndex = -1;
                 rendererInfo.lightmapScaleOffset = Vector4.zero;
             }
 
+            SpecificPseudoPrefabTag specificPseudoPrefabTag = GetComponent<SpecificPseudoPrefabTag>();
+            if (specificPseudoPrefabTag != null && !string.IsNullOrEmpty(specificPseudoPrefabTag.prefabTag))
+            {
+                HandleSpecificPrefabs(specificPseudoPrefabTag.prefabTag);
+            }
+
+            Setup();
+        }
+
+        private void HandleSpecificPrefabs(string tag)
+        {
             if (false) { }
-            else if (stub.pseudoPrefabSO.prefabName == "raft_water")
+            else if (tag == "raft_water")
             {
                 childGameObject.transform.Find("Reflection Plane").gameObject.SetActive(false);
                 childGameObject.transform.Find("sky").gameObject.SetActive(false);
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "PFX_background_wizardshool_01")
+            else if (tag == "PFX_background_wizardshool_01")
             {
                 childGameObject.transform.Find("cloudgroup1").gameObject.SetActive(false);
                 childGameObject.transform.Find("cloudgroup2").gameObject.SetActive(false);
@@ -142,7 +146,7 @@ namespace LevelEditor
                 SetPFX(childGameObject.transform.Find("cloudgroup7").GetComponent<ParticleSystem>());
             }
 
-            else if (stub.pseudoPrefabSO.prefabName.StartsWith("wizard_shelf"))
+            else if (tag.StartsWith("wizard_shelf"))
             {
                 Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
                 foreach (Light light in lights)
@@ -154,7 +158,7 @@ namespace LevelEditor
                 }
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "wizard_sconcecandle_01")
+            else if (tag == "wizard_sconcecandle_01")
             {
                 Light light = childGameObject.RequestComponentRecursive<Light>();
                 if (light != null)
@@ -167,7 +171,7 @@ namespace LevelEditor
                 }
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "throne_torch")
+            else if (tag == "throne_torch")
             {
                 Light light = childGameObject.RequestComponentRecursive<Light>();
                 if (light != null)
@@ -180,7 +184,7 @@ namespace LevelEditor
                 }
             }
 
-            else if (gameObject.name.StartsWith("m_sp_cliff"))
+            else if (tag == "m_sp_cliff")
             {
                 Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
                 Material[] materials = renderer.sharedMaterials;
@@ -188,24 +192,24 @@ namespace LevelEditor
                 renderer.receiveShadows = true;
             }
 
-            else if (gameObject.name.StartsWith("sp_cliff"))
+            else if (tag == "sp_cliff")
             {
                 Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
                 renderer.receiveShadows = true;
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "sp_rock_01")
+            else if (tag == "sp_rock_01")
             {
                 childGameObject.transform.Find("Point light").gameObject.SetActive(false);
                 childGameObject.transform.Find("Point light (1)").gameObject.SetActive(false);
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "Alien_Tentacle_01")
+            else if (tag == "Alien_Tentacle_01")
             {
                 childGameObject.AddComponent<AnimatorAudioComponent>();
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "restaurant_lantern" || stub.pseudoPrefabSO.prefabName == "restaurant_light_01")
+            else if (tag == "restaurant_lantern" || tag == "restaurant_light_01")
             {
                 Light light = childGameObject.RequestComponentRecursive<Light>();
                 if (light != null)
@@ -218,7 +222,7 @@ namespace LevelEditor
                 }
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "decoration_wall_light 1")
+            else if (tag == "decoration_wall_light 1")
             {
                 Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
                 foreach (Light light in lights)
@@ -229,12 +233,12 @@ namespace LevelEditor
                 }
             }
 
-            else if (gameObject.name.StartsWith("m_kitchen_firepit_02"))
+            else if (tag == "m_kitchen_firepit_02")
             {
                 childGameObject.transform.Find("PFX_Fire_Hazzard (1)").gameObject.SetActive(false);
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "fire_hazard")
+            else if (tag == "fire_hazard")
             {
                 childGameObject.transform.Find("heathaze").gameObject.SetActive(false);
                 childGameObject.transform.Find("glow (1)").gameObject.SetActive(false);
@@ -259,12 +263,12 @@ namespace LevelEditor
                 colorOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);
             }
 
-            else if (stub.pseudoPrefabSO.prefabName.StartsWith("exterior_car_"))
+            else if (tag == "exterior_car")
             {
                 childGameObject.AddComponent<AnimatorAudioComponent>();
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "p_dlc5_camp_fire_02")
+            else if (tag == "p_dlc5_camp_fire_02")
             {
                 childGameObject.transform.Find("pfx/Light").gameObject.SetActive(false);
                 ParticleSystem ps = childGameObject.transform.Find("pfx/glow (1)").GetComponent<ParticleSystem>();
@@ -272,10 +276,7 @@ namespace LevelEditor
                 main.startSize = 1.6f;
             }
 
-            else if (
-                stub.pseudoPrefabSO.prefabName.StartsWith("snowmound_") ||
-                stub.pseudoPrefabSO.prefabName.StartsWith("snow_") ||
-                stub.pseudoPrefabSO.prefabName == "snowballpile_01")
+            else if (tag == "snow")
             {
                 Renderer renderer = childGameObject.GetComponent<Renderer>();
                 if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
@@ -287,12 +288,12 @@ namespace LevelEditor
                 renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
             }
 
-            else if (gameObject.name.StartsWith("noripple_m_dlc3_icecliff_"))
+            else if (tag == "noripple_m_dlc3_icecliff")
             {
                 childGameObject.transform.Find("ripple").gameObject.SetActive(false);
             }
 
-            else if (stub.pseudoPrefabSO.prefabName.StartsWith("p_dlc09_box_lid_") || stub.pseudoPrefabSO.prefabName == "p_dlc09_wallbit_01")
+            else if (tag == "p_dlc09_box_lid" || tag == "p_dlc09_wallbit_01")
             {
                 Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
                 foreach (Renderer renderer in renderers)
@@ -307,23 +308,23 @@ namespace LevelEditor
                 }
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "NPC_Penguin")
+            else if (tag == "NPC_Penguin")
             {
                 Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
                 childGameObject.transform.Find("Penguin1:RoadKillOut").GetComponent<Renderer>().sharedMaterial = material;
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "DogSled" || stub.pseudoPrefabSO.prefabName == "DogSled_Luggage")
+            else if (tag == "DogSled" || tag == "DogSled_Luggage")
             {
                 Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
                 childGameObject.GetComponent<Renderer>().sharedMaterial = material;
             }
 
-            else if (stub.pseudoPrefabSO.prefabName.StartsWith("p_dlc09_tent_"))
+            else if (tag == "p_dlc09_tent")
             {
                 childGameObject.transform.Find("glow").gameObject.SetActive(false);
                 childGameObject.transform.Find("Point light").gameObject.SetActive(false);
-                Renderer renderer = childGameObject.transform.Find(stub.pseudoPrefabSO.prefabName.Replace("p_dlc09", "m_dlc5")).GetComponent<Renderer>();
+                Renderer renderer = childGameObject.transform.Find(childGameObject.name.Replace("p_dlc09", "m_dlc5")).GetComponent<Renderer>();
                 if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
                 {
                     Material material = new Material(renderer.sharedMaterial);
@@ -333,7 +334,7 @@ namespace LevelEditor
                 renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
             }
 
-            else if (stub.pseudoPrefabSO.prefabName.StartsWith("Space_Door_Airlock"))
+            else if (tag.StartsWith("Space_Door_Airlock"))
             {
                 childGameObject.AddComponent<AnimatorAudioComponent>();
                 Animator animator = childGameObject.GetComponent<Animator>();
@@ -341,13 +342,13 @@ namespace LevelEditor
                     trigger.m_targetAnimator = animator;
                 foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
                     trigger.m_targetAnimator = animator;
-                if (gameObject.name.StartsWith("Space_Door_Airlock_Open"))
+                if (tag == "Space_Door_Airlock_Open")
                     animator.SetTrigger("Open");
-                if (gameObject.name.StartsWith("Space_Door_Airlock_Bool_Open"))
+                if (tag == "Space_Door_Airlock_Bool_Open")
                     animator.SetBool("IsOpen", true);
             }
 
-            else if (stub.pseudoPrefabSO.prefabName.StartsWith("p_dlc07_keep_flagstone_"))
+            else if (tag == "p_dlc07_keep_flagstone")
             {
                 Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
                 foreach (Renderer renderer in renderers)
@@ -362,7 +363,7 @@ namespace LevelEditor
                 }
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "countertop_01_chopping_board_gold")
+            else if (tag == "ChoppingCounter" && stub.pseudoPrefabSO.prefabName == "countertop_01_chopping_board_gold")
             {
                 foreach (Transform child in childGameObject.transform)
                 {
@@ -371,7 +372,7 @@ namespace LevelEditor
                 }
             }
 
-            else if (stub.pseudoPrefabSO.prefabName == "workstation_plate_station_slim_01_no_block")
+            else if (tag == "ServingStation" && stub.pseudoPrefabSO.prefabName == "workstation_plate_station_slim_01_no_block")
             {
                 childGameObject.transform.Find("Block_Back").gameObject.SetActive(false);
             }
