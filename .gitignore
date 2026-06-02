@@ -4,8 +4,11 @@
 #
 
 /[Aa]ssets/StreamingAssets/
+/[Aa]ssets/StreamingAssets.meta
 /[Aa]ssets/AssetBundles/
+/[Aa]ssets/AssetBundles.meta
 /[Aa]ssets/Scripts/Assembly-CSharp/
+/[Aa]ssets/Scripts/Assembly-CSharp.meta
 
 .utmp/
 /[Ll]ibrary/
