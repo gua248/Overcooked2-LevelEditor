@@ -122,7 +122,7 @@ namespace UnityStandardAssets.ImageEffects
 		{
 			if (cbDrawArgs == null)
 			{
-				cbDrawArgs = new ComputeBuffer(1, 16, ComputeBufferType.DrawIndirect);
+				cbDrawArgs = new ComputeBuffer(1, 16, ComputeBufferType.IndirectArguments);
 				int[] data = new int[4] { 0, 1, 0, 0 };
 				cbDrawArgs.SetData(data);
 			}
