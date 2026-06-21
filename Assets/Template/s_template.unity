@@ -671,7 +671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stub: {fileID: 975597277}
-  prepareForBuilding: 1
 --- !u!114 &975597277
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 ﻿using LevelEditorStub;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +30,7 @@ namespace LevelEditor
 
         public Dictionary<string, Material> editedMaterials = new Dictionary<string, Material>();
 
+        [NonSerialized]
         public bool prepareForBuilding;
 
         public GameEditState GameEditState
