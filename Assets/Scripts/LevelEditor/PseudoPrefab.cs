@@ -10,6 +10,7 @@ using UnityEngine;
 namespace LevelEditor
 {
     [ExecuteInEditMode]
+    [SelectionBase]
     public class PseudoPrefab : MonoBehaviour
     {
         protected PseudoPrefabStub stub;
