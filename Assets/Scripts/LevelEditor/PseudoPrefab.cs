@@ -390,13 +390,17 @@ namespace LevelEditor
                 DestroyImmediate(childGameObject);
             childGameObject = null;
 
-            HandleSpecificPrefabsClear();
+            SpecificPseudoPrefabTag specificPseudoPrefabTag = GetComponent<SpecificPseudoPrefabTag>();
+            if (specificPseudoPrefabTag != null && !string.IsNullOrEmpty(specificPseudoPrefabTag.prefabTag))
+            {
+                HandleSpecificPrefabsClear(specificPseudoPrefabTag.prefabTag);
+            }
         }
 
-        private void HandleSpecificPrefabsClear()
+        private void HandleSpecificPrefabsClear(string tag)
         {
             if (false) { }
-            else if (stub.pseudoPrefabSO.prefabName == "Space_Door_Airlock")
+            else if (tag.StartsWith("Space_Door_Airlock"))
             {
                 foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
                 {
