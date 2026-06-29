@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -50,6 +51,9 @@ namespace LevelEditor
 
         private void OnEnable()
         {
+#if UNITY_EDITOR
+            if (BuildPipeline.isBuildingPlayer) prepareForBuilding = true;
+#endif
             if (Instance != null && Instance.gameObject != this.gameObject)
             {
                 Instance.gameObject.Destroy();

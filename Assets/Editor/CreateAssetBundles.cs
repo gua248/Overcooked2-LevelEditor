@@ -1,12 +1,19 @@
-﻿using UnityEditor;
+﻿using LevelEditor;
 using System.IO;
-using LevelEditor;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
+
 
 public static class CreateAssetBundles
 {
     [MenuItem("Tools/Build AssetBundles", false, 100)]
     static void BuildAllAssetBundles()
     {
+        Scene activeScene = EditorSceneManager.GetActiveScene();
+        if (!TargetSceneSaveValidator.CheckPrepareForBuilding(activeScene))
+            return;
+
         string assetBundleDirectory = "Assets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
         {
@@ -20,6 +27,10 @@ public static class CreateAssetBundles
     [MenuItem("Tools/Build AssetBundles (ForceRebuild)", false, 101)]
     static void BuildAllAssetBundlesForceRebuild()
     {
+        Scene activeScene = EditorSceneManager.GetActiveScene();
+        if (!TargetSceneSaveValidator.CheckPrepareForBuilding(activeScene))
+            return;
+
         string assetBundleDirectory = "Assets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
         {
