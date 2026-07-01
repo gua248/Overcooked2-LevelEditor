@@ -2,7 +2,7 @@
 
 #### 准备工作
 
-1. 下载或克隆 `OC2Level` 项目。
+1. 下载或克隆本项目。
 
 2. 将游戏目录中 `Overcooked! 2/Overcooked2_Data/StreamingAssets/Windows` 文件夹复制到项目 `Assets/StreamingAssets` 文件夹中。
 
@@ -99,7 +99,9 @@
 
 ##### 场景物体
 
-在 `common01/prefabs/art` 下，按主题分目录。[场景物体说明](reference.md#场景物体)
+在 `common01/prefabs/art` 下，按主题分目录。
+
+[场景物体说明](reference.md#场景物体)
 
 ##### 相机
 
@@ -161,7 +163,7 @@
 
 - KillPlane
 
-  `CampaignGameEnvironment/KillPlane` 是重生面，玩家或物体碰到了就会重生或消失。设置其位置和 Scale，设置上面的 `RespawnCollider > respawnType` 字段，`Drowning` - 落水，`Fall Death` - 坠落，`Car` - 倒地（`Hit` 废弃）。如果是 `Drowning`，在 `PseudoPrefabManager > PseudoPrefabManagerStub > OnDeathEffectSO` 选择 `WaterSplash_Particle_003_SO`（普通水花）或`WaterSplash_Particle_004_alien_SO`（外星主题的绿水水花），然后点击 Tools - Reload Pseudo Assets 载入。你也可以添加其他 KillPlane，只需要在空物体上添加 `Collider` 和 `Respawn Collider` 组件，参考 `s_oc1_story_6_3 > Design/KillPlanes`。
+  `CampaignGameEnvironment/KillPlane` 是重生面，玩家或物体碰到了就会重生或消失。设置其位置和 Scale，设置上面的 `RespawnCollider > respawnType` 字段，`Drowning` - 落水，`Fall Death` - 坠落，`Car` - 倒地（`Hit` 废弃）。如果是 `Drowning`，在 `PseudoPrefabManager > PseudoPrefabManagerStub > OnDeathEffectSO` 选择 `WaterSplash_Particle_003_SO`（普通水花）或`WaterSplash_Particle_004_alien_SO`（外星主题的绿水水花），然后点击 Tools - Reload Pseudo Assets 载入。你也可以添加其他 KillPlane，只需要在空物体上添加 `Collider`（勾选 `isTrigger`）和 `Respawn Collider` 组件，参考 `s_oc1_story_6_3 > Design/KillPlanes`。
 
 ##### 动画
 

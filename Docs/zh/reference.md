@@ -59,15 +59,16 @@
   - `PseudoPrefabAttachingFoodSpawnerStub > triggerTime` - 生成间隔。
   - `PseudoPrefabAttachingFoodSpawnerStub > triggerAtStart` - 是否在关卡开始时生成一次。
   
-- 摇杆（移动平台）
+- `MultiControlTerminal` - 摇杆（移动平台）
 
   参考 `s_test_level_3`。
 
-- 指示灯
+- `ControlTerminal_Marker` - 指示灯
 
   参考 `s_test_level_5`。
 
-- Switch - 交互按钮
+- `Switch` - 交互按钮
+  
   - `PseudoPrefabSwitchStub > startEnabled` - 初始是否为按下状态（不勾选为按下）。
   - `PseudoPrefabSwitchStub > activeMaterial` - 未按下时的外观材质，资源位置`common01/pseudo_prefab_so/mechanisms/Switch`。
   - `PseudoPrefabSwitchStub > inactiveMaterial` - 按下时的外观材质，资源位置`common01/pseudo_prefab_so/mechanisms/Switch`。
@@ -124,13 +125,13 @@
 
 ### 相机
 
-- `MultiplayerCamera` - 相机跟随玩家组件
+- <span id="MultiplayerCamera">`MultiplayerCamera`</span> - 相机跟随玩家组件
   - `m_gradientLimit` - 相机跟随时最大移动速度。默认 4 即可。
   - `m_timeToMax` - 相机跟随的加速时间。默认 10 即可。
   - `m_{x}EdgeBuffer` - 游戏视图中最靠 x 方向的玩家距离屏幕边缘希望留出的距离比例。默认 0.4 即可。
   - `m_minDistance` - 相机距离玩家平面的最小距离。当玩家聚在中间时，相机距离会减小。
   - `m_maxDistance` - 相机距离玩家平面的最大距离。当玩家分散时，相机距离会增大。
-  - `m_maxUDistance` - 相机上下移动的最大距离。当玩家向同一方向移动时，相机会向那个方向跟随。
+  - `m_maxUDistance` - 相机前后移动的最大距离。当玩家向同一方向移动时，相机会向那个方向跟随。
   - `m_maxRDistance` - 相机左右移动的最大距离。当玩家向同一方向移动时，相机会向那个方向跟随。
 
 
