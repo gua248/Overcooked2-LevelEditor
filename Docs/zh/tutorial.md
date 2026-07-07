@@ -179,7 +179,7 @@
 
   动画需要通过 Trigger 在主客机同步触发。如果是一个很长的动画，应该进行分段，用多个 Trigger 依次触发，防止主客机动画错位。同理循环动画应该在每次循环时通过 Trigger 触发。
 
-  [Trigger 组件说明](reference.md#Trigger 组件)
+  [Trigger 组件说明](reference.md#Trigger-组件)
 
 
 

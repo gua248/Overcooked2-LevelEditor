@@ -34,7 +34,7 @@ Assume you want to create a new level set named `xxx`, which contains a single l
 5. For multiple levels, follow the same procedure and simply add all `LevelInfo` to `LevelSetInfo.levelInfos`.
 6. Duplicate the template scene `Template/s_template` to the `xxx/scenes` directory and rename it to `s_xxx_1`.
 7. Open the scene `s_xxx_1` and modify the `PseudoPrefabManagerStub.levelInfo` reference on the root object `PseudoPrefabManager` to the newly created level configuration `LevelInfo_xxx_1`. Click Tools – Reload Pseudo Assets to load the level configuration.
-8. [Edit the scene](#Editing the Scene). Click Play to run the level.
+8. [Edit the scene](#Editing-the-Scene). Click Play to run the level.
 9. __Click Tools – Toggle Prepare For Building to clear temporary objects, then__ save the scene.
 
 
@@ -95,7 +95,7 @@ Assume that the level set `xxx` contains a single level, `xxx-1`.
 
 In the directory `common01/prefabs/art`, organized into subdirectories by theme.
 
-[Environment Objects reference](reference.md#Environment Objects)
+[Environment Objects reference](reference.md#Environment-Objects)
 
 ##### Camera
 
@@ -173,7 +173,7 @@ On the `PseudoPrefabManager > PseudoPrefabManagerStub` component:
 
   Animations must be triggered simultaneously on the host and the client via Triggers. If an animation is very long, it should be divided into segments and triggered sequentially using multiple Triggers to prevent the animations on the host and the client from becoming out of sync. Similarly, looping animations should be triggered via Triggers at the start of each loop.
 
-  [Trigger Components reference](reference.md#Trigger Components)
+  [Trigger Components reference](reference.md#Trigger-Components)
 
 
 

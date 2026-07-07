@@ -199,7 +199,7 @@ In the directory `common01/prefabs/art`, organized into subdirectories by theme.
   - `levelNameZH` - Level display name (Chinese).
   - `screenshot` - Level screenshot.
   - `sceneName` - Level scene name. __It must match the filename of the packaged scene bundle exactly and must not duplicate any scene filename in any level set. Avoid using simple names.__
-  - `recipes` - All recipes in the level. ([Available Recipes](#Available Recipes))
+  - `recipes` - All recipes in the level. ([Available Recipes](#Available-Recipes))
   - `debugRecipeCount` - Set to 0.
   - `optionalRecipeMatchListItems` - Other allowed food combinations. In pizza levels, in addition to the recipes appear in orders, other food combinations can also be plated; these must be added to this list. See `LevelInfo_OC1_Story_4_1` for reference.
   - `disableDynamicParenting` - Dynamic parenting option. In levels containing moving or elevating platforms, this option should be unchecked, otherwise it should be checked.
