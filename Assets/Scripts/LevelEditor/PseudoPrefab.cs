@@ -383,6 +383,8 @@ namespace LevelEditor
         {
             if (stub == null)
                 stub = GetComponent<PseudoPrefabStub>();
+            Cleanup();
+
             var children = transform.Cast<Transform>().ToList();
             foreach (var child in children)
                 DestroyImmediate(child.gameObject);
@@ -423,6 +425,11 @@ namespace LevelEditor
 
         public virtual void SetupAfterStartSynchronising()
         {
+        }
+
+        public virtual void Cleanup()
+        {
+
         }
 
         private void Update()

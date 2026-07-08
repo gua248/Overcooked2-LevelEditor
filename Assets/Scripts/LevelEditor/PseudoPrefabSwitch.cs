@@ -45,5 +45,13 @@ namespace LevelEditor
                 }
             }
         }
+
+        public override void Cleanup()
+        {
+            foreach (var componet in gameObject.GetComponents<TriggerOnObject>())
+            {
+                componet.m_targetObject = null;
+            }
+        }
     }
 }

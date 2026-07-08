@@ -9,6 +9,8 @@
 /[Aa]ssets/AssetBundles.meta
 /[Aa]ssets/Scripts/Assembly-CSharp/
 /[Aa]ssets/Scripts/Assembly-CSharp.meta
+/[Aa]ssets/Testing/
+/[Aa]ssets/Testing.meta
 
 .utmp/
 /[Ll]ibrary/
