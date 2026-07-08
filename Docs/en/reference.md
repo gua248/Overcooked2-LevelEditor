@@ -178,6 +178,11 @@ In the directory `common01/prefabs/art`, organized into subdirectories by theme.
   - `m_triggerToFire` - The trigger sent by this forwarder.
   - `m_targetAnimator` - The target Animator.
   - `m_triggerToFireHash` - Leave blank.
+  
+- `TriggerAdapter` - Trigger adapter
+
+  - `m_inputTrigger` - The trigger that activates this adapter.
+  - `m_outputTrigger` - The trigger sent by this adapter (target is itself).
 
 
 

@@ -178,6 +178,11 @@
   - `m_triggerToFire` - 这个传递器发送的 trigger。
   - `m_targetAnimator` - 发送的目标 Animator。
   - `m_triggerToFireHash` - 不用填。
+  
+- `TriggerAdapter` - trigger 转换器
+
+  - `m_inputTrigger` - 触发这个转换器的 trigger。
+  - `m_outputTrigger` - 这个转换器发送的 trigger（目标为自身）。
 
 
 
