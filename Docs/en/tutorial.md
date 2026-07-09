@@ -81,7 +81,7 @@ Assume that the level set `xxx` contains a single level, `xxx-1`.
   
 - Mechanisms
 
-  In the directory `common01/prefabs/mechanisms`.
+  In the directory `common*/prefabs/mechanisms`.
   
   [Mechanisms reference](reference.md#Mechanisms)
   

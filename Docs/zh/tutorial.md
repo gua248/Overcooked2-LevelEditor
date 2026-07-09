@@ -85,9 +85,9 @@
   
 - 游戏机关
 
-  在 `common01/prefabs/mechanisms` 下。
+  在 `common*/prefabs/mechanisms` 下。
   
-  包含食材生成器、摇杆、指示灯、交互按钮、踏板按钮、传送门、地面传送带。
+  包含食材生成器、摇杆、指示灯、交互按钮、踏板按钮、传送门、地面传送带（`common01`）；火焰发射器（`common02`）。
   
   [游戏机关说明](reference.md#游戏机关)
   

@@ -48,7 +48,7 @@
 
 #### 游戏机关
 
-在 `common01/prefabs/mechanisms` 下。
+在 `common01/prefabs/mechanisms` 下：
 
 - `AttachingFoodSpawner` - 食材生成器
   
@@ -98,6 +98,18 @@
 - `Travelator` - 地面传送带
   
   - `PseudoPrefabTravelatorStub > speed` - 传送带速度。 
+
+在 `common02/prefabs/mechanisms` 下：
+
+- `Burner` - 火焰发射器
+  - `PseudoPrefabBurnerStub > fireMode` - 发射轨迹。
+  - `PseudoPrefabBurnerStub > airTime` - 火焰飞行时间。
+  - `PseudoPrefabBurnerStub > targetPositions` - 火焰目标坐标。
+  - `PseudoPrefabBurnerStub > randomTargetOrder` - 是否随机选取目标（或按顺序选取）。
+  - `PseudoPrefabBurnerStub > hideVisual` - 是否隐藏发射器外观。
+  - `TriggerOnObject` 组件不用修改。
+  - 向这个物体发送 trigger `"SpawnHazard"` 就会发射一个火焰。配合 [Trigger 组件](#Trigger-组件)使用。
+  - 火焰目标坐标需要被 `GridManager` 覆盖。目标为地面则生成地面火焰，为桌台则点燃桌台。
 
 #### 玩家
 

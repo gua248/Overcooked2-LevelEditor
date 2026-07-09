@@ -48,7 +48,7 @@ In the directory `common01/prefabs/utensils`.
 
 #### Mechanisms
 
-In the directory `common01/prefabs/mechanisms`.
+In the directory `common01/prefabs/mechanisms`:
 
 - `AttachingFoodSpawner` - Ingredient spawner
   
@@ -98,6 +98,18 @@ In the directory `common01/prefabs/mechanisms`.
 - `Travelator` - Travelator on the ground
   
   - `PseudoPrefabTravelatorStub > speed` - Travelator speed.
+
+In the directory `common02/prefabs/mechanisms`:
+
+- `Burner` - Fire hazard spawner
+  - `PseudoPrefabBurnerStub > fireMode` - The fire trajectory mode.
+  - `PseudoPrefabBurnerStub > airTime` - Flight time of the fire.
+  - `PseudoPrefabBurnerStub > targetPositions` - Target positions for the fire.
+  - `PseudoPrefabBurnerStub > randomTargetOrder` - Whether to select targets randomly (or in order).
+  - `PseudoPrefabBurnerStub > hideVisual` - Whether to hide the spawner's visuals.
+  - Do not modify the `TriggerOnObject` component.
+  - Sending the trigger `"SpawnHazard"` to this object will spawn a fire. Use in conjunction with [Trigger Components](#Trigger-Components).
+  - The fire target positions must be covered by `GridManager`. If the target is the ground, a ground fire is spawned; if it is a counter, the counter is ignited.
 
 #### Player
 
