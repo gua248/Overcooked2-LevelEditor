@@ -18,12 +18,22 @@ public class TargetSceneSaveValidator : UnityEditor.AssetModificationProcessor
         if (pseudoPrefabManager != null && !pseudoPrefabManager.prepareForBuilding)
         {
             // 弹出提示
-            EditorUtility.DisplayDialog(
-                "错误",
-                "保存或构建场景前先点击 Tools - Toggle Prepare For Building 清除临时物体！",
-                "确定"
-            );
-
+            if (Application.systemLanguage == SystemLanguage.Chinese)
+            {
+                EditorUtility.DisplayDialog(
+                    "错误",
+                    "保存或构建场景前先点击 Tools - Toggle Prepare For Building 清除临时物体！",
+                    "确定"
+                );
+            }
+            else
+            {
+                EditorUtility.DisplayDialog(
+                    "Error",
+                    "Click Tools - Toggle Prepare For Building to clear temporary objects before saving and building the scene!",
+                    "OK"
+                );
+            }
             return false;
         }
         return true;
