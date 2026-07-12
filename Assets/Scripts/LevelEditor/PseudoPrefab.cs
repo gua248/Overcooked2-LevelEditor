@@ -86,296 +86,358 @@ namespace LevelEditor
 
         private void HandleSpecificPrefabs(string tag)
         {
-            if (false) { }
-            else if (tag == "raft_water")
+            switch (tag)
             {
-                childGameObject.transform.Find("Reflection Plane").gameObject.SetActive(false);
-                childGameObject.transform.Find("sky").gameObject.SetActive(false);
-            }
-
-            else if (tag == "PFX_background_wizardshool_01")
-            {
-                childGameObject.transform.Find("cloudgroup1").gameObject.SetActive(false);
-                childGameObject.transform.Find("cloudgroup2").gameObject.SetActive(false);
-                childGameObject.transform.Find("cloudgroup3").gameObject.SetActive(false);
-                childGameObject.transform.Find("cloudgroup4").gameObject.SetActive(false);
-                childGameObject.transform.Find("cloudgroup5").gameObject.SetActive(false);
-                childGameObject.transform.Find("sparkles (1)/sparkles (2)").gameObject.SetActive(false);
-                childGameObject.transform.Find("sparkles (1)/sparkles (3)").gameObject.SetActive(false);
-                childGameObject.transform.Find("sparkles (1)/sparkles (4)").gameObject.SetActive(false);
-                childGameObject.transform.Find("sparkles (1)/sparkles (5)").gameObject.SetActive(false);
-                childGameObject.transform.Find("background").gameObject.SetActive(false);
-                childGameObject.transform.Find("Planes_dummies").gameObject.SetActive(false);
-
-                var color = new ParticleSystem.MinMaxGradient(new Color32(104, 0, 255, 255), new Color32(0, 255, 202, 255));
-                var gradient = new Gradient();
-                gradient.SetKeys(new GradientColorKey[]
-                {
-                    new GradientColorKey{color=Color.white, time=0f},
-                    new GradientColorKey{color=Color.white, time=1f},
-                }, new GradientAlphaKey[]
-                {
-                    new GradientAlphaKey{alpha=0f, time=0f},
-                    new GradientAlphaKey{alpha=74/255f, time=.308f},
-                    new GradientAlphaKey{alpha=107/255f, time=.641f},
-                    new GradientAlphaKey{alpha=0f, time=1f},
-                });
-                var colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient);
-                Action<ParticleSystem> SetPFX = particleSystem =>
-                {
-                    ParticleSystem.MainModule main;
-                    ParticleSystem.ColorOverLifetimeModule colorOverLifetimeModule;
-                    Vector3 directionToCamera;
-                    Quaternion rotationToCamera;
-                    Vector3 eulerAngles;
-                    main = particleSystem.main;
-                    main.startColor = color;
-                    colorOverLifetimeModule = particleSystem.colorOverLifetime;
-                    colorOverLifetimeModule.color = colorOverLifetime;
-                    directionToCamera = Camera.main.transform.position - particleSystem.transform.position;
-                    directionToCamera = -particleSystem.transform.InverseTransformDirection(directionToCamera);
-                    rotationToCamera = Quaternion.LookRotation(directionToCamera);
-                    eulerAngles = rotationToCamera.eulerAngles;
-                    main.startRotationX = new ParticleSystem.MinMaxCurve(eulerAngles.x * Mathf.Deg2Rad, eulerAngles.x * Mathf.Deg2Rad);
-                    main.startRotationY = new ParticleSystem.MinMaxCurve(eulerAngles.y * Mathf.Deg2Rad, eulerAngles.y * Mathf.Deg2Rad);
-                    main.startRotationZ = new ParticleSystem.MinMaxCurve(180 * Mathf.Deg2Rad, -180 * Mathf.Deg2Rad) { mode = ParticleSystemCurveMode.TwoConstants };
-                    particleSystem.Stop();
-                    particleSystem.Clear();
-                    particleSystem.Play();
-                };
-                SetPFX(childGameObject.transform.Find("cloudgroup6").GetComponent<ParticleSystem>());
-                SetPFX(childGameObject.transform.Find("cloudgroup7").GetComponent<ParticleSystem>());
-            }
-
-            else if (tag.StartsWith("wizard_shelf"))
-            {
-                Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
-                foreach (Light light in lights)
-                {
-#if UNITY_EDITOR
-                    light.lightmapBakeType = LightmapBakeType.Realtime;
-#endif
-                    light.intensity *= 0.4f;
-                }
-            }
-
-            else if (tag == "wizard_sconcecandle_01")
-            {
-                Light light = childGameObject.RequestComponentRecursive<Light>();
-                if (light != null)
-                {
-#if UNITY_EDITOR
-                    light.lightmapBakeType = LightmapBakeType.Realtime;
-#endif
-                    light.intensity *= 0.3f;
-                    light.range *= 0.5f;
-                }
-            }
-
-            else if (tag == "throne_torch")
-            {
-                Light light = childGameObject.RequestComponentRecursive<Light>();
-                if (light != null)
-                {
-#if UNITY_EDITOR
-                    light.lightmapBakeType = LightmapBakeType.Realtime;
-#endif
-                    light.color = new Color32(255, 153, 9, 255);
-                    light.range = 5f;
-                }
-            }
-
-            else if (tag == "m_sp_cliff")
-            {
-                Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
-                Material[] materials = renderer.sharedMaterials;
-                renderer.sharedMaterials = new Material[] { materials[0], materials[1] };
-                renderer.receiveShadows = true;
-            }
-
-            else if (tag == "sp_cliff")
-            {
-                Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
-                renderer.receiveShadows = true;
-            }
-
-            else if (tag == "sp_rock_01")
-            {
-                childGameObject.transform.Find("Point light").gameObject.SetActive(false);
-                childGameObject.transform.Find("Point light (1)").gameObject.SetActive(false);
-            }
-
-            else if (tag == "Alien_Tentacle_01")
-            {
-                childGameObject.AddComponent<AnimatorAudioComponent>();
-            }
-
-            else if (tag == "restaurant_lantern" || tag == "restaurant_light_01")
-            {
-                Light light = childGameObject.RequestComponentRecursive<Light>();
-                if (light != null)
-                {
-#if UNITY_EDITOR
-                    light.lightmapBakeType = LightmapBakeType.Realtime;
-#endif
-                    light.range = 3f;
-                    light.intensity = 1f;
-                }
-            }
-
-            else if (tag == "decoration_wall_light 1")
-            {
-                Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
-                foreach (Light light in lights)
-                {
-#if UNITY_EDITOR
-                    light.lightmapBakeType = LightmapBakeType.Realtime;
-#endif
-                }
-            }
-
-            else if (tag == "m_kitchen_firepit_02")
-            {
-                childGameObject.transform.Find("PFX_Fire_Hazzard (1)").gameObject.SetActive(false);
-            }
-
-            else if (tag == "fire_hazard")
-            {
-                childGameObject.transform.Find("heathaze").gameObject.SetActive(false);
-                childGameObject.transform.Find("glow (1)").gameObject.SetActive(false);
-
-                ParticleSystem ps = childGameObject.transform.Find("PFX_FireStatic").GetComponent<ParticleSystem>();
-                ParticleSystem.MainModule main = ps.main;
-                main.startLifetime = 2f;
-                main.startSpeed = 0f;
-                main.startSize = 0.8f;
-                main.gravityModifier = -0.35f;
-                main.maxParticles = 50;
-                ParticleSystem.EmissionModule emission = ps.emission;
-                emission.rateOverTime = 20;
-                ParticleSystem.ColorOverLifetimeModule colorOverLifetime = ps.colorOverLifetime;
-                var colorKeys = colorOverLifetime.color.gradient.colorKeys;
-                var gradient = new Gradient();
-                gradient.SetKeys(colorKeys, new GradientAlphaKey[]
-                {
-                    new GradientAlphaKey{alpha=180/255f, time=0f},
-                    new GradientAlphaKey{alpha=0f, time=0.479f},
-                });
-                colorOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);
-            }
-
-            else if (tag == "exterior_car")
-            {
-                childGameObject.AddComponent<AnimatorAudioComponent>();
-            }
-
-            else if (tag == "p_dlc5_camp_fire_02")
-            {
-                childGameObject.transform.Find("pfx/Light").gameObject.SetActive(false);
-                ParticleSystem ps = childGameObject.transform.Find("pfx/glow (1)").GetComponent<ParticleSystem>();
-                ParticleSystem.MainModule main = ps.main;
-                main.startSize = 1.6f;
-            }
-
-            else if (tag == "snow")
-            {
-                Renderer renderer = childGameObject.GetComponent<Renderer>();
-                if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
-                {
-                    Material material = new Material(renderer.sharedMaterial);
-                    material.SetColor("_Colour", new Color32(204, 204, 204, 255));
-                    PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
-                }
-                renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
-            }
-
-            else if (tag == "noripple_m_dlc3_icecliff")
-            {
-                childGameObject.transform.Find("ripple").gameObject.SetActive(false);
-            }
-
-            else if (tag == "p_dlc09_box_lid" || tag == "p_dlc09_wallbit_01")
-            {
-                Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
-                foreach (Renderer renderer in renderers)
-                {
-                    if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                case "raft_water":
                     {
-                        Material material = new Material(renderer.sharedMaterial);
-                        material.SetColor("_SnowColour", new Color32(179, 179, 179, 255));
-                        PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                        childGameObject.transform.Find("Reflection Plane").gameObject.SetActive(false);
+                        childGameObject.transform.Find("sky").gameObject.SetActive(false);
+                        break;
                     }
-                    renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
-                }
-            }
 
-            else if (tag == "NPC_Penguin")
-            {
-                Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
-                childGameObject.transform.Find("Penguin1:RoadKillOut").GetComponent<Renderer>().sharedMaterial = material;
-            }
-
-            else if (tag == "DogSled" || tag == "DogSled_Luggage")
-            {
-                Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
-                childGameObject.GetComponent<Renderer>().sharedMaterial = material;
-            }
-
-            else if (tag == "p_dlc09_tent")
-            {
-                childGameObject.transform.Find("glow").gameObject.SetActive(false);
-                childGameObject.transform.Find("Point light").gameObject.SetActive(false);
-                Renderer renderer = childGameObject.transform.Find(childGameObject.name.Replace("p_dlc09", "m_dlc5")).GetComponent<Renderer>();
-                if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
-                {
-                    Material material = new Material(renderer.sharedMaterial);
-                    material.SetColor("_SnowColour", new Color32(179, 179, 179, 255));
-                    PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
-                }
-                renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
-            }
-
-            else if (tag.StartsWith("Space_Door_Airlock"))
-            {
-                childGameObject.AddComponent<AnimatorAudioComponent>();
-                Animator animator = childGameObject.GetComponent<Animator>();
-                foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
-                    trigger.m_targetAnimator = animator;
-                foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
-                    trigger.m_targetAnimator = animator;
-                if (tag == "Space_Door_Airlock_Open")
-                    animator.SetTrigger("Open");
-                if (tag == "Space_Door_Airlock_Bool_Open")
-                    animator.SetBool("IsOpen", true);
-            }
-
-            else if (tag == "p_dlc07_keep_flagstone")
-            {
-                Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
-                foreach (Renderer renderer in renderers)
-                {
-                    if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                case "PFX_background_wizardshool_01":
                     {
-                        Material material = new Material(renderer.sharedMaterial);
-                        material.SetColor("_ColourOverlay", new Color32(40, 40, 40, 255));
-                        PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                        childGameObject.transform.Find("cloudgroup1").gameObject.SetActive(false);
+                        childGameObject.transform.Find("cloudgroup2").gameObject.SetActive(false);
+                        childGameObject.transform.Find("cloudgroup3").gameObject.SetActive(false);
+                        childGameObject.transform.Find("cloudgroup4").gameObject.SetActive(false);
+                        childGameObject.transform.Find("cloudgroup5").gameObject.SetActive(false);
+                        childGameObject.transform.Find("sparkles (1)/sparkles (2)").gameObject.SetActive(false);
+                        childGameObject.transform.Find("sparkles (1)/sparkles (3)").gameObject.SetActive(false);
+                        childGameObject.transform.Find("sparkles (1)/sparkles (4)").gameObject.SetActive(false);
+                        childGameObject.transform.Find("sparkles (1)/sparkles (5)").gameObject.SetActive(false);
+                        childGameObject.transform.Find("background").gameObject.SetActive(false);
+                        childGameObject.transform.Find("Planes_dummies").gameObject.SetActive(false);
+
+                        var color = new ParticleSystem.MinMaxGradient(new Color32(104, 0, 255, 255), new Color32(0, 255, 202, 255));
+                        var gradient = new Gradient();
+                        gradient.SetKeys(new GradientColorKey[]
+                        {
+                        new GradientColorKey{color=Color.white, time=0f},
+                        new GradientColorKey{color=Color.white, time=1f},
+                        }, new GradientAlphaKey[]
+                        {
+                        new GradientAlphaKey{alpha=0f, time=0f},
+                        new GradientAlphaKey{alpha=74/255f, time=.308f},
+                        new GradientAlphaKey{alpha=107/255f, time=.641f},
+                        new GradientAlphaKey{alpha=0f, time=1f},
+                        });
+                        var colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient);
+                        Action<ParticleSystem> SetPFX = particleSystem =>
+                        {
+                            ParticleSystem.MainModule main;
+                            ParticleSystem.ColorOverLifetimeModule colorOverLifetimeModule;
+                            Vector3 directionToCamera;
+                            Quaternion rotationToCamera;
+                            Vector3 eulerAngles;
+                            main = particleSystem.main;
+                            main.startColor = color;
+                            colorOverLifetimeModule = particleSystem.colorOverLifetime;
+                            colorOverLifetimeModule.color = colorOverLifetime;
+                            directionToCamera = Camera.main.transform.position - particleSystem.transform.position;
+                            directionToCamera = -particleSystem.transform.InverseTransformDirection(directionToCamera);
+                            rotationToCamera = Quaternion.LookRotation(directionToCamera);
+                            eulerAngles = rotationToCamera.eulerAngles;
+                            main.startRotationX = new ParticleSystem.MinMaxCurve(eulerAngles.x * Mathf.Deg2Rad, eulerAngles.x * Mathf.Deg2Rad);
+                            main.startRotationY = new ParticleSystem.MinMaxCurve(eulerAngles.y * Mathf.Deg2Rad, eulerAngles.y * Mathf.Deg2Rad);
+                            main.startRotationZ = new ParticleSystem.MinMaxCurve(180 * Mathf.Deg2Rad, -180 * Mathf.Deg2Rad) { mode = ParticleSystemCurveMode.TwoConstants };
+                            particleSystem.Stop();
+                            particleSystem.Clear();
+                            particleSystem.Play();
+                        };
+                        SetPFX(childGameObject.transform.Find("cloudgroup6").GetComponent<ParticleSystem>());
+                        SetPFX(childGameObject.transform.Find("cloudgroup7").GetComponent<ParticleSystem>());
+                        break;
                     }
-                    renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
-                }
-            }
 
-            else if (tag == "ChoppingCounter" && stub.pseudoPrefabSO.prefabName == "countertop_01_chopping_board_gold")
-            {
-                foreach (Transform child in childGameObject.transform)
-                {
-                    if (child.gameObject.name == "PFX_MagicCloud_Levitate")
-                        child.gameObject.SetActive(false);
-                }
-            }
+                case "wizard_shelf_01":
+                case "wizard_shelf_02":
+                case "wizard_shelf_03":
+                case "wizard_shelf_04":
+                    {
+                        Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
+                        foreach (Light light in lights)
+                        {
+#if UNITY_EDITOR
+                            light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                            light.intensity *= 0.4f;
+                        }
+                        break;
+                    }
 
-            else if (tag == "ServingStation" && stub.pseudoPrefabSO.prefabName == "workstation_plate_station_slim_01_no_block")
-            {
-                childGameObject.transform.Find("Block_Back").gameObject.SetActive(false);
+                case "wizard_sconcecandle_01":
+                    {
+                        Light light = childGameObject.RequestComponentRecursive<Light>();
+                        if (light != null)
+                        {
+#if UNITY_EDITOR
+                            light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                            light.intensity *= 0.3f;
+                            light.range *= 0.5f;
+                        }
+                        break;
+                    }
+
+                case "throne_torch":
+                    {
+                        Light light = childGameObject.RequestComponentRecursive<Light>();
+                        if (light != null)
+                        {
+#if UNITY_EDITOR
+                            light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                            light.color = new Color32(255, 153, 9, 255);
+                            light.range = 5f;
+                        }
+                        break;
+                    }
+
+                case "m_sp_cliff":
+                    {
+                        Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
+                        Material[] materials = renderer.sharedMaterials;
+                        renderer.sharedMaterials = new Material[] { materials[0], materials[1] };
+                        renderer.receiveShadows = true;
+                        break;
+                    }
+
+                case "sp_cliff":
+                    {
+                        Renderer renderer = childGameObject.RequestComponentRecursive<Renderer>();
+                        renderer.receiveShadows = true;
+                        break;
+                    }
+
+                case "sp_rock_01":
+                    {
+                        childGameObject.transform.Find("Point light").gameObject.SetActive(false);
+                        childGameObject.transform.Find("Point light (1)").gameObject.SetActive(false);
+                        break;
+                    }
+
+                case "Alien_Tentacle_01":
+                    {
+                        childGameObject.AddComponent<AnimatorAudioComponent>();
+                        break;
+                    }
+
+                case "restaurant_lantern":
+                case "restaurant_light_01":
+                    {
+                        Light light = childGameObject.RequestComponentRecursive<Light>();
+                        if (light != null)
+                        {
+#if UNITY_EDITOR
+                            light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                            light.range = 3f;
+                            light.intensity = 1f;
+                        }
+                        break;
+                    }
+
+                case "decoration_wall_light 1":
+                    {
+                        Light[] lights = childGameObject.RequestComponentsRecursive<Light>();
+                        foreach (Light light in lights)
+                        {
+#if UNITY_EDITOR
+                            light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
+                        }
+                        break;
+                    }
+
+                case "m_kitchen_firepit_02":
+                    {
+                        childGameObject.transform.Find("PFX_Fire_Hazzard (1)").gameObject.SetActive(false);
+                        break;
+                    }
+
+                case "fire_hazard":
+                    {
+                        childGameObject.transform.Find("heathaze").gameObject.SetActive(false);
+                        childGameObject.transform.Find("glow (1)").gameObject.SetActive(false);
+
+                        ParticleSystem ps = childGameObject.transform.Find("PFX_FireStatic").GetComponent<ParticleSystem>();
+                        ParticleSystem.MainModule main = ps.main;
+                        main.startLifetime = 2f;
+                        main.startSpeed = 0f;
+                        main.startSize = 0.8f;
+                        main.gravityModifier = -0.35f;
+                        main.maxParticles = 50;
+                        ParticleSystem.EmissionModule emission = ps.emission;
+                        emission.rateOverTime = 20;
+                        ParticleSystem.ColorOverLifetimeModule colorOverLifetime = ps.colorOverLifetime;
+                        var colorKeys = colorOverLifetime.color.gradient.colorKeys;
+                        var gradient = new Gradient();
+                        gradient.SetKeys(colorKeys, new GradientAlphaKey[]
+                        {
+                            new GradientAlphaKey{alpha=180/255f, time=0f},
+                            new GradientAlphaKey{alpha=0f, time=0.479f},
+                        });
+                        colorOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);
+                        break;
+                    }
+
+                case "exterior_car":
+                    {
+                        childGameObject.AddComponent<AnimatorAudioComponent>();
+                        break;
+                    }
+
+                case "p_dlc5_camp_fire_02":
+                    {
+                        childGameObject.transform.Find("pfx/Light").gameObject.SetActive(false);
+                        ParticleSystem ps = childGameObject.transform.Find("pfx/glow (1)").GetComponent<ParticleSystem>();
+                        ParticleSystem.MainModule main = ps.main;
+                        main.startSize = 1.6f;
+                        break;
+                    }
+
+                case "snow":
+                    {
+                        Renderer renderer = childGameObject.GetComponent<Renderer>();
+                        if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                        {
+                            Material material = new Material(renderer.sharedMaterial);
+                            material.SetColor("_Colour", new Color32(204, 204, 204, 255));
+                            PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                        }
+                        renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                        break;
+                    }
+
+                case "noripple_m_dlc3_icecliff":
+                    {
+                        childGameObject.transform.Find("ripple").gameObject.SetActive(false);
+                        break;
+                    }
+
+                case "p_dlc09_box_lid":
+                case "p_dlc09_wallbit_01":
+                    {
+                        Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
+                        foreach (Renderer renderer in renderers)
+                        {
+                            if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                            {
+                                Material material = new Material(renderer.sharedMaterial);
+                                material.SetColor("_SnowColour", new Color32(179, 179, 179, 255));
+                                PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                            }
+                            renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                        }
+                        break;
+                    }
+
+                case "NPC_Penguin":
+                    {
+                        Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
+                        childGameObject.transform.Find("Penguin1:RoadKillOut").GetComponent<Renderer>().sharedMaterial = material;
+                        break;
+                    }
+
+                case "DogSled":
+                case "DogSled_Luggage":
+                    {
+                        Material material = gameObject.GetComponent<Renderer>().sharedMaterial;
+                        childGameObject.GetComponent<Renderer>().sharedMaterial = material;
+                        break;
+                    }
+
+                case "p_dlc09_tent":
+                    {
+                        childGameObject.transform.Find("glow").gameObject.SetActive(false);
+                        childGameObject.transform.Find("Point light").gameObject.SetActive(false);
+                        Renderer renderer = childGameObject.transform.Find(childGameObject.name.Replace("p_dlc09", "m_dlc5")).GetComponent<Renderer>();
+                        if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                        {
+                            Material material = new Material(renderer.sharedMaterial);
+                            material.SetColor("_SnowColour", new Color32(179, 179, 179, 255));
+                            PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                        }
+                        renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                        break;
+                    }
+
+                case "Space_Door_Airlock_Open":
+                case "Space_Door_Airlock_Close":
+                case "Space_Door_Airlock_Bool_Open":
+                case "Space_Door_Airlock_Bool_Close":
+                    {
+                        childGameObject.AddComponent<AnimatorAudioComponent>();
+                        Animator animator = childGameObject.GetComponent<Animator>();
+                        foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
+                            trigger.m_targetAnimator = animator;
+                        foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
+                            trigger.m_targetAnimator = animator;
+                        if (tag == "Space_Door_Airlock_Open")
+                            animator.SetTrigger("Open");
+                        if (tag == "Space_Door_Airlock_Bool_Open")
+                            animator.SetBool("IsOpen", true);
+                        break;
+                    }
+
+                case "p_dlc07_keep_flagstone":
+                    {
+                        Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
+                        foreach (Renderer renderer in renderers)
+                        {
+                            if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                            {
+                                Material material = new Material(renderer.sharedMaterial);
+                                material.SetColor("_ColourOverlay", new Color32(40, 40, 40, 255));
+                                PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                            }
+                            renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                        }
+                        break;
+                    }
+
+                case "ChoppingCounter":
+                    {
+                        if (stub.pseudoPrefabSO.prefabName == "countertop_01_chopping_board_gold")
+                        {
+                            foreach (Transform child in childGameObject.transform)
+                            {
+                                if (child.gameObject.name == "PFX_MagicCloud_Levitate")
+                                    child.gameObject.SetActive(false);
+                            }
+                        }
+                        break;
+                    }
+
+                case "ServingStation":
+                    {
+                        if (stub.pseudoPrefabSO.prefabName == "workstation_plate_station_slim_01_no_block")
+                        {
+                            childGameObject.transform.Find("Block_Back").gameObject.SetActive(false);
+                        }
+                        break;
+                    }
+
+                case "Beach_AirParrot":
+                    {
+                        foreach (Transform t in childGameObject.GetComponentsInChildren<Transform>())
+                        {
+                            if (t.name.StartsWith("Bird_takeoff_flight_and_landing:"))
+                                t.name = t.name.Substring(32);
+                        }
+                        childGameObject.transform.Find("m_Beach_Parrot_02").GetComponent<Animator>().Rebind();
+                        break;
+                    }
+
+                case "crate_raft_x2_01":
+                    {
+                        childGameObject.GetComponent<EditorGridSnap>().enabled = false;
+                        break;
+                    }
+
+                default:
+                    break;
             }
         }
 
@@ -401,17 +463,26 @@ namespace LevelEditor
 
         private void HandleSpecificPrefabsClear(string tag)
         {
-            if (false) { }
-            else if (tag.StartsWith("Space_Door_Airlock"))
+            switch (tag)
             {
-                foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
-                {
-                    trigger.m_targetAnimator = null;
-                }
-                foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
-                {
-                    trigger.m_targetAnimator = null;
-                }
+                case "Space_Door_Airlock_Open":
+                case "Space_Door_Airlock_Close":
+                case "Space_Door_Airlock_Bool_Open":
+                case "Space_Door_Airlock_Bool_Close":
+                    {
+                        foreach (var trigger in gameObject.GetComponents<TriggerOnAnimator>())
+                        {
+                            trigger.m_targetAnimator = null;
+                        }
+                        foreach (var trigger in gameObject.GetComponents<TriggerAnimatorSetVariable>())
+                        {
+                            trigger.m_targetAnimator = null;
+                        }
+                        break;
+                    }
+
+                default:
+                    break;
             }
         }
 
