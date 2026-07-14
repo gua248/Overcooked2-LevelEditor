@@ -132,6 +132,8 @@ In the directory `common01/prefabs/art`, organized into subdirectories by theme.
 - `common01/prefabs/art/space/Space_Door_Airlock_*` - Toggleable door
   - Use prefabs without "Bool" in the name for interactive switches, and prefabs with "Bool" for pressure switches.
   - Use prefabs with "Close" in the name for initially closed doors, and prefabs with "Open" for initially opened doors.
+- `PseudoPrefabMeshWithMaterial` - Objects with optional models or materials
+  - For environment objects with this component, you can change the model in `PseudoPrefabMeshWithMaterialStub > pseudoPrefabSO` and change the material in `PseudoPrefabMeshWithMaterialStub > materialSO`. After modifying, click Tools - Reload Pseudo Assets to reload. For example, for `common02/prefabs/art/dlc02_beach/plank`, you can change `pseudoPrefabSO` to `common02/pseudo_prefab_so/art/dlc02_beach/plank*` and change `materialSO` to `common02/pseudo_prefab_so/art/dlc02_beach/mat_dlc2_planks_*`.
 
 
 

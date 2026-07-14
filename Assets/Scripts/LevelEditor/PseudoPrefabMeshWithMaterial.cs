@@ -12,7 +12,10 @@ namespace LevelEditor
         {
             PseudoPrefabMeshWithMaterialStub meshStub = (PseudoPrefabMeshWithMaterialStub)stub;
             Material material = PseudoPrefabManager.LoadAsset<Material>(meshStub.materialSO);
-            childGameObject.GetComponent<Renderer>().material = material;
+            foreach (Renderer renderer in childGameObject.GetComponentsInChildren<Renderer>())
+            {
+                renderer.sharedMaterial = material;
+            }
         }
     }
 }

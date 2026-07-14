@@ -132,6 +132,8 @@
 - `common01/prefabs/art/space/Space_Door_Airlock_*` - 开关门
   - 交互按钮用无 Bool 的，踏板按钮用有 Bool 的。
   - 初始时关闭用 Close 的，初始时开启用 Open 的。
+- `PseudoPrefabMeshWithMaterial` - 多选模型或材质的物体
+  - 带有这个组件的场景物体可在 `PseudoPrefabMeshWithMaterialStub > pseudoPrefabSO` 更换模型，在 `PseudoPrefabMeshWithMaterialStub > materialSO` 更换材质。修改后点击 Tools - Reload Pseudo Assets 重新加载。例如 `common02/prefabs/art/dlc02_beach/plank` 可将 `pseudoPrefabSO` 更换为 `common02/pseudo_prefab_so/art/dlc02_beach/plank*`，`materialSO` 更换为 `common02/pseudo_prefab_so/art/dlc02_beach/mat_dlc2_planks_*`。
 
 
 
