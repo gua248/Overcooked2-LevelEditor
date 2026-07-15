@@ -324,27 +324,61 @@ namespace LevelEditor
         public static GameObject LoadAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            return bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
+            GameObject asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
+            if (asset == null)
+            {
+                Instance.DeInit();
+                Instance.Init();
+            }
+            bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
+            return asset;
         }
 
         public static T LoadAsset<T>(PseudoPrefabSO pseudoPrefabSO) where T : UnityEngine.Object
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            return bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
+            T asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
+            if (asset == null)
+            {
+                Instance.DeInit();
+                Instance.Init();
+            }
+            bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
+            return asset;
         }
 
         public static Sprite LoadSpriteSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            var sprite = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
-            return sprite.Length > 0 ? sprite[0] : null;
+            var sprites = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
+            Sprite sprite = sprites.Length > 0 ? sprites[0] : null;
+            if (sprite == null)
+            {
+                Instance.DeInit();
+                Instance.Init();
+            }
+            bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            sprites = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
+            sprite = sprites.Length > 0 ? sprites[0] : null;
+            return sprite;
         }
 
         public static Mesh LoadMeshSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            var mesh = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
-            return mesh.Length > 0 ? mesh[0] : null;
+            var meshes = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
+            Mesh mesh = meshes.Length > 0 ? meshes[0] : null;
+            if (mesh == null)
+            {
+                Instance.DeInit();
+                Instance.Init();
+            }
+            bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            meshes = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
+            mesh = meshes.Length > 0 ? meshes[0] : null;
+            return mesh;
         }
 
         private AssetBundle LoadAssetBundle(string assetBundleName, bool isLoadingAssetBundleManifest = false)
@@ -375,7 +409,7 @@ namespace LevelEditor
 
         private void LoadAssetBundleInternal(string assetBundleName)
         {
-            string path = Path.Combine(Application.streamingAssetsPath, "Windows") + "/" + assetBundleName;
+            string path = Path.Combine(Application.streamingAssetsPath, "Windows/" + assetBundleName).Replace("\\", "/");
 
             //FileInfo fileInfo = new FileInfo(path);
             //long fileSizeInBytes = fileInfo.Length;
