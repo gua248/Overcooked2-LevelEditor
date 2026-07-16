@@ -34,6 +34,8 @@ namespace LevelEditor
         [NonSerialized]
         public bool prepareForBuilding;
 
+        private bool initializing;
+
         public GameEditState GameEditState
         {
             get
@@ -82,6 +84,8 @@ namespace LevelEditor
 
         public void Init()
         {
+            initializing = true;
+
             EnsureLoadAllAssetBundles();
             if (GameEditState == GameEditState.Game || GameEditState == GameEditState.Edit)
             {
@@ -105,6 +109,8 @@ namespace LevelEditor
                 editedMaterials.Clear();
                 ResetAllPseudoPrefabs();
             }
+
+            initializing = false;
         }
 
         public void DeInit()
@@ -325,7 +331,7 @@ namespace LevelEditor
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             GameObject asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
-            if (asset == null)
+            if (asset == null && !Instance.initializing)
             {
                 Instance.DeInit();
                 Instance.Init();
@@ -339,7 +345,7 @@ namespace LevelEditor
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             T asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
-            if (asset == null)
+            if (asset == null && !Instance.initializing)
             {
                 Instance.DeInit();
                 Instance.Init();
@@ -354,7 +360,7 @@ namespace LevelEditor
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             var sprites = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
             Sprite sprite = sprites.Length > 0 ? sprites[0] : null;
-            if (sprite == null)
+            if (sprite == null && !Instance.initializing)
             {
                 Instance.DeInit();
                 Instance.Init();
@@ -370,7 +376,7 @@ namespace LevelEditor
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             var meshes = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
             Mesh mesh = meshes.Length > 0 ? meshes[0] : null;
-            if (mesh == null)
+            if (mesh == null && !Instance.initializing)
             {
                 Instance.DeInit();
                 Instance.Init();
