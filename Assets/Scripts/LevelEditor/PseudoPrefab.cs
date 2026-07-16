@@ -297,6 +297,12 @@ namespace LevelEditor
                         break;
                     }
 
+                case "p_dlc5_camp_fire_02_nopfx":
+                    {
+                        childGameObject.transform.Find("pfx").gameObject.SetActive(false);
+                        break;
+                    }
+
                 case "snow":
                     {
                         Renderer renderer = childGameObject.GetComponent<Renderer>();

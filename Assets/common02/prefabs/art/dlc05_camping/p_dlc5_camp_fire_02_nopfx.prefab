@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114539763866141444}
   - component: {fileID: 114720736515706998}
   m_Layer: 0
-  m_Name: p_dlc5_camp_fire_02
+  m_Name: p_dlc5_camp_fire_02_nopfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,4 +77,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabTag: p_dlc5_camp_fire_02
+  prefabTag: p_dlc5_camp_fire_02_nopfx

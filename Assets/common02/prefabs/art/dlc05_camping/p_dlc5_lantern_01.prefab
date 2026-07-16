@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4167169991108032}
   - component: {fileID: 114116881472672068}
   - component: {fileID: 114147546549409168}
+  - component: {fileID: 114957953996991890}
   m_Layer: 0
   m_Name: p_dlc5_lantern_01
   m_TagString: Untagged
@@ -65,3 +66,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childGameObject: {fileID: 0}
+--- !u!114 &114957953996991890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195036295102544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: restaurant_lantern
