@@ -123,7 +123,7 @@ In the directory `common01/prefabs/art`, organized into subdirectories by theme.
 
 On the `PseudoPrefabManager > PseudoPrefabManagerStub` component:
 
-- The `inLevelMusicSO` field is used to set the level music. The assets are located in the `common01/pseudo_prefab_so/audio/music` directory. __If using the raft-themed BGM (`DownTheRiverSO`), an additional entry `bundle11` must be added to `LevelInfoSO.dependencies`.__
+- The `inLevelMusicSO` field is used to set the level music. The assets are located in the `common*/pseudo_prefab_so/audio/music` directory. __Many BGMs use bundles that are not loaded by the game by default, so you need to add the BGM's bundle to `LevelInfoSO.dependencies`.__
 
 - The `inlevelAmbiences` field is used to add level ambient sound effect tags. See the scenes in the `test` and `oc1_story` level sets for reference.
 
@@ -184,7 +184,7 @@ On the `PseudoPrefabManager > PseudoPrefabManagerStub` component:
 - Do not modify temporary objects.
 - The name of the level set configuration must be `LevelSetInfo`.
 - Do not create new assets in the `common*` directory. They should be created within your level set directory so that they are packaged into your level set info bundle or scene bundle.
-- If using the raft-themed BGM (`DownTheRiverSO`), an additional entry `bundle11` must be added to `LevelInfoSO.dependencies`.
+- Add the BGM's bundle to `LevelInfoSO.dependencies`.
 - If you find that a counter does not highlight when the player approaches it (this issue occurs when the counter appearance is set to `CounterCampingSO`), add a `FogConfig` component to `MultiplayerGameCamera/Camera` and set the `fogFar` field to 10000 and the `fogColour` field to pure black. See `s_oc1_story_3_1` for reference.
 - When releasing a new version of the level set, remember to update `LevelSetInfoSO.version`.
 

@@ -129,7 +129,7 @@
 
 在 `PseudoPrefabManager > PseudoPrefabManagerStub` 组件上：
 
-- `inLevelMusicSO` 字段选择关卡音乐资源，资源位置在 `common01/pseudo_prefab_so/audio/music` 目录。__若使用木筏主题的 BGM（`DownTheRiverSO`）需在 `LevelInfoSO.dependencies` 额外添加一项 `bundle11`。__
+- `inLevelMusicSO` 字段选择关卡音乐资源，资源位置在 `common*/pseudo_prefab_so/audio/music` 目录。__许多 BGM 所在 bundle 不在游戏默认加载的 bundle 列表中，需要在 `LevelInfoSO.dependencies` 额外添加 BGM 所在 bundle。__
 
 - `inlevelAmbiences` 字段添加关卡氛围音效 tag，参考 `test` 和 `oc1_story` 两个关卡集中的场景。
 
@@ -190,7 +190,7 @@
 - 不要操作临时加载的物体。
 - 关卡集配置的命名必须为 `LevelSetInfo`。
 - 不要在 `common*` 目录下创建新资源。应该创建在你的关卡集目录下，使得它被打包到你的关卡集 info 包或场景包中。
-- 若使用木筏主题的 BGM（`DownTheRiverSO`）需在 `LevelInfoSO.dependencies` 额外添加一项 `bundle11`。
+- 在 `LevelInfoSO.dependencies` 额外添加 BGM 所在 bundle。
 - 如果发现桌台靠近时没有高光（桌台外观选 `CounterCampingSO` 会有这一问题），在 `MultiplayerGameCamera/Camera` 添加组件 `FogConfig` 并设置字段 `fogFar` 为 10000，`fogColour` 为纯黑。参考 `s_oc1_story_3_1`。
 - 发布关卡集的新版本时，记得修改 `LevelSetInfoSO.version`。
 
