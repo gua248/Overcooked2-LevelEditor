@@ -442,6 +442,14 @@ namespace LevelEditor
                         break;
                     }
 
+                case "RopeSwing_Group03":
+                    {
+                        Transform parent = childGameObject.transform.Find("AnimationPivot/Child_PivotOffset/Child_Animation/p_dlc5_hanging_masonjar (3)/m_dlc5_hanging_masonjar_01");
+                        foreach (Renderer renderer in parent.GetComponentsInChildren<Renderer>())
+                            renderer.enabled = true;
+                        break;
+                    }
+
                 default:
                     break;
             }
