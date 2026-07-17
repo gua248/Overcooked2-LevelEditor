@@ -43,15 +43,17 @@ public class BatchCreatePseudoPrefab
 
         // 3. 遍历用户选中路径下的所有文件
         string[] files = Directory.GetFiles(selectedPath, "*.prefab", SearchOption.TopDirectoryOnly);
+        string[] assetFiles = Directory.GetFiles(selectedPath, "*.asset", SearchOption.TopDirectoryOnly);
+        int tot = files.Length + assetFiles.Length;
 
         int count = 0;
-        EditorUtility.DisplayProgressBar("正在处理", "资源 0/" + files.Length.ToString(), 0);
+        EditorUtility.DisplayProgressBar("正在处理", "资源 0/" + tot.ToString(), 0);
         for (int i = 0; i < files.Length; i++)
         {
             EditorUtility.DisplayProgressBar(
-                "正在处理", 
-                "资源 " + (count+1).ToString() + "/" + files.Length.ToString(), 
-                (float)count / files.Length);
+                "正在处理",
+                "资源 " + (count + 1).ToString() + "/" + tot.ToString(),
+                (float)count / tot);
 
             string file = files[i];
             string standardizedPath = file.Replace('\\', '/');
@@ -80,6 +82,32 @@ public class BatchCreatePseudoPrefab
             // 9. 核心：将这个配置好的游戏物体直接存为硬盘上的 Prefab
             PrefabUtility.CreatePrefab(prefabSavePath, prefab);
             Object.DestroyImmediate(prefab);
+
+            count++;
+        }
+
+        for (int i = 0; i < assetFiles.Length; i++)
+        {
+            EditorUtility.DisplayProgressBar(
+                "正在处理",
+                "资源 " + (count + 1).ToString() + "/" + tot.ToString(),
+                (float)count / tot);
+
+            string file = assetFiles[i];
+            string standardizedPath = file.Replace('\\', '/');
+            int index = standardizedPath.IndexOf("Assets/", System.StringComparison.OrdinalIgnoreCase);
+
+            string assetPath = index != -1 ? standardizedPath.Substring(index) : standardizedPath;
+            string nameWithoutExt = Path.GetFileNameWithoutExtension(file);
+
+            // 4. 创建 ScriptableObject 实例
+            PseudoPrefabSO soInstance = ScriptableObject.CreateInstance<PseudoPrefabSO>();
+            soInstance.assetPath = assetPath;
+            soInstance.prefabName = nameWithoutExt;
+
+            // 5. 拼接并在工程内创建该 .asset 资源
+            string soSavePath = Path.Combine(soPath, nameWithoutExt + ".asset").Replace("\\", "/");
+            AssetDatabase.CreateAsset(soInstance, soSavePath);
 
             count++;
         }
