@@ -133,7 +133,7 @@
 
 - `inlevelAmbiences` 字段添加关卡氛围音效 tag，参考 `test` 和 `oc1_story` 两个关卡集中的场景。
 
-- `audioDirectorySOs` 字段添加音效集资源，资源位置在 `common01/pseudo_prefab_so/audio/AudioDirectories` 目录。如果氛围音效 tag 或者一些场景物体使用了不在 `audioDirectorySOs` 列表里的 tag，会看到报错
+- `audioDirectorySOs` 字段添加音效集资源，资源位置在 `common02/pseudo_prefab_so/audio/AudioDirectories` 目录。如果氛围音效 tag 或者一些场景物体使用了不在 `audioDirectorySOs` 列表里的 tag，会看到报错
 
   ```
   ArgumentOutOfRangeException: Argument is out of range.

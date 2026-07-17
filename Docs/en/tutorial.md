@@ -127,7 +127,7 @@ On the `PseudoPrefabManager > PseudoPrefabManagerStub` component:
 
 - The `inlevelAmbiences` field is used to add level ambient sound effect tags. See the scenes in the `test` and `oc1_story` level sets for reference.
 
-- The `audioDirectorySOs` field is used to add sound effect directories. The assets are located in the `common01/pseudo_prefab_so/audio/AudioDirectories` directory. If an ambient sound effect tag or certain environment objects use a tag not listed in `audioDirectorySOs`, you will see the following error in the Console panel:
+- The `audioDirectorySOs` field is used to add sound effect directories. The assets are located in the `common02/pseudo_prefab_so/audio/AudioDirectories` directory. If an ambient sound effect tag or certain environment objects use a tag not listed in `audioDirectorySOs`, you will see the following error in the Console panel:
 
   ```
   ArgumentOutOfRangeException: Argument is out of range.
