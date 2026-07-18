@@ -33,7 +33,7 @@
 4. 在 `xxx/data` 目录右键 Create - LevelEditor - LevelSetInfoSO 创建关卡集配置，__命名为 `LevelSetInfo`（此命名不可更改）__，填写数据。[LevelSetInfoSO 说明](reference.md#LevelSetInfoSO)
 5. 多个关卡同理，把所有 `LevelInfo` 添加到 `LevelSetInfo.levelInfos` 即可。
 6. 复制模板场景 `Template/s_template` 到 `xxx/scenes` 目录，重命名为 `s_xxx_1`。
-7. 打开场景 `s_xxx_1`，修改根物体 `PseudoPrefabManager` 上的 `PseudoPrefabManagerStub.levelInfo` 引用为刚创建的关卡配置 `LevelInfo_xxx_1`。点击 Tools - Reload Pseudo Assets 加载新的关卡配置。
+7. 打开场景 `s_xxx_1`，__修改根物体 `PseudoPrefabManager` 上的 `PseudoPrefabManagerStub.levelInfo` 引用为刚创建的关卡配置 `LevelInfo_xxx_1`__。点击 Tools - Reload Pseudo Assets 加载新的关卡配置。
 8. [编辑场景](#编辑场景)。点击 Play 可以运行关卡。
 9. __点击 Tools - Toggle Prepare For Building 清除临时加载的物体，然后__保存场景。
 
@@ -185,6 +185,7 @@
 
 #### 注意事项
 
+- 复制场景时，记得修改根物体 `PseudoPrefabManager` 上的 `PseudoPrefabManagerStub.levelInfo` 引用。
 - 保存和构建场景前先点击 Tools - Toggle Prepare For Building 清除临时加载的物体。
 - 切换场景或关闭 Unity 前记得保存场景。如果忘了保存，在确认弹窗中点 Cancel 返回，不要点 Save。
 - 不要操作临时加载的物体。

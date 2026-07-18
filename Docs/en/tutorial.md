@@ -33,7 +33,7 @@ Assume you want to create a new level set named `xxx`, which contains a single l
 4. Right-click the `xxx/data` directory and select Create – LevelEditor – LevelSetInfoSO to create a level set configuration. __Name it `LevelSetInfo` (this name cannot be changed)__ and fill in the data. [LevelSetInfoSO reference](reference.md#LevelSetInfoSO)
 5. For multiple levels, follow the same procedure and simply add all `LevelInfo` to `LevelSetInfo.levelInfos`.
 6. Duplicate the template scene `Template/s_template` to the `xxx/scenes` directory and rename it to `s_xxx_1`.
-7. Open the scene `s_xxx_1` and modify the `PseudoPrefabManagerStub.levelInfo` reference on the root object `PseudoPrefabManager` to the newly created level configuration `LevelInfo_xxx_1`. Click Tools – Reload Pseudo Assets to load the level configuration.
+7. Open the scene `s_xxx_1` and __modify the `PseudoPrefabManagerStub.levelInfo` reference on the root object `PseudoPrefabManager` to the newly created level configuration `LevelInfo_xxx_1`__. Click Tools – Reload Pseudo Assets to load the level configuration.
 8. [Edit the scene](#Editing-the-Scene). Click Play to run the level.
 9. __Click Tools – Toggle Prepare For Building to clear temporary objects, then__ save the scene.
 
@@ -179,6 +179,7 @@ On the `PseudoPrefabManager > PseudoPrefabManagerStub` component:
 
 #### Important Notes
 
+- When duplicating a scene, remember to modify the `PseudoPrefabManagerStub.levelInfo` reference on the root object `PseudoPrefabManager`.
 - Click Tools - Toggle Prepare For Building to clear temporary objects when saving and building the scene.
 - Remember to save the scene before switching scenes or closing Unity. If you forget to save, click Cancel in the confirmation dialogue to return; do not click Save.
 - Do not modify temporary objects.
