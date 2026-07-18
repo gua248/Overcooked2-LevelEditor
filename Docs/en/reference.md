@@ -120,14 +120,14 @@ In the directory `common02/prefabs/mechanisms`:
 
 ### Environment Objects
 
-In the directory `common01/prefabs/art`, organized into subdirectories by theme.
+In the directory `common*/prefabs/art`, organized into subdirectories by theme.
 
 - To align seams, change the Shading Mode to Wireframe, select the object, and hold the `v` key to snap to vertices.
 
 #### Special Objects
 
-- `common01/prefabs/art/npc` - NPC
-  - `PseudoPrefabNPCStub > animatorControllerSO` - NPC animator. The assets are located in the directory `common01/pseudo_prefab_so/art/NPC`, options are `NPC_Diner_Not_Choose_SO, NPC_Diner_Solo_SO, NPC_Waiter_Idle_NotChoose_01_SO, NPC_Walking_01_SO`.
+- `common*/prefabs/art/npc` - NPC
+  - `PseudoPrefabNPCStub > animatorControllerSO` - NPC animator. The assets are located in the directory `common02/pseudo_prefab_so/art/npc/animators`.
 - `common01/prefabs/art/city_sushi/NPC_Walk_Anticlockwise_*s` - NPCs walking in a circle
 - `common01/prefabs/art/space/Space_Door_Airlock_*` - Toggleable door
   - Use prefabs without "Bool" in the name for interactive switches, and prefabs with "Bool" for pressure switches.

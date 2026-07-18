@@ -93,7 +93,7 @@ Assume that the level set `xxx` contains a single level, `xxx-1`.
 
 ##### Environment Objects
 
-In the directory `common01/prefabs/art`, organized into subdirectories by theme.
+In the directory `common*/prefabs/art`, organized into subdirectories by theme.
 
 [Environment Objects reference](reference.md#Environment-Objects)
 

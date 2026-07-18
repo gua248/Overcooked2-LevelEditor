@@ -99,7 +99,7 @@
 
 ##### 场景物体
 
-在 `common01/prefabs/art` 下，按主题分目录。
+在 `common*/prefabs/art` 下，按主题分目录。
 
 [场景物体说明](reference.md#场景物体)
 

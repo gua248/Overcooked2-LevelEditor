@@ -120,14 +120,14 @@
 
 ### 场景物体
 
-在 `common01/prefabs/art` 下，按主题分目录。
+在 `common*/prefabs/art` 下，按主题分目录。
 
 - 对齐接缝可以把 Shading Mode 改成 Wireframe，选中物体后按住 `v` 键吸附顶点。
 
 #### 特殊物体
 
-- `common01/prefabs/art/npc` - NPC
-  - `PseudoPrefabNPCStub > animatorControllerSO` - NPC 动画，资源位置 `common01/pseudo_prefab_so/art/NPC`，可选 `NPC_Diner_Not_Choose_SO, NPC_Diner_Solo_SO, NPC_Waiter_Idle_NotChoose_01_SO, NPC_Walking_01_SO`。
+- `common*/prefabs/art/npc` - NPC
+  - `PseudoPrefabNPCStub > animatorControllerSO` - NPC 动画，资源位置 `common02/pseudo_prefab_so/art/npc/animators`。
 - `common01/prefabs/art/city_sushi/NPC_Walk_Anticlockwise_*s` - 绕圈行走的 NPC
 - `common01/prefabs/art/space/Space_Door_Airlock_*` - 开关门
   - 交互按钮用无 Bool 的，踏板按钮用有 Bool 的。
