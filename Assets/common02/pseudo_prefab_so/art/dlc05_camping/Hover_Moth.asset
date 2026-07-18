@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: Hover_Moth
   m_EditorClassIdentifier: 
   prefabName: Hover_Moth
-  bundleName: 
+  bundleName: bundle250
   assetPath: Assets/downloadablecontent/dlc05/dlc_assets/prefabs/animatingobjects/Hover_Moth.prefab

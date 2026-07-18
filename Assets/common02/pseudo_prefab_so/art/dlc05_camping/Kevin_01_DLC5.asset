@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: Kevin_01_DLC5
   m_EditorClassIdentifier: 
   prefabName: Kevin_01_DLC5
-  bundleName: 
+  bundleName: bundle250
   assetPath: Assets/downloadablecontent/dlc05/dlc_assets/prefabs/animatingobjects/Kevin_01_DLC5.prefab

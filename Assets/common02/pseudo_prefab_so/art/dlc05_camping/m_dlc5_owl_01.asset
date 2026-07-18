@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: m_dlc5_owl_01
   m_EditorClassIdentifier: 
   prefabName: m_dlc5_owl_01
-  bundleName: 
+  bundleName: bundle250
   assetPath: Assets/downloadablecontent/dlc05/dlc_assets/prefabs/animatingobjects/m_dlc5_owl_01.prefab

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: StoryOnionKing_DLC5
   m_EditorClassIdentifier: 
   prefabName: StoryOnionKing_DLC5
-  bundleName: 
+  bundleName: bundle250
   assetPath: Assets/downloadablecontent/dlc05/dlc_assets/prefabs/animatingobjects/StoryOnionKing_DLC5.prefab

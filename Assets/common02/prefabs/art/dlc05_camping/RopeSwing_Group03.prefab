@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4706797740863894}
   - component: {fileID: 114787007075149582}
   - component: {fileID: 114416781637689134}
+  - component: {fileID: 114830664088950432}
   m_Layer: 0
   m_Name: RopeSwing_Group03
   m_TagString: Untagged
@@ -65,3 +66,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudoPrefabSO: {fileID: 11400000, guid: 54df56849d2d2ba4db82b9c8839cbcc0, type: 2}
+--- !u!114 &114830664088950432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904695134318370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: RopeSwing_Group03
