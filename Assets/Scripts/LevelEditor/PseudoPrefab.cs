@@ -30,9 +30,13 @@ namespace LevelEditor
 
         public void ResetChild()
         {
-            ClearChild();
+            if (stub == null)
+                stub = GetComponent<PseudoPrefabStub>();
 
             GameObject prefab = PseudoPrefabManager.LoadAsset(stub.pseudoPrefabSO);
+            // ResetChild may be called again in LoadAsset(), instantiating a child object
+            // thus ClearChild() here, otherwise two child objects are instantiated
+            ClearChild();
             childGameObject = Instantiate(prefab, transform.position, transform.rotation, transform);
             childGameObject.name = stub.pseudoPrefabSO.prefabName;
 
@@ -457,8 +461,6 @@ namespace LevelEditor
 
         public void ClearChild()
         {
-            if (stub == null)
-                stub = GetComponent<PseudoPrefabStub>();
             Cleanup();
 
             var children = transform.Cast<Transform>().ToList();
@@ -514,7 +516,6 @@ namespace LevelEditor
 
         public virtual void Cleanup()
         {
-
         }
 
         private void Update()
