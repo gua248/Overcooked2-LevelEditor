@@ -115,6 +115,15 @@ public class LevelInfoSOEditor : Editor
                 }
             }
         }
+        foreach (PseudoPrefabIngredientSprayStub pseudoPrefabIngredientSprayStub in FindObjectsOfType<PseudoPrefabIngredientSprayStub>())
+        {
+            OrderDefinitionNode orderDefinitionNode = RecipeHelper.GetIngredientOrItemOrderNode(pseudoPrefabIngredientSprayStub.orderPrefabSO);
+            if (!allOrderDefinitionNodes.Any(x => x.Equals(orderDefinitionNode)))
+            {
+                allOrderDefinitionNodes.Add(orderDefinitionNode);
+                allIngredients.Add(pseudoPrefabIngredientSprayStub.orderPrefabSO);
+            }
+        }
         foreach (SpecificPseudoPrefabTag specificPseudoPrefabTag in FindObjectsOfType<SpecificPseudoPrefabTag>())
         {
             switch (specificPseudoPrefabTag.prefabTag)
