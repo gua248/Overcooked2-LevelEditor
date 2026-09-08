@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4134050193720442}
   - component: {fileID: 114809363955802926}
   - component: {fileID: 114483359370835308}
+  - component: {fileID: 114534272775445858}
   m_Layer: 0
   m_Name: p_dlc7_courtyard_cobble_edge_05
   m_TagString: Untagged
@@ -53,6 +54,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childGameObject: {fileID: 0}
+--- !u!114 &114534272775445858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214100266843682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: cobble
 --- !u!114 &114809363955802926
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4966198852477006}
   - component: {fileID: 114841950204161256}
   - component: {fileID: 114286311385286764}
+  - component: {fileID: 114858859995953502}
   m_Layer: 0
   m_Name: p_dlc7_cobble_edge_03
   m_TagString: Untagged
@@ -65,3 +66,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudoPrefabSO: {fileID: 11400000, guid: bca1f9130e1ce6c40b0760ff3b070f0e, type: 2}
+--- !u!114 &114858859995953502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467091354602878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: cobble

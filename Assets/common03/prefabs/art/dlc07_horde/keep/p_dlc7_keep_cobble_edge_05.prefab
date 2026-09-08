@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4996406324229554}
   - component: {fileID: 114772536830705000}
   - component: {fileID: 114849566283496490}
+  - component: {fileID: 114508449540668004}
   m_Layer: 0
   m_Name: p_dlc7_keep_cobble_edge_05
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114508449540668004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181282963381412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: cobble
 --- !u!114 &114772536830705000
 MonoBehaviour:
   m_ObjectHideFlags: 1

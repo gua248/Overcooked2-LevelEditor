@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4026392088342336}
   - component: {fileID: 114621706324263722}
   - component: {fileID: 114938859908051860}
+  - component: {fileID: 114463251385088920}
   m_Layer: 0
   m_Name: p_dlc7_cobble_02
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114463251385088920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515848184935282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: cobble
 --- !u!114 &114621706324263722
 MonoBehaviour:
   m_ObjectHideFlags: 1

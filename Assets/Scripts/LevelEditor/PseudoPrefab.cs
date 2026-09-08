@@ -780,6 +780,22 @@ namespace LevelEditor
                         break;
                     }
 
+                case "cobble":
+                    {
+                        Renderer[] renderers = childGameObject.RequestComponentsRecursive<Renderer>();
+                        foreach (Renderer renderer in renderers)
+                        {
+                            if (!PseudoPrefabManager.Instance.editedMaterials.ContainsKey(renderer.sharedMaterial.name))
+                            {
+                                Material material = new Material(renderer.sharedMaterial);
+                                material.SetTexture("_Detail", null);
+                                PseudoPrefabManager.Instance.editedMaterials.Add(renderer.sharedMaterial.name, material);
+                            }
+                            renderer.sharedMaterial = PseudoPrefabManager.Instance.editedMaterials[renderer.sharedMaterial.name];
+                        }
+                        break;
+                    }
+
                 default:
                     break;
             }

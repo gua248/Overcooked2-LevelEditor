@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4452049817254474}
   - component: {fileID: 114800941076941636}
   - component: {fileID: 114474446792708120}
+  - component: {fileID: 114832809509936004}
   m_Layer: 0
   m_Name: p_dlc07_courtyard_cobble_path_02
   m_TagString: Untagged
@@ -65,3 +66,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudoPrefabSO: {fileID: 11400000, guid: 7fc01abafe9ed2c4f9a80cbab558efbe, type: 2}
+--- !u!114 &114832809509936004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1988361494864706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b19728b6e0dfe44baf2f80df9bfc1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: cobble
