@@ -926,6 +926,19 @@ namespace LevelEditor
                         break;
                     }
 
+                case "dlc08_condiment_dispenser":
+                case "dlc08_drink_machine":
+                case "dlc11_drink_dispenser":
+                case "TriggerOnChild":
+                case "dlc11_condiment_dispenser":
+                    {
+                        foreach (var componet in gameObject.GetComponents<TriggerOnObject>())
+                        {
+                            componet.m_targetObject = null;
+                        }
+                        break;
+                    }
+
                 default:
                     break;
             }
