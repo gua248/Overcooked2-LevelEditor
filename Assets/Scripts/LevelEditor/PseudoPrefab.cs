@@ -796,6 +796,14 @@ namespace LevelEditor
                         break;
                     }
 
+                case "Bellows":
+                    {
+                        BellowsCosmeticDecisions bellowsCosmeticDecisions = childGameObject.GetComponent<BellowsCosmeticDecisions>();
+                        Animator animator = bellowsCosmeticDecisions.m_animTransform.gameObject.AddComponent<Animator>();
+                        animator.runtimeAnimatorController = bellowsCosmeticDecisions.m_animController;
+                        break;
+                    }
+
                 default:
                     break;
             }
