@@ -43,7 +43,8 @@ public class BatchCreatePseudoPrefab
 
         // 3. 遍历用户选中路径下的所有文件
         string[] files = Directory.GetFiles(selectedPath, "*.prefab", SearchOption.TopDirectoryOnly);
-        string[] assetFiles = Directory.GetFiles(selectedPath, "*.asset", SearchOption.TopDirectoryOnly);
+        string[] assetFiles = new string[0];
+        //string[] assetFiles = Directory.GetFiles(selectedPath, "*.asset", SearchOption.TopDirectoryOnly);
         string[] matFiles = Directory.GetFiles(selectedPath, "*.mat", SearchOption.TopDirectoryOnly);
         int tot = files.Length + assetFiles.Length + matFiles.Length;
 
@@ -65,6 +66,7 @@ public class BatchCreatePseudoPrefab
 
             // 4. 创建 ScriptableObject 实例
             PseudoPrefabSO soInstance = ScriptableObject.CreateInstance<PseudoPrefabSO>();
+            //soInstance.assetPath = assetPath.Replace(".prefab", ".fbx");
             soInstance.assetPath = assetPath;
             soInstance.prefabName = nameWithoutExt;
 
