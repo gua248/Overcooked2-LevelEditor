@@ -235,7 +235,10 @@ public class ServerPreparationContainer : ServerSynchroniserBase, IHandlePlaceme
 		{
 			ServerIngredientContainer component = gameObject.GetComponent<ServerIngredientContainer>();
 			AddOrderContents(orderDefinitionOfCarriedItem);
-			component.RemoveIngredient(0);
+			// patch
+			//component.RemoveIngredient(0);
+			component.Empty();
+			// patch
 		}
 		else if (gameObject.GetComponent<Plate>() != null)
 		{
