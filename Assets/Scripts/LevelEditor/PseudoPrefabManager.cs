@@ -340,34 +340,29 @@ namespace LevelEditor
 
         public static GameObject LoadAsset(PseudoPrefabSO pseudoPrefabSO)
         {
-            AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            GameObject asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
-            if (asset == null && !Instance.initializing)
-            {
-                Instance.DeInit();
-                Instance.Init();
-            }
-            bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
-            return asset;
+            return LoadAsset<GameObject>(pseudoPrefabSO);
         }
 
         public static T LoadAsset<T>(PseudoPrefabSO pseudoPrefabSO) where T : UnityEngine.Object
         {
+            if (pseudoPrefabSO.asset != null && pseudoPrefabSO.asset is T)
+                return pseudoPrefabSO.asset as T;
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             T asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
             if (asset == null && !Instance.initializing)
             {
                 Instance.DeInit();
                 Instance.Init();
+                bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+                asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
             }
-            bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
-            asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
             return asset;
         }
 
         public static Sprite LoadSpriteSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
+            if (pseudoPrefabSO.asset != null && pseudoPrefabSO.asset is Sprite)
+                return pseudoPrefabSO.asset as Sprite;
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             var sprites = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
             Sprite sprite = sprites.Length > 0 ? sprites[0] : null;
@@ -384,6 +379,8 @@ namespace LevelEditor
 
         public static Mesh LoadMeshSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
+            if (pseudoPrefabSO.asset != null && pseudoPrefabSO.asset is Mesh)
+                return pseudoPrefabSO.asset as Mesh;
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
             var meshes = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
             Mesh mesh = meshes.Length > 0 ? meshes[0] : null;
