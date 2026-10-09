@@ -84,6 +84,26 @@ namespace LevelEditor
                 HandleSpecificPrefabs(specificPseudoPrefabTag.prefabTag);
             }
 
+            DestroyComponentOfChildStub destroyComponentOfChildStub = GetComponent<DestroyComponentOfChildStub>();
+            if (destroyComponentOfChildStub != null && !destroyComponentOfChildStub.componentNames.IsEmpty())
+            {
+                foreach (string typeName in destroyComponentOfChildStub.componentNames)
+                {
+                    if (string.IsNullOrEmpty(typeName))
+                        continue;
+                    Type type = Type.GetType(typeName);
+                    if (type == null || !typeof(Component).IsAssignableFrom(type))
+                    {
+                        Debug.LogWarning("can't find component type: " + typeName);
+                        continue;
+                    }
+                    foreach (Component component in childGameObject.GetComponents(type))
+                    {
+                        DestroyImmediate(component);
+                    }
+                }
+            }
+
             Setup();
         }
 
