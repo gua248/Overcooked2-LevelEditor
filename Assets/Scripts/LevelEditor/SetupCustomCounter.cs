@@ -11,9 +11,9 @@ namespace LevelEditor
         {
             base.Setup();
             SetupCustomCounterStub counterStub = (SetupCustomCounterStub)stub;
-            GameObject progressUIPrefab = PseudoPrefabManager.LoadAsset(counterStub.progressUIPrefabSO);
-            GameObject fireEffectPrefab = PseudoPrefabManager.LoadAsset(counterStub.fireEffectPrefabSO);
-            GameObject chopPFX = PseudoPrefabManager.LoadAsset(counterStub.chopPFXSO);
+            GameObject progressUIPrefab = counterStub.progressUIPrefabSO == null ? null : PseudoPrefabManager.LoadAsset(counterStub.progressUIPrefabSO);
+            GameObject fireEffectPrefab = counterStub.fireEffectPrefabSO == null ? null : PseudoPrefabManager.LoadAsset(counterStub.fireEffectPrefabSO);
+            GameObject chopPFX = counterStub.chopPFXSO == null ? null : PseudoPrefabManager.LoadAsset(counterStub.chopPFXSO);
 
             Flammable flammable = GetComponent<Flammable>();
             Workstation workstation = GetComponent<Workstation>();
