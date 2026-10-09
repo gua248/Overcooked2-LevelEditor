@@ -88,11 +88,12 @@ namespace LevelEditor
                     {
                         if (!(recipes[i] is CustomRecipeSO)) continue;
                         CustomRecipeSO customRecipeSO = (CustomRecipeSO)recipes[i];
-                        if (customRecipeSO.modelSO == null) continue;
                         for (int j = 0; j < config.optionalRecipeMatchListItems.Length; j++)
                         {
-                            CustomRecipeSO customRecipe = config.optionalRecipeMatchListItems[j] as CustomRecipeSO;
-                            if (customRecipe != null && customRecipeSO.modelSO == customRecipe.modelSO)
+                            CustomRecipeSO optional = config.optionalRecipeMatchListItems[j] as CustomRecipeSO;
+                            if (optional == null) continue;
+                            if (optional.model != null && customRecipeSO.model != null && optional.model == customRecipeSO.model ||
+                                optional.modelSO != null && customRecipeSO.modelSO != null && optional.modelSO == customRecipeSO.modelSO)
                             {
                                 recipeList.m_recipes[i].m_order.m_platingPrefab = optionalRecipeMatchListItems[j].m_platingPrefab;
                                 break;
