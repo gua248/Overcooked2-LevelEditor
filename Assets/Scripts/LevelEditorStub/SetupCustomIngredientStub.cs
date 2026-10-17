@@ -13,10 +13,5 @@ namespace LevelEditorStub
         [SerializeField] public PseudoPrefabSO throwParticleSO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO progressUIPrefabSO;
-
-        private void Awake()
-        {
-            // entry for bepinex plugin patch
-        }
     }
 }

@@ -11,6 +11,16 @@ namespace LevelEditor
 {
     public static class RecipeHelper
     {
+        public static OrderToPrefabLookup BuildOrderToPrefabLookup(OrderToPrefabListSO orderToPrefabListSO)
+        {
+            return GetOrderToPrefabLookup(
+                orderToPrefabListSO.name,
+                orderToPrefabListSO.recipes,
+                orderToPrefabListSO.models,
+                orderToPrefabListSO.modelSOs,
+                null);
+        }
+
         public static RecipeList.Entry GetRecipe(ScriptableObject recipeSO)
         {
             if (recipeSO is PseudoPrefabSORecipe)
@@ -49,6 +59,34 @@ namespace LevelEditor
         public static OrderDefinitionNode GetOrderDefinitionNodeCustomRecipe(CustomRecipeSO customRecipeSO)
         {
             FixOldCustomRecipeSO(customRecipeSO);
+
+            if (customRecipeSO.type == CustomRecipeSO.RecipeType.Ingredient)
+            {
+                IngredientOrderNode node0 = GetIngredientOrderNode(customRecipeSO.compositionSOs[0] as PseudoPrefabSO);
+                IngredientOrderNode node = ScriptableObject.CreateInstance<IngredientOrderNode>();
+                node.name = node0.name;
+                node.m_uID = node0.m_uID;
+                node.m_platingStep = customRecipeSO.platingStepSO != null ? PseudoPrefabManager.LoadAsset<PlatingStepData>(customRecipeSO.platingStepSO) : null;
+                node.m_platingPrefab = customRecipeSO.GetModel();
+                node.m_iconSprite = node0.m_iconSprite;
+                node.m_crateLid = node0.m_crateLid;
+                node.m_colour = node0.m_colour;
+                return node;
+            }
+            if (customRecipeSO.type == CustomRecipeSO.RecipeType.Item)
+            {
+                ItemOrderNode node0 = GetItemOrderNode(customRecipeSO.compositionSOs[0] as PseudoPrefabSO);
+                ItemOrderNode node = ScriptableObject.CreateInstance<ItemOrderNode>();
+                node.name = node0.name;
+                node.m_uID = node0.m_uID;
+                node.m_platingStep = customRecipeSO.platingStepSO != null ? PseudoPrefabManager.LoadAsset<PlatingStepData>(customRecipeSO.platingStepSO) : null;
+                node.m_platingPrefab = customRecipeSO.GetModel();
+                node.m_iconSprite = node0.m_iconSprite;
+                node.m_crateLid = node0.m_crateLid;
+                node.m_colour = node0.m_colour;
+                node.m_heatValue = node0.m_heatValue;
+                return node;
+            }
 
             OrderDefinitionNode recipe;
             switch (customRecipeSO.type)
@@ -124,6 +162,8 @@ namespace LevelEditor
                     }
                     gui0.m_children = Enumerable.Range(1, children.Length).ToList();
                     return new List<RecipeWidgetUIController.RecipeTileData> { gui0 }.Concat(children).ToArray();
+                case CustomRecipeSO.RecipeType.Ingredient:
+                case CustomRecipeSO.RecipeType.Item:
                 case CustomRecipeSO.RecipeType.Cooked:
                 case CustomRecipeSO.RecipeType.Mixed:
                     RecipeWidgetUIController.RecipeTileData gui1 = new RecipeWidgetUIController.RecipeTileData();
@@ -141,37 +181,48 @@ namespace LevelEditor
             {
                 return GetSpriteListPseudoRecipe(recipeSO as PseudoPrefabSORecipe, recipe, out cookingStepCount);
             }
-            else if (recipeSO is CustomRecipeSO)
-            {
-                CustomRecipeSO customRecipeSO = recipeSO as CustomRecipeSO;
-                List<Sprite> list = new List<Sprite>();
-                if (customRecipeSO.type == CustomRecipeSO.RecipeType.Null || !(recipe is CompositeOrderNode))
-                {
-                    cookingStepCount = 0;
-                    return list;
-                }
-                CompositeOrderNode compositeOrderNode = recipe as CompositeOrderNode;
-                cookingStepCount = 0;
-                for (int i = 0; i < customRecipeSO.compositionSOs.Length; i++)
-                {
-                    list.AddRange(GetSpriteList(customRecipeSO.compositionSOs[i], compositeOrderNode.m_composition[i], out cookingStepCount));
-                }
-                if (customRecipeSO.type == CustomRecipeSO.RecipeType.Cooked || customRecipeSO.type == CustomRecipeSO.RecipeType.Mixed)
-                {
-                    cookingStepCount += 1;
-                    if (customRecipeSO.compositionSOs.Length > 1)
-                        cookingStepCount = 1;
-                }
-                if (customRecipeSO.type == CustomRecipeSO.RecipeType.Cooked)
-                    list.Add(customRecipeSO.GetCookingStepIcon());
-                else if (customRecipeSO.type == CustomRecipeSO.RecipeType.Mixed)
-                    list.Add(customRecipeSO.GetMixingIcon());
-                return list;
-            }
-            else if (recipeSO is PseudoPrefabSO && recipe is IngredientOrderNode)
+            else if (recipe is IngredientOrderNode)
             {
                 cookingStepCount = 0;
                 return new List<Sprite> { (recipe as IngredientOrderNode).m_iconSprite };
+            }
+            else if (recipe is ItemOrderNode)
+            {
+                cookingStepCount = 0;
+                return new List<Sprite> { (recipe as ItemOrderNode).m_iconSprite };
+            }
+            else if (recipeSO is CustomRecipeSO)
+            {
+                CustomRecipeSO customRecipeSO = recipeSO as CustomRecipeSO;
+                if (customRecipeSO.type == CustomRecipeSO.RecipeType.Null)
+                {
+                    cookingStepCount = 0;
+                    return new List<Sprite>();
+                }
+
+                List<Sprite> list = new List<Sprite>();
+                cookingStepCount = 0;
+                if (customRecipeSO.type == CustomRecipeSO.RecipeType.Composite ||
+                    customRecipeSO.type == CustomRecipeSO.RecipeType.Cooked ||
+                    customRecipeSO.type == CustomRecipeSO.RecipeType.Mixed)
+                {
+                    CompositeOrderNode compositeOrderNode = recipe as CompositeOrderNode;
+                    for (int i = 0; i < customRecipeSO.compositionSOs.Length; i++)
+                    {
+                        list.AddRange(GetSpriteList(customRecipeSO.compositionSOs[i], compositeOrderNode.m_composition[i], out cookingStepCount));
+                    }
+                    if (customRecipeSO.type == CustomRecipeSO.RecipeType.Cooked || customRecipeSO.type == CustomRecipeSO.RecipeType.Mixed)
+                    {
+                        cookingStepCount += 1;
+                        if (customRecipeSO.compositionSOs.Length > 1)
+                            cookingStepCount = 1;
+                    }
+                    if (customRecipeSO.type == CustomRecipeSO.RecipeType.Cooked)
+                        list.Add(customRecipeSO.GetCookingStepIcon());
+                    else if (customRecipeSO.type == CustomRecipeSO.RecipeType.Mixed)
+                        list.Add(customRecipeSO.GetMixingIcon());
+                }
+                return list;
             }
             else
             {
@@ -344,6 +395,7 @@ namespace LevelEditor
             else
             {
                 recipe = GetOrderDefinitionNodeCustomRecipe(customRecipeSO);
+                return recipe;
             }
 
             recipe.name = customRecipeSO.recipeName;
@@ -443,9 +495,14 @@ namespace LevelEditor
             if (ingredientOrderNode != null)
                 return ingredientOrderNode;
             GameObject ingredient = prefab as GameObject;
-            while (ingredient.GetComponent<WorkableItem>() != null)
-                ingredient = ingredient.GetComponent<WorkableItem>().m_nextPrefab;
-            IngredientPropertiesComponent ingredientPropertiesComponent = ingredient.GetComponent<IngredientPropertiesComponent>();
+            return GetIngredientOrderNode(ingredient);
+        }
+
+        public static IngredientOrderNode GetIngredientOrderNode(GameObject prefab)
+        {
+            while (prefab.GetComponent<WorkableItem>() != null)
+                prefab = prefab.GetComponent<WorkableItem>().m_nextPrefab;
+            IngredientPropertiesComponent ingredientPropertiesComponent = prefab.GetComponent<IngredientPropertiesComponent>();
             if (ingredientPropertiesComponent != null)
             {
                 return (IngredientOrderNode)ingredientPropertiesComponent.GetType()
@@ -454,7 +511,7 @@ namespace LevelEditor
             }
             else
             {
-                PreparationContainer preparationContainer = ingredient.GetComponent<PreparationContainer>();
+                PreparationContainer preparationContainer = prefab.GetComponent<PreparationContainer>();
                 if (preparationContainer != null)
                 {
                     return preparationContainer.m_ingredientOrderNode;
@@ -473,9 +530,14 @@ namespace LevelEditor
             if (itemOrderNode != null)
                 return itemOrderNode;
             GameObject item = prefab as GameObject;
-            while (item.GetComponent<WorkableItem>() != null)
-                item = item.GetComponent<WorkableItem>().m_nextPrefab;
-            ItemPropertiesComponent itemPropertiesComponent = item.GetComponent<ItemPropertiesComponent>();
+            return GetItemOrderNode(item);
+        }
+
+        public static ItemOrderNode GetItemOrderNode(GameObject prefab)
+        {
+            while (prefab.GetComponent<WorkableItem>() != null)
+                prefab = prefab.GetComponent<WorkableItem>().m_nextPrefab;
+            ItemPropertiesComponent itemPropertiesComponent = prefab.GetComponent<ItemPropertiesComponent>();
             if (itemPropertiesComponent != null)
             {
                 return (ItemOrderNode)itemPropertiesComponent.GetType()

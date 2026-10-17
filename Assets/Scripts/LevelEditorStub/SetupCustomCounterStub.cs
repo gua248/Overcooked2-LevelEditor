@@ -10,5 +10,6 @@ namespace LevelEditorStub
         [SerializeField] public PseudoPrefabSO progressUIPrefabSO;
         [SerializeField] public PseudoPrefabSO fireEffectPrefabSO;
         [SerializeField] public PseudoPrefabSO chopPFXSO;
+        [SerializeField] public PseudoPrefabSO tutorialIconUISO;
     }
 }

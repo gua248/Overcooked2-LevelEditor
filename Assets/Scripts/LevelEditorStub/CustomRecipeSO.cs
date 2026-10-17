@@ -40,6 +40,8 @@ namespace LevelEditorStub
             Composite,
             Cooked,
             Mixed,
+            Ingredient,
+            Item,
         }
 
         public enum CookingProgress

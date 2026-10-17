@@ -16,6 +16,8 @@ namespace LevelEditor
         protected virtual void Awake()
         {
             stub = GetComponent<SetupCustomPrefabStub>();
+            if (PseudoPrefabManager.Instance.GameEditState == GameEditState.Game)
+                Setup();
         }
 
         private void Start()

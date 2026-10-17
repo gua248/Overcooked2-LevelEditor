@@ -7,20 +7,13 @@ namespace LevelEditor
 {
     public class SetupCustomIngredient : SetupCustomPrefab
     {
-        protected override void Awake()
-        {
-            base.Awake();
-            if (PseudoPrefabManager.Instance.GameEditState == GameEditState.Game)
-                Setup();
-        }
-
         public override void Setup()
         {
             base.Setup();
             SetupCustomIngredientStub ingredientStub = (SetupCustomIngredientStub)stub;
-            GameObject ingredientsContentsUI = PseudoPrefabManager.LoadAsset(ingredientStub.ingredientContentUIPrefabSO);
-            GameObject throwParticle = PseudoPrefabManager.LoadAsset(ingredientStub.throwParticleSO);
-            GameObject progressUIPrefab = PseudoPrefabManager.LoadAsset(ingredientStub.progressUIPrefabSO);
+            GameObject ingredientsContentsUI = ingredientStub.ingredientContentUIPrefabSO == null ? null : PseudoPrefabManager.LoadAsset(ingredientStub.ingredientContentUIPrefabSO);
+            GameObject throwParticle = ingredientStub.throwParticleSO == null ? null : PseudoPrefabManager.LoadAsset(ingredientStub.throwParticleSO);
+            GameObject progressUIPrefab = ingredientStub.progressUIPrefabSO == null ? null : PseudoPrefabManager.LoadAsset(ingredientStub.progressUIPrefabSO);
 
             IngredientContentGUI ingredientContentGUI = GetComponent<IngredientContentGUI>();
             ThrowableItem throwableItem = GetComponent<ThrowableItem>();

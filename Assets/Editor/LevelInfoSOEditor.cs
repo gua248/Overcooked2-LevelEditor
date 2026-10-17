@@ -93,6 +93,18 @@ public class LevelInfoSOEditor : Editor
                         allOrderDefinitionNodes.Add(orderDefinitionNode);
             }
         }
+        if (!levelInfo.optionalRecipeMatchListItems.IsEmpty())
+        {
+            foreach (ScriptableObject recipe in levelInfo.optionalRecipeMatchListItems)
+            {
+                CustomRecipeSO customRecipeSO = recipe as CustomRecipeSO;
+                if (customRecipeSO == null) continue;
+                if (customRecipeSO.type != CustomRecipeSO.RecipeType.Ingredient &&
+                    customRecipeSO.type != CustomRecipeSO.RecipeType.Item)
+                    continue;
+                allOrderDefinitionNodes.Add(RecipeHelper.GetOrderDefinitionNodeCustomRecipe(customRecipeSO));
+            }
+        }
 
         foreach (PseudoPrefabDispenserStub dispenserStub in FindObjectsOfType<PseudoPrefabDispenserStub>())
         {

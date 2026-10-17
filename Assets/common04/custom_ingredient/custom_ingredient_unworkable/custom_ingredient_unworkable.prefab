@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4483519937835956}
   - component: {fileID: 114802001199808930}
-  - component: {fileID: 114266969411723156}
+  - component: {fileID: 114680614783505534}
   - component: {fileID: 65980461434353530}
   - component: {fileID: 114441515271992636}
   - component: {fileID: 114961325286774268}
@@ -178,17 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_brightnessModifier: 1
   m_highlightObjectOverride: {fileID: 0}
---- !u!114 &114266969411723156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1408222959772296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b0f599e0716d1147941aafb6953c731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114343140881746052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,6 +291,17 @@ MonoBehaviour:
   m_ingredientContentUIPrefab: {fileID: 0}
   m_displayEmptyElements: 0
   m_Offset: {x: 0, y: 0, z: 0}
+--- !u!114 &114680614783505534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408222959772296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0f599e0716d1147941aafb6953c731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114802001199808930
 MonoBehaviour:
   m_ObjectHideFlags: 1

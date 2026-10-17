@@ -16,6 +16,19 @@ public class CreatePseudoPrefabSOForAsset
         string assetPath = AssetDatabase.GetAssetPath(selectedAsset);
         if (string.IsNullOrEmpty(assetPath) || AssetDatabase.IsValidFolder(assetPath)) return;
 
+        foreach (Object subAsset in AssetDatabase.LoadAllAssetsAtPath(assetPath))
+        {
+            if (subAsset is PseudoPrefabSO && AssetDatabase.IsSubAsset(subAsset))
+            {
+                PseudoPrefabSO pseudoPrefabSO = (PseudoPrefabSO)subAsset;
+                if (string.IsNullOrEmpty(pseudoPrefabSO.prefabName) &&
+                    string.IsNullOrEmpty(pseudoPrefabSO.bundleName) &&
+                    string.IsNullOrEmpty(pseudoPrefabSO.assetPath) &&
+                    pseudoPrefabSO.asset == selectedAsset)
+                Object.DestroyImmediate(subAsset, true);
+            }
+        }
+
         PseudoPrefabSO assetSO = ScriptableObject.CreateInstance<PseudoPrefabSO>();
         assetSO.name = selectedAsset.name + "_so";
         assetSO.asset = selectedAsset;

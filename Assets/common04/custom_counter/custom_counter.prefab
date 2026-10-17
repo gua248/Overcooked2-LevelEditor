@@ -183,7 +183,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7d2df6961ae6f3049a823adc8ebbb1ae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,6 +260,7 @@ MonoBehaviour:
   progressUIPrefabSO: {fileID: 11400000, guid: 7dff3ebe681a47a4d8503f9ba52b29f4, type: 2}
   fireEffectPrefabSO: {fileID: 11400000, guid: 044809e912484cc409877d589bfac492, type: 2}
   chopPFXSO: {fileID: 11400000, guid: 58950b5f136f22546a7d11f7c8be8f5f, type: 2}
+  tutorialIconUISO: {fileID: 11400000, guid: 629ca45af0e967246bfd66bc51dfa624, type: 2}
 --- !u!114 &114152191514026802
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4245086697035562}
   - component: {fileID: 114557632932291410}
-  - component: {fileID: 114200213489866894}
+  - component: {fileID: 114387385310959134}
   - component: {fileID: 65305451185549202}
   - component: {fileID: 114215177005869402}
   - component: {fileID: 114250956679662236}
@@ -181,17 +181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_layerWhenPlaced: HeldRawIngredients
---- !u!114 &114200213489866894
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1827801480519944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b0f599e0716d1147941aafb6953c731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114215177005869402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,6 +244,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35b5e50f120d2c59752b048c6e7a39c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114387385310959134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1827801480519944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0f599e0716d1147941aafb6953c731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114401697530101828

@@ -1,0 +1,294 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1405583879889164}
+  m_IsPrefabParent: 1
+--- !u!1 &1405583879889164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4580335852342036}
+  - component: {fileID: 114602795352433670}
+  - component: {fileID: 114709772245574918}
+  - component: {fileID: 114390372297796702}
+  - component: {fileID: 65558510566884944}
+  - component: {fileID: 114223509130656390}
+  - component: {fileID: 114566622309966378}
+  - component: {fileID: 114180847543558366}
+  - component: {fileID: 114180491346471786}
+  - component: {fileID: 114265737716054636}
+  - component: {fileID: 114325907081037434}
+  - component: {fileID: 114549517216169736}
+  - component: {fileID: 114535384766066418}
+  - component: {fileID: 114548783248545028}
+  - component: {fileID: 114049708939515578}
+  - component: {fileID: 114622022305376758}
+  - component: {fileID: 114567524870353100}
+  m_Layer: 0
+  m_Name: custom_utensil_dirty_plate_stack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4580335852342036
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65558510566884944
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.1, z: 0.4}
+  m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!114 &114049708939515578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a85bcac90bbdc61818dd60dc2212e18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_respawnTime: 5
+  m_particleTime: 1
+  m_spawnEffect: {fileID: 0}
+--- !u!114 &114128203264190416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cff7c13895ab9e47a5e02d4619cc3b9, type: 3}
+  m_Name: custom_utensil_dirty_plate_stack_so
+  m_EditorClassIdentifier: 
+  prefabName: 
+  bundleName: 
+  assetPath: 
+  asset: {fileID: 1405583879889164}
+--- !u!114 &114180491346471786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8104508edd6db1f9e902b9b340854fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_progressUIPrefab: {fileID: 0}
+  m_duration: 1
+--- !u!114 &114180847543558366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a772ee3a0472f1f81c3c934c69940b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114223509130656390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844e59d8b300f2d5f70fb0ad901e7e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rigidBodyParams:
+    m_mass: 1
+    m_drag: 2
+    m_angularDrag: 1
+    m_useGravity: 1
+    m_interpolation: 0
+    m_collisionDetectionMode: 0
+    m_constraints: 0
+  m_groundCastParams:
+    m_coliderOverride: 0
+    m_collider: {fileID: 0}
+    m_radiusOverride: 0
+    m_radius: 0
+    m_rayOffsetOverride: 0
+    m_rayOffset: {x: 0, y: 0, z: 0}
+    m_maskOverride: 0
+    m_mask:
+      serializedVersion: 2
+      m_Bits: 0
+--- !u!114 &114265737716054636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa99bc248e9dbafc1914a11429b1218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pickupReferralObject: {fileID: 0}
+--- !u!114 &114325907081037434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50807449ce73271325a626b40d5a114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_placementReferralObject: {fileID: 0}
+--- !u!114 &114390372297796702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22a7e5e3cdaf3a847639a935575bb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_itemTag: DirtyPlate
+  m_heightOffset: 0.1
+--- !u!114 &114535384766066418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab91a6d841ff5b19ec46d1bdff85d804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_materialWhenPlaced: {fileID: 13400000, guid: 23a132d5eedabbe469c9c9a7b2b2fda6,
+    type: 2}
+--- !u!114 &114548783248545028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8135b7f68565408d62161969079bc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114549517216169736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03c429c855ed816dd2149d92e1cc057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_layerWhenPlaced: HeldPlates
+--- !u!114 &114566622309966378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee946a7cfbe8d9d32937934000ea34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_platePrefab: {fileID: 1024281919400308, guid: 7fbee510d0bc50446bdac6760885dd93,
+    type: 2}
+  m_plateType: {fileID: 11400000, guid: 33cdd9a977e652844ba3e2f5a8b23ce7, type: 2}
+  m_washedPrefab: {fileID: 1760872858961958, guid: 4720bf1b02e845e428d2fd7d98f290f5,
+    type: 2}
+  m_cleanPlatePrefab: {fileID: 1003597553421588, guid: 7330344a9d4cb9c4da2f2bc0358820b0,
+    type: 2}
+--- !u!114 &114567524870353100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13998e3ac8d3c6c8ab831c607e3ea7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114602795352433670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbcf6aa44a7b711418836b87c6cae192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientContentUIPrefabSO: {fileID: 11400000, guid: 43bf068adba247a499675d6d023357fe,
+    type: 2}
+  sludgeSO: {fileID: 11400000, guid: a66eb85e308e2b94093d95ba63736c7e, type: 2}
+  spawnEffectSO: {fileID: 11400000, guid: 6a6c8e08f195b6047a1ec71e8c145a2a, type: 2}
+  progressUIPrefabSO: {fileID: 11400000, guid: 7dff3ebe681a47a4d8503f9ba52b29f4, type: 2}
+--- !u!114 &114622022305376758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd19f5e37ff22621b2d51869be523c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_brightnessModifier: 2
+  m_highlightObjectOverride: {fileID: 0}
+--- !u!114 &114709772245574918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405583879889164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51362215738f92c4da1359d0ba9dce25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
