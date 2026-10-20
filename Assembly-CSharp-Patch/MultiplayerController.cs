@@ -564,6 +564,11 @@ public class MultiplayerController : Manager
 		m_EntitySerialiser.AddSynchronisedType(typeof(MultiTriggerDisableScript), new SynchroniserConfig(InstancesPerGameObject.Multiple, typeof(ServerMultiTriggerDisableScript), typeof(ClientMultiTriggerDisableScript)));
 		m_EntitySerialiser.AddSynchronisedType(typeof(TriggerWithCooldown), new SynchroniserConfig(InstancesPerGameObject.Multiple, typeof(ServerTriggerWithCooldown), typeof(ClientTriggerWithCooldown)));
 		m_EntitySerialiser.AddSynchronisedType(typeof(BoundContainer), new SynchroniserConfig(InstancesPerGameObject.Multiple, typeof(ServerBoundContainerBehaviour), typeof(ClientBoundContainerBehaviour)));
+
+		// patch
+		ModuleManager.Apply(m_EntitySerialiser);
+		// patch
+
 		if (IsServer())
 		{
 			base.gameObject.AddComponent<ServerPlayerRespawnManager>();

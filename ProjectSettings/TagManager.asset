@@ -42,12 +42,12 @@ TagManager:
   - AttachedBackpack
   - Attachments
   - HeldAttachments
-  - 
+  - 16
   - Beings
   - PlayerTriggerZone
-  - 
+  - 19
   - PlateStationBlock
-  - 
+  - 21
   - CookingStationBlock
   - BinBlock
   - PushedObject

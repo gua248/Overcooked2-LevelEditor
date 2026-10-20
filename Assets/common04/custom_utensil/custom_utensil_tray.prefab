@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4048655559976120}
   - component: {fileID: 33824219829255950}
   - component: {fileID: 23044207288243072}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Tray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4475159341428912}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4599275169528740}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: AttachPoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 114524098872943530}
   - component: {fileID: 114182115445863024}
   - component: {fileID: 114513559391143232}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: custom_utensil_tray
   m_TagString: Plate
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4050284894639868}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: AttachPoint (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

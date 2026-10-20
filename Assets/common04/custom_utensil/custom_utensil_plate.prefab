@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114069526987052906}
   - component: {fileID: 114853824331033264}
   - component: {fileID: 114494286583133834}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: custom_utensil_plate
   m_TagString: Plate
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4698346138606094}
   - component: {fileID: 33441658484041528}
   - component: {fileID: 23548706549174070}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4510213874537594}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

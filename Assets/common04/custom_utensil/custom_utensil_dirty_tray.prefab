@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114899131827606682}
   - component: {fileID: 114035158080208980}
   - component: {fileID: 114824317860617200}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: custom_utensil_dirty_tray
   m_TagString: Plate
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4652786065553708}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4113572850585146}
   - component: {fileID: 33695904096300204}
   - component: {fileID: 23247772485651726}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Tray
   m_TagString: Untagged
   m_Icon: {fileID: 0}

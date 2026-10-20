@@ -1,0 +1,8 @@
+{
+    "name": "IngredientSplitterStub",
+    "references": [
+        "LevelEditorStub"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

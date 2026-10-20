@@ -35,7 +35,7 @@ GameObject:
   - component: {fileID: 114295672127007038}
   - component: {fileID: 114077853309591382}
   - component: {fileID: 114508491740026908}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: custom_utensil_dirty_tray_stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
