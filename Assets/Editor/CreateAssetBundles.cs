@@ -25,13 +25,16 @@ public static class CreateAssetBundles
             Directory.CreateDirectory(assetBundleDirectory);
         }
 
+        // removing and restoring the component cause changes to the .prefab file 
+        // thus don't use the following approach
+
         // component A (for AStub) on prefabs will throw warnings of missing script at runtime
         // thus remove A before building and restore it afterward
         List<GameObject> prefabs = new List<GameObject>();
         try
         {
-            prefabs = FindPrefabsToClean();
-            CleanPrefabs(prefabs);
+            //prefabs = FindPrefabsToClean();
+            //CleanPrefabs(prefabs);
 
             BuildPipeline.BuildAssetBundles(
                 assetBundleDirectory,
@@ -40,7 +43,7 @@ public static class CreateAssetBundles
         }
         finally
         {
-            RestorePrefabs(prefabs);
+            //RestorePrefabs(prefabs);
         }
     }
 
