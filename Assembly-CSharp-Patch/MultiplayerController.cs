@@ -180,8 +180,11 @@ public class MultiplayerController : Manager
 		m_ConnectionStatus.Initialise();
 		m_DisconnectionHandler.Initialise();
 		ClientGameSetup.Initialise();
-		ServerGameSetup.Mode = GameMode.OnlineKitchen;
-		m_LocalClient.OnLeftSession += m_DisconnectionHandler.HandleSessionConnectionLost;
+		// patch
+		//ServerGameSetup.Mode = GameMode.OnlineKitchen;
+		ServerGameSetup.Mode = GameMode.Campaign;
+        // patch
+        m_LocalClient.OnLeftSession += m_DisconnectionHandler.HandleSessionConnectionLost;
 		ClientUserSystem.usersChanged = (GenericVoid)Delegate.Combine(ClientUserSystem.usersChanged, new GenericVoid(NetworkUtils.SelectRandomAvatar));
 	}
 

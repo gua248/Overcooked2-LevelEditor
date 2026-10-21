@@ -19,6 +19,8 @@ namespace LevelEditor
 
         [SerializeField] private FlowControllerBase flowController;
 
+        [SerializeField] public SupportedLanguages debugLanguage = SupportedLanguages.English;
+
         private void Awake()
         {
             //Debug.Log("Debug.Awake." + (Application.isPlaying ? "Play" : "Edit"));
