@@ -31,11 +31,6 @@ namespace LevelEditor
                 washable.m_progressUIPrefab = progressUIPrefab.GetComponent<ProgressUIController>();
         }
 
-        public override void LateSetup()
-        {
-            base.LateSetup();
-        }
-
         public override void Clear()
         {
             base.Clear();

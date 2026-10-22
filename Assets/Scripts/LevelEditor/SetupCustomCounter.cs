@@ -40,11 +40,6 @@ namespace LevelEditor
             }
         }
 
-        public override void LateSetup()
-        {
-            base.LateSetup();
-        }
-
         public override void Clear()
         {
             base.Clear();
