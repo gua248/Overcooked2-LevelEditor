@@ -13,5 +13,7 @@ namespace OC2DIYLevel.Modules.IngredientSplitterMod
         [SerializeField] public GameObject outputPrefab;
         [SerializeField] public Transform[] ingredientModels;
         [SerializeField] public LevelInfoSO.GameOneShotAudioTag splitAudioTag = LevelInfoSO.GameOneShotAudioTag.PutDown;
+        [SerializeField] public PseudoPrefabSO cookingUISO;
+        [SerializeField] public Vector3 uiPrefabOffset = Vector3.zero;
     }
 }

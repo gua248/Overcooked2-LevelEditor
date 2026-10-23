@@ -21,6 +21,8 @@ namespace IngredientSplitterMod
         private ButtonHoverIcon tutorialUI;
         private List<ClientPlayerAttachmentCarrier> localPlayerCarriers;
 
+        private CookingUIController cntUI;
+
         public Serialisable GetSerialisable()
         {
             return message;
@@ -51,6 +53,14 @@ namespace IngredientSplitterMod
             inputAssembledNode = RecipeHelper.GetOrderDefinitionNodeCustomRecipe(splitter.inputRecipe).Simpilfy();
             outputAssembledNode = RecipeHelper.GetIngredientOrderNode(splitter.outputPrefab).Simpilfy();
             ingredientCnt = 0;
+
+            GameObject uiPrefab = PseudoPrefabManager.LoadAsset(splitter.cookingUISO);
+            GameObject ui = GameUtils.InstantiateUIController(uiPrefab, "HoverIconCanvas");
+            cntUI = ui.GetComponent<CookingUIController>();
+            cntUI.SetFollowTransform(NetworkUtils.FindVisualRoot(gameObject), Vector3.zero);
+            cntUI.SetFollowOffset(splitter.uiPrefabOffset);
+            cntUI.SetState(CookingUIController.State.Progressing);
+
             UpdateVisuals();
 
             Mailbox.Client.RegisterForMessageType(MessageType.GameState, new OrderedMessageReceivedCallback(OnGameStateChanged));
@@ -179,6 +189,9 @@ namespace IngredientSplitterMod
                         splitter.ingredientModels[k].gameObject.SetActive(true);
                 }
             }
+
+            cntUI.gameObject.SetActive(gameObject.activeInHierarchy);
+            cntUI.SetProgress((float)ingredientCnt / splitter.capacity);
         }
 
         private void UpdateTutorialVisibility(GameObject before, GameObject after)
