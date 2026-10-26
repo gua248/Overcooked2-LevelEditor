@@ -142,6 +142,9 @@ public class LevelInfoSOEditor : Editor
             {
                 case "dispenser_coal_01":
                 case "dlc08_condiment_dispenser":
+                case "dlc08_drink_machine":
+                case "dlc11_drink_dispenser":
+                case "dlc11_condiment_dispenser":
                     {
                         PseudoPrefabSO[] itemSOs = specificPseudoPrefabTag.GetComponent<PseudoPrefabSOArray>().pseudoPrefabSOs;
                         foreach (PseudoPrefabSO itemSO in itemSOs)
