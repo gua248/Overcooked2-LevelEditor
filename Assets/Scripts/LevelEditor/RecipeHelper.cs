@@ -60,6 +60,11 @@ namespace LevelEditor
         {
             FixOldCustomRecipeSO(customRecipeSO);
 
+            if (customRecipeSO is CustomRecipeOptionalBurgerSO)
+                return GetOrderDefinitionNodeCustomRecipeOptional(customRecipeSO as CustomRecipeOptionalBurgerSO);
+            if (customRecipeSO is CustomRecipeOptionalPizzaSO)
+                return GetOrderDefinitionNodeCustomRecipeOptional(customRecipeSO as CustomRecipeOptionalPizzaSO);
+
             if (customRecipeSO.type == CustomRecipeSO.RecipeType.Ingredient)
             {
                 IngredientOrderNode node0 = GetIngredientOrderNode(customRecipeSO.compositionSOs[0] as PseudoPrefabSO);
@@ -291,120 +296,109 @@ namespace LevelEditor
             return tileDefinition;
         }
 
-        public static OrderDefinitionNode GetOrderDefinitionNodeCustomRecipeOptional(ScriptableObject recipeSO)
+        private static OrderDefinitionNode GetOrderDefinitionNodeCustomRecipeOptional(CustomRecipeOptionalPizzaSO optionalPizzaSO)
         {
-            if (recipeSO is PseudoPrefabSO)
-                return PseudoPrefabManager.LoadAsset<OrderDefinitionNode>(recipeSO as PseudoPrefabSO);
+            CookedCompositeOrderNode node = ScriptableObject.CreateInstance<CookedCompositeOrderNode>();
+            node.m_cookingStep = PseudoPrefabManager.LoadAsset<CookingStepData>(optionalPizzaSO.cookingStepSO);
+            node.m_progress = optionalPizzaSO.cooked ? CookedCompositeOrderNode.CookingProgress.Cooked : CookedCompositeOrderNode.CookingProgress.Raw;
+            node.m_composition = new OrderDefinitionNode[] { GetIngredientOrderNode(optionalPizzaSO.doughSO) };
+            node.m_optional = optionalPizzaSO.optionalSOs.Select(x => GetOrderDefinitionNode(x)).ToArray();
 
-            CustomRecipeSO customRecipeSO = recipeSO as CustomRecipeSO;
-            if (customRecipeSO == null) return null;
-            FixOldCustomRecipeSO(customRecipeSO);
-            OrderDefinitionNode recipe;
+            GameObject platingPrefabAsset = optionalPizzaSO.GetModel();
+            GameObject platingPrefab = RuntimePrefabManager.CloneAsInactivePrefab(platingPrefabAsset, clearOnRestart: false);
+            PizzaCosmeticDecisions pizzaCosmetic = platingPrefab.GetComponent<PizzaCosmeticDecisions>();
+            OrderToPrefabLookup uncookedLookup = GetOrderToPrefabLookupPizza(optionalPizzaSO, false, pizzaCosmetic);
+            OrderToPrefabLookup cookedLookup = GetOrderToPrefabLookupPizza(optionalPizzaSO, true, pizzaCosmetic);
+            pizzaCosmetic.GetType()
+                .GetField("m_uncookedPrefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .SetValue(pizzaCosmetic, uncookedLookup);
+            pizzaCosmetic.GetType()
+                .GetField("m_cookedPrefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .SetValue(pizzaCosmetic, cookedLookup);
 
-            if (customRecipeSO is CustomRecipeOptionalBurgerSO)
+            node.m_platingPrefab = platingPrefab;
+
+            node.name = optionalPizzaSO.recipeName;
+            node.m_uID = optionalPizzaSO.uID;
+            node.m_platingStep =
+                optionalPizzaSO.platingStepSO != null ?
+                PseudoPrefabManager.LoadAsset<PlatingStepData>(optionalPizzaSO.platingStepSO) : null;
+
+            return node;
+        }
+
+        private static OrderDefinitionNode GetOrderDefinitionNodeCustomRecipeOptional(CustomRecipeOptionalBurgerSO optionalBurgerSO)
+        {
+            CompositeOrderNode node = ScriptableObject.CreateInstance<CompositeOrderNode>();
+            node.m_composition = new OrderDefinitionNode[0];
+            node.m_optional = optionalBurgerSO.optionalSOs
+                .Where(x => x != optionalBurgerSO.bunSO)
+                .Select(x => GetOrderDefinitionNode(x))
+                .Concat(new OrderDefinitionNode[] { GetIngredientOrderNode(optionalBurgerSO.bunSO) })
+                .ToArray();
+
+            GameObject platingPrefabAsset = optionalBurgerSO.GetModel();
+            GameObject platingPrefab = RuntimePrefabManager.CloneAsInactivePrefab(platingPrefabAsset, clearOnRestart: false);
+            BurgerBunCosmeticDecisions burgerCosmetic = platingPrefab.GetComponent<BurgerBunCosmeticDecisions>();
+            BurritoCosmeticDecisions burritoCosmetic = platingPrefab.GetComponent<BurritoCosmeticDecisions>();
+            HotdogCosmeticDecisions hotdogCosmetic = platingPrefab.GetComponent<HotdogCosmeticDecisions>();
+            if (burgerCosmetic != null)
             {
-                CustomRecipeOptionalBurgerSO optionalBurgerSO = (CustomRecipeOptionalBurgerSO)customRecipeSO;
-                CompositeOrderNode node = ScriptableObject.CreateInstance<CompositeOrderNode>();
-                node.m_composition = new OrderDefinitionNode[0];
-                node.m_optional = optionalBurgerSO.optionalSOs
-                    .Where(x => x != optionalBurgerSO.bunSO)
-                    .Select(x => GetOrderDefinitionNode(x))
-                    .Concat(new OrderDefinitionNode[] { GetIngredientOrderNode(optionalBurgerSO.bunSO) })
-                    .ToArray();
-
-                GameObject platingPrefabAsset = customRecipeSO.GetModel();
-                GameObject platingPrefab = RuntimePrefabManager.CloneAsInactivePrefab(platingPrefabAsset, clearOnRestart: false);
-                BurgerBunCosmeticDecisions burgerCosmetic = platingPrefab.GetComponent<BurgerBunCosmeticDecisions>();
-                BurritoCosmeticDecisions burritoCosmetic = platingPrefab.GetComponent<BurritoCosmeticDecisions>();
-                HotdogCosmeticDecisions hotdogCosmetic = platingPrefab.GetComponent<HotdogCosmeticDecisions>();
-                if (burgerCosmetic != null)
-                {
-                    OrderToPrefabLookup oldLookup = (OrderToPrefabLookup)typeof(BurgerBunCosmeticDecisions)
-                        .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.NonPublic)
-                        .GetValue(burgerCosmetic);
-                    OrderToPrefabLookup lookup = GetOrderToPrefabLookupBurger(optionalBurgerSO, oldLookup);
-                    typeof(BurgerBunCosmeticDecisions)
-                        .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(burgerCosmetic, lookup);
-                }
-                else if (burritoCosmetic != null)
-                {
-                    OrderToPrefabLookup oldLookup = (OrderToPrefabLookup)typeof(OverlapModelsMealDecisions)
-                        .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .GetValue(burritoCosmetic);
-                    OrderToPrefabLookup lookup = GetOrderToPrefabLookupBurger(optionalBurgerSO, oldLookup);
-                    typeof(OverlapModelsMealDecisions)
-                        .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(burritoCosmetic, lookup);
-                }
-                else if (hotdogCosmetic != null)
-                {
-                    BurritoCosmeticDecisions newCosmetic = platingPrefab.AddComponent<BurritoCosmeticDecisions>();
-                    OrderToPrefabLookup oldLookup = (OrderToPrefabLookup)typeof(HotdogCosmeticDecisions)
-                        .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .GetValue(hotdogCosmetic);
-                    OrderToPrefabLookup lookup = GetOrderToPrefabLookupBurger(optionalBurgerSO, oldLookup);
-                    typeof(OverlapModelsMealDecisions)
-                        .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(newCosmetic, lookup);
-                    OrderDefinitionNode m_emptyHotdogDefinition = (OrderDefinitionNode)typeof(HotdogCosmeticDecisions)
-                        .GetField("m_emptyHotdogDefinition", BindingFlags.Instance | BindingFlags.NonPublic)
-                        .GetValue(hotdogCosmetic);
-                    typeof(BurritoCosmeticDecisions)
-                        .GetField("m_tortillaOrderDefinition", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(newCosmetic, m_emptyHotdogDefinition);
-                    GameObject m_emptyBun = (GameObject)typeof(HotdogCosmeticDecisions)
-                        .GetField("m_emptyBun", BindingFlags.Instance | BindingFlags.NonPublic)
-                        .GetValue(hotdogCosmetic);
-                    typeof(BurritoCosmeticDecisions)
-                        .GetField("m_fullTortilla", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(newCosmetic, m_emptyBun);
-                    typeof(BurritoCosmeticDecisions)
-                        .GetField("m_emptyTortilla", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(newCosmetic, m_emptyBun);
-                    UnityEngine.Object.DestroyImmediate(hotdogCosmetic);
-                }
-
-                node.m_platingPrefab = platingPrefab;
-                recipe = node;
+                OrderToPrefabLookup oldLookup = (OrderToPrefabLookup)typeof(BurgerBunCosmeticDecisions)
+                    .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetValue(burgerCosmetic);
+                OrderToPrefabLookup lookup = GetOrderToPrefabLookupBurger(optionalBurgerSO, oldLookup);
+                typeof(BurgerBunCosmeticDecisions)
+                    .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(burgerCosmetic, lookup);
             }
-            else if (customRecipeSO is CustomRecipeOptionalPizzaSO)
+            else if (burritoCosmetic != null)
             {
-                CustomRecipeOptionalPizzaSO optionalPizzaSO = (CustomRecipeOptionalPizzaSO)customRecipeSO;
-                CookedCompositeOrderNode node = ScriptableObject.CreateInstance<CookedCompositeOrderNode>();
-                node.m_cookingStep = PseudoPrefabManager.LoadAsset<CookingStepData>(optionalPizzaSO.cookingStepSO);
-                node.m_progress = optionalPizzaSO.cooked ? CookedCompositeOrderNode.CookingProgress.Cooked : CookedCompositeOrderNode.CookingProgress.Raw;
-                node.m_composition = new OrderDefinitionNode[] { GetIngredientOrderNode(optionalPizzaSO.doughSO) };
-                node.m_optional = optionalPizzaSO.optionalSOs.Select(x => GetOrderDefinitionNode(x)).ToArray();
-
-                GameObject platingPrefabAsset = customRecipeSO.GetModel();
-                GameObject platingPrefab = RuntimePrefabManager.CloneAsInactivePrefab(platingPrefabAsset, clearOnRestart: false);
-                PizzaCosmeticDecisions pizzaCosmetic = platingPrefab.GetComponent<PizzaCosmeticDecisions>();
-                OrderToPrefabLookup uncookedLookup = GetOrderToPrefabLookupPizza(optionalPizzaSO, false, pizzaCosmetic);
-                OrderToPrefabLookup cookedLookup = GetOrderToPrefabLookupPizza(optionalPizzaSO, true, pizzaCosmetic);
-                pizzaCosmetic.GetType()
-                    .GetField("m_uncookedPrefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                    .SetValue(pizzaCosmetic, uncookedLookup);
-                pizzaCosmetic.GetType()
-                    .GetField("m_cookedPrefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                    .SetValue(pizzaCosmetic, cookedLookup);
-
-                node.m_platingPrefab = platingPrefab;
-                recipe = node;
+                OrderToPrefabLookup oldLookup = (OrderToPrefabLookup)typeof(OverlapModelsMealDecisions)
+                    .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .GetValue(burritoCosmetic);
+                OrderToPrefabLookup lookup = GetOrderToPrefabLookupBurger(optionalBurgerSO, oldLookup);
+                typeof(OverlapModelsMealDecisions)
+                    .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(burritoCosmetic, lookup);
             }
-            else
+            else if (hotdogCosmetic != null)
             {
-                recipe = GetOrderDefinitionNodeCustomRecipe(customRecipeSO);
-                return recipe;
+                BurritoCosmeticDecisions newCosmetic = platingPrefab.AddComponent<BurritoCosmeticDecisions>();
+                OrderToPrefabLookup oldLookup = (OrderToPrefabLookup)typeof(HotdogCosmeticDecisions)
+                    .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .GetValue(hotdogCosmetic);
+                OrderToPrefabLookup lookup = GetOrderToPrefabLookupBurger(optionalBurgerSO, oldLookup);
+                typeof(OverlapModelsMealDecisions)
+                    .GetField("m_prefabLookup", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(newCosmetic, lookup);
+                OrderDefinitionNode m_emptyHotdogDefinition = (OrderDefinitionNode)typeof(HotdogCosmeticDecisions)
+                    .GetField("m_emptyHotdogDefinition", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetValue(hotdogCosmetic);
+                typeof(BurritoCosmeticDecisions)
+                    .GetField("m_tortillaOrderDefinition", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(newCosmetic, m_emptyHotdogDefinition);
+                GameObject m_emptyBun = (GameObject)typeof(HotdogCosmeticDecisions)
+                    .GetField("m_emptyBun", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetValue(hotdogCosmetic);
+                typeof(BurritoCosmeticDecisions)
+                    .GetField("m_fullTortilla", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(newCosmetic, m_emptyBun);
+                typeof(BurritoCosmeticDecisions)
+                    .GetField("m_emptyTortilla", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(newCosmetic, m_emptyBun);
+                UnityEngine.Object.DestroyImmediate(hotdogCosmetic);
             }
 
-            recipe.name = customRecipeSO.recipeName;
-            recipe.m_uID = customRecipeSO.uID;
-            recipe.m_platingStep =
-                customRecipeSO.platingStepSO != null ?
-                PseudoPrefabManager.LoadAsset<PlatingStepData>(customRecipeSO.platingStepSO) : null;
+            node.m_platingPrefab = platingPrefab;
 
-            return recipe;
+            node.name = optionalBurgerSO.recipeName;
+            node.m_uID = optionalBurgerSO.uID;
+            node.m_platingStep =
+                optionalBurgerSO.platingStepSO != null ?
+                PseudoPrefabManager.LoadAsset<PlatingStepData>(optionalBurgerSO.platingStepSO) : null;
+
+            return node;
         }
 
         public static OrderToPrefabLookup GetOrderToPrefabLookupBurger(CustomRecipeOptionalBurgerSO optionalBurgerSO, OrderToPrefabLookup oldLookup)
