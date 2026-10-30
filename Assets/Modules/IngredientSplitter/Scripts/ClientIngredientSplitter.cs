@@ -13,6 +13,7 @@ namespace IngredientSplitterMod
     public class ClientIngredientSplitter : ClientSynchroniserBase, IClientHandlePickup, IClientHandlePlacement, IModEntityClient
     {
         private IngredientSplitter splitter;
+        private GameObject outputPrefab;
         private AssembledDefinitionNode inputAssembledNode;
         private AssembledDefinitionNode outputAssembledNode;
         private int ingredientCnt;
@@ -49,9 +50,10 @@ namespace IngredientSplitterMod
         {
             base.StartSynchronising(synchronisedObject);
             splitter = (IngredientSplitter)synchronisedObject;
-            NetworkUtils.RegisterSpawnablePrefab(gameObject, splitter.outputPrefab);
+            outputPrefab = RecipeHelper.GetIngredientPrefabForOptional(splitter.outputPrefabSO);
+            NetworkUtils.RegisterSpawnablePrefab(gameObject, outputPrefab);
             inputAssembledNode = RecipeHelper.GetOrderDefinitionNodeCustomRecipe(splitter.inputRecipe).Simpilfy();
-            outputAssembledNode = RecipeHelper.GetIngredientOrderNode(splitter.outputPrefab).Simpilfy();
+            outputAssembledNode = RecipeHelper.GetIngredientOrderNode(outputPrefab).Simpilfy();
             ingredientCnt = 0;
 
             GameObject uiPrefab = PseudoPrefabManager.LoadAsset(splitter.cookingUISO);
@@ -150,7 +152,7 @@ namespace IngredientSplitterMod
                 if (ingredientContainer != null && preparationContainer == null)
                     return false;
                 bool flag1 = carried.GetComponent<WorkableItem>() != null;
-                bool flag2 = splitter.outputPrefab.GetComponent<WorkableItem>() != null;
+                bool flag2 = outputPrefab.GetComponent<WorkableItem>() != null;
                 return flag1 == flag2;
             }
             return false;

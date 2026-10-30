@@ -10,6 +10,7 @@ namespace IngredientSplitterMod
     public class ServerIngredientSplitter : ServerSynchroniserBase, IHandlePlacement, IHandlePickup
     {
         private IngredientSplitter splitter;
+        private GameObject outputPrefab;
         private AssembledDefinitionNode inputAssembledNode;
         private AssembledDefinitionNode outputAssembledNode;
         private int ingredientCnt;
@@ -19,9 +20,10 @@ namespace IngredientSplitterMod
         {
             base.StartSynchronising(synchronisedObject);
             splitter = (IngredientSplitter)synchronisedObject;
-            NetworkUtils.RegisterSpawnablePrefab(gameObject, splitter.outputPrefab);
+            outputPrefab = RecipeHelper.GetIngredientPrefabForOptional(splitter.outputPrefabSO);
+            NetworkUtils.RegisterSpawnablePrefab(gameObject, outputPrefab);
             inputAssembledNode = RecipeHelper.GetOrderDefinitionNodeCustomRecipe(splitter.inputRecipe).Simpilfy();
-            outputAssembledNode = RecipeHelper.GetIngredientOrderNode(splitter.outputPrefab).Simpilfy();
+            outputAssembledNode = RecipeHelper.GetIngredientOrderNode(outputPrefab).Simpilfy();
             ingredientCnt = 0;
         }
 
@@ -36,9 +38,9 @@ namespace IngredientSplitterMod
             IParentable parentable = _carrier.AccessGameObject().RequestInterface<IParentable>();
             if (parentable as MonoBehaviour != null)
             {
-                position = parentable.GetAttachPoint(splitter.outputPrefab).position;
+                position = parentable.GetAttachPoint(outputPrefab).position;
             }
-            GameObject output = NetworkUtils.ServerSpawnPrefab(gameObject, splitter.outputPrefab, position, Quaternion.identity);
+            GameObject output = NetworkUtils.ServerSpawnPrefab(gameObject, outputPrefab, position, Quaternion.identity);
             _carrier.CarryItem(output);
             ingredientCnt--;
             SendPickup();
@@ -73,7 +75,7 @@ namespace IngredientSplitterMod
                 if (ingredientContainer != null && preparationContainer == null)
                     return false;
                 bool flag1 = carried.GetComponent<WorkableItem>() != null;
-                bool flag2 = splitter.outputPrefab.GetComponent<WorkableItem>() != null;
+                bool flag2 = outputPrefab.GetComponent<WorkableItem>() != null;
                 return flag1 == flag2;
             }
             return false;

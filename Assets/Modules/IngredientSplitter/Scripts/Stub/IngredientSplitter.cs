@@ -10,7 +10,7 @@ namespace OC2DIYLevel.Modules.IngredientSplitterMod
         [SerializeField] public int capacity = 8;
         [SerializeField] public int splitNum = 2;
         [SerializeField] public CustomRecipeSO inputRecipe;
-        [SerializeField] public GameObject outputPrefab;
+        [SerializeField] public PseudoPrefabSO outputPrefabSO;
         [SerializeField] public Transform[] ingredientModels;
         [SerializeField] public LevelInfoSO.GameOneShotAudioTag splitAudioTag = LevelInfoSO.GameOneShotAudioTag.PutDown;
         [SerializeField] public PseudoPrefabSO cookingUISO;
