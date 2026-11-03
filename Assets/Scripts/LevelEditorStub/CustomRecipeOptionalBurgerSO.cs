@@ -6,7 +6,7 @@ using UnityEngine;
 namespace LevelEditorStub
 {
     [CreateAssetMenu(menuName = "LevelEditor/CustomRecipeOptionalBurgerSO", order = -1000)]
-    public class CustomRecipeOptionalBurgerSO : CustomRecipeSO
+    public class CustomRecipeOptionalBurgerSO : CustomRecipeSO, ICustomRecipeOptional
     {
         [Header("Optional Burger")]
         [SerializeField] public PseudoPrefabSO bunSO;
