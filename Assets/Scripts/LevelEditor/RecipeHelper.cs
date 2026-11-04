@@ -308,9 +308,9 @@ namespace LevelEditor
             }
             GameObject[] realModels = indices.Select(i =>
             {
-                if (i < models.Length && models[i] != null)
+                if (!models.IsEmpty() && i < models.Length && models[i] != null)
                     return models[i];
-                if (i < modelSOs.Length && modelSOs[i] != null)
+                if (!modelSOs.IsEmpty() && i < modelSOs.Length && modelSOs[i] != null)
                     return PseudoPrefabManager.LoadAsset(modelSOs[i]);
                 int index = oldLookupArray.FindIndex_Predicate(x => x.m_content.Equals(orderDefinitionNodes[i]));
                 if (index >= 0)
