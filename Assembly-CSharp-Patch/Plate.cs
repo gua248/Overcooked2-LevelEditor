@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 [AddComponentMenu("Scripts/Game/Environment/Plate")]
@@ -10,10 +11,10 @@ public class Plate : MonoBehaviour
 	[SerializeField]
 	public PlatingStepData m_platingStep;
 
-	// patch
 	private void Awake()
 	{
-		IngredientContainer ingredientContainer = GetComponent<IngredientContainer>();
+        // patch
+        IngredientContainer ingredientContainer = GetComponent<IngredientContainer>();
 		if (ingredientContainer != null)
 		{
 			ingredientContainer.m_capacity = 100;
@@ -25,8 +26,8 @@ public class Plate : MonoBehaviour
 			collider.center = new Vector3(0f, 0.36f, 0f);
 			collider.size = new Vector3(0.5f, 0.73f, 0.5f);
 		}
-	}
-    // patch
+        // patch
+    }
 
     public bool CanPlaceOnPlate(GameObject _gameObject, IIngredientContents _ingredientContentsAdapter)
 	{
@@ -68,6 +69,15 @@ public class Plate : MonoBehaviour
 
 	public AssembledDefinitionNode GetOrderComposition(AssembledDefinitionNode[] _contents)
 	{
+		// patch
+		if (this is Tray &&
+			_contents.Length >= 1 &&
+			_contents[_contents.Length - 1].GetType() == typeof(CompositeAssembledNode))
+		{
+			CompositeAssembledNode node = _contents[_contents.Length - 1] as CompositeAssembledNode;
+			_contents = _contents.Take(_contents.Length - 1).Concat(node.m_composition).ToArray();
+		}
+		// patch
 		if (_contents.Length == 1 && _contents[0].GetType() != typeof(IngredientAssembledNode))
 		{
 			return _contents[0];
