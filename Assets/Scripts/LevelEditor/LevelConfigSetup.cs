@@ -11,102 +11,174 @@ namespace LevelEditor
 {
     public static class LevelConfigSetup {
 
-        public static CampaignLevelConfig SetupConfig(PseudoPrefabSO configTemplateSO, LevelInfoSO config, int playerCount)
+        public static CampaignLevelConfigBase SetupConfig(PseudoPrefabSO configTemplateSO, LevelInfoSO config, int playerCount)
         {
-            CampaignLevelConfig configTemplate = PseudoPrefabManager.LoadAsset<CampaignLevelConfig>(configTemplateSO);
+            CampaignLevelConfigBase configTemplate = PseudoPrefabManager.LoadAsset<CampaignLevelConfig>(configTemplateSO);
             configTemplate = ScriptableObject.Instantiate(configTemplate);
-
             LevelConfigSetupPerPlayerCountSO configPerPlayerCount = GetConfigPerPlayerCount(config, playerCount);
-            configTemplate.name = string.Format("{0}_{1}p", config.name, playerCount.ToString());
-            configTemplate.m_orderLifetime = configPerPlayerCount.orderLifeTime;
-            configTemplate.m_timeBetweenOrders = configPerPlayerCount.timeBetweenOrders;
-            configTemplate.m_plateReturnTime = configPerPlayerCount.plateReturnTime;
-            configTemplate.m_survivalConfig.m_timeMultiplier = configPerPlayerCount.survivalTimeMultiplier;
-            configTemplate.m_objectives = new LevelObjectiveBase[0];
-            configTemplate.m_disableDynamicParenting = config.disableDynamicParenting;
-            configTemplate.m_rounds[0].m_roundTimer = configPerPlayerCount.roundTime;
-
-            RecipeList recipeList = configTemplate.m_rounds[0].m_recipes;
-            recipeList = ScriptableObject.Instantiate(recipeList);
-            recipeList.name = config.name;
-            int takeNum = config.debugRecipeCount == 0 ? config.recipes.Length : config.debugRecipeCount;
-            ScriptableObject[] recipes = config.recipes.Take(takeNum).ToArray();
-            recipeList.m_recipes = recipes.Select(x => RecipeHelper.GetRecipe(x)).ToArray();
-            configTemplate.m_rounds[0].m_recipes = recipeList;
-
-            if (true)
-            //if (recipes.Any(x => x is CustomRecipeSO) ||
-            //    !config.allIngredients.IsEmpty() ||
-            //    !config.optionalRecipeMatchListItems.IsEmpty() ||
-            //    config.excludeStoryRecipeMatchList ||
-            //    !config.includeRecipeMatchLists.IsEmpty() ||
-            //    !config.allCookingSteps.IsEmpty())
+            CampaignLevelConfigBase levelConfig;
+            CampaignLevelConfig campaignLevelConfig = null;
+            DynamicCampaignLevelConfig dynamicCampaignLevelConfig = null;
+            ScriptedCampaignLevelConfig scriptedCampaignLevelConfig = null;
+            if (config.levelType == LevelInfoSO.LevelType.Campaign)
             {
-                RecipeMatchList theRecipeMatchList = configTemplate.m_recipeMatchingList;
-                RecipeMatchList newRecipeMatchList = ScriptableObject.CreateInstance<RecipeMatchList>();
-                newRecipeMatchList.name = "RecipeMatchList_" + config.name;
-                List<RecipeMatchList> m_includeLists = new List<RecipeMatchList>();
-                if (!config.excludeStoryRecipeMatchList)
-                    m_includeLists.Add(theRecipeMatchList);
-                if (!config.includeRecipeMatchLists.IsEmpty())
-                    m_includeLists.AddRange(config.includeRecipeMatchLists.Select(x => PseudoPrefabManager.LoadAsset<RecipeMatchList>(x)));
-                newRecipeMatchList.m_includeLists = m_includeLists.ToArray();
-                newRecipeMatchList.m_cookingSteps = new CookingStepData[0];
-
-                if (!config.allCookingSteps.IsEmpty())
+                if (configPerPlayerCount.scriptedRecipes.IsEmpty())
                 {
-                    newRecipeMatchList.m_cookingSteps = config.allCookingSteps.Select(x => RecipeHelper.GetCookingStepData(x)).ToArray();
+                    campaignLevelConfig = ScriptableObject.CreateInstance<CampaignLevelConfig>();
+                    levelConfig = campaignLevelConfig;
                 }
-
-                List<OrderDefinitionNode> newRecipeMatchListItems = new List<OrderDefinitionNode>();
-                List<OrderDefinitionNode> optionalRecipeMatchListItems = new List<OrderDefinitionNode>();
-
-                if (!config.allIngredients.IsEmpty())
+                else
                 {
-                    newRecipeMatchListItems.AddRange(config.allIngredients.Select(x => RecipeHelper.GetIngredientOrItemOrderNode(x)));
+                    scriptedCampaignLevelConfig = ScriptableObject.CreateInstance<ScriptedCampaignLevelConfig>();
+                    levelConfig = scriptedCampaignLevelConfig;
                 }
+            }
+            else if (config.levelType == LevelInfoSO.LevelType.Dynamic)
+            {
+                dynamicCampaignLevelConfig = ScriptableObject.CreateInstance<DynamicCampaignLevelConfig>();
+                levelConfig = dynamicCampaignLevelConfig;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
-                if (!config.optionalRecipeMatchListItems.IsEmpty())
+            levelConfig.name = string.Format("{0}_{1}p", config.name, playerCount.ToString());
+
+            levelConfig.m_hazardInfo = configTemplate.m_hazardInfo;
+            levelConfig.m_disableDynamicParenting = config.disableDynamicParenting;
+            levelConfig.m_gridSelection = true;
+            levelConfig.m_showIconPrompts = false;
+            levelConfig.m_enableRespawnBounds = false;
+            levelConfig.m_objectives = new LevelObjectiveBase[0];
+
+            levelConfig.m_orderLifetime = configPerPlayerCount.orderLifeTime;
+            levelConfig.m_timeBetweenOrders = configPerPlayerCount.timeBetweenOrders;
+            levelConfig.m_plateReturnTime = configPerPlayerCount.plateReturnTime;
+            levelConfig.m_campaignConfig = configTemplate.m_campaignConfig;
+            levelConfig.m_practiceConfig = configTemplate.m_practiceConfig;
+            levelConfig.m_survivalConfig = configTemplate.m_survivalConfig;
+            levelConfig.m_survivalConfig.m_timeMultiplier = configPerPlayerCount.survivalTimeMultiplier;
+
+            RecipeList recipeList = ScriptableObject.CreateInstance<RecipeList>();
+            recipeList.name = levelConfig.name;
+            recipeList.m_recipes = new RecipeList.Entry[0];
+            List<ScriptableObject> allRecipes = new List<ScriptableObject>();
+            List<RecipeList.Entry> allEntries = new List<RecipeList.Entry>();
+            if (config.levelType == LevelInfoSO.LevelType.Campaign)
+            {
+                int takeNum = config.debugRecipeCount == 0 ? config.recipes.Length : config.debugRecipeCount;
+                var recipes = config.recipes.Take(takeNum);
+                recipeList.m_recipes = recipes.Select(x => RecipeHelper.GetRecipe(x)).ToArray();
+                allRecipes.AddRange(recipes);
+                allEntries.AddRange(recipeList.m_recipes);
+            }
+
+            if (campaignLevelConfig != null)
+            {
+                RoundData roundData = new RoundData();
+                roundData.m_roundTimer = configPerPlayerCount.roundTime;
+                roundData.m_recipes = recipeList;
+                campaignLevelConfig.m_rounds = new RoundData[] { roundData };
+            }
+            if (scriptedCampaignLevelConfig != null)
+            {
+                ScriptedRoundData scriptedRoundData = new ScriptedRoundData();
+                scriptedRoundData.m_roundTimer = configPerPlayerCount.roundTime;
+                scriptedRoundData.m_recipes = recipeList;
+                scriptedRoundData.m_manualOrder = configPerPlayerCount.scriptedRecipes.Select(x => RecipeHelper.GetRecipe(x)).ToArray();
+                allRecipes.AddRange(configPerPlayerCount.scriptedRecipes);
+                allEntries.AddRange(scriptedRoundData.m_manualOrder);
+                scriptedCampaignLevelConfig.m_rounds = new ScriptedRoundData[] { scriptedRoundData };
+            }
+            if (dynamicCampaignLevelConfig != null)
+            {
+                DynamicRoundData dynamicRoundData = new DynamicRoundData();
+                dynamicRoundData.m_roundTimer = configPerPlayerCount.roundTime;
+                dynamicRoundData.m_recipes = recipeList;
+                dynamicRoundData.Phases = new DynamicRoundData.Phase[config.recipeListSOs.Length];
+                for (int i = 0; i < config.recipeListSOs.Length; i++)
                 {
-                    foreach (var optionalRecipeMatchListItem in config.optionalRecipeMatchListItems)
+                    RecipeList phaseRecipeList = ScriptableObject.CreateInstance<RecipeList>();
+                    phaseRecipeList.name = levelConfig.name + "_phase_" + i.ToString();
+                    phaseRecipeList.m_recipes = config.recipeListSOs[i].recipes.Select(x => RecipeHelper.GetRecipe(x)).ToArray();
+                    allRecipes.AddRange(config.recipeListSOs[i].recipes);
+                    allEntries.AddRange(phaseRecipeList.m_recipes);
+                    DynamicRoundData.Phase phase = new DynamicRoundData.Phase();
+                    phase.Duration = i < config.roundTimes.Length ? config.roundTimes[i] : 0;
+                    phase.Recipes = phaseRecipeList;
+                    dynamicRoundData.Phases[i] = phase;
+                }
+                dynamicCampaignLevelConfig.m_data = dynamicRoundData;
+            }
+
+            RecipeMatchList theRecipeMatchList = configTemplate.m_recipeMatchingList;
+            RecipeMatchList newRecipeMatchList = ScriptableObject.CreateInstance<RecipeMatchList>();
+            newRecipeMatchList.name = "RecipeMatchList_" + config.name;
+            List<RecipeMatchList> m_includeLists = new List<RecipeMatchList>();
+            if (!config.excludeStoryRecipeMatchList)
+                m_includeLists.Add(theRecipeMatchList);
+            if (!config.includeRecipeMatchLists.IsEmpty())
+                m_includeLists.AddRange(config.includeRecipeMatchLists.Select(x => PseudoPrefabManager.LoadAsset<RecipeMatchList>(x)));
+            newRecipeMatchList.m_includeLists = m_includeLists.ToArray();
+            newRecipeMatchList.m_cookingSteps = new CookingStepData[0];
+
+            if (!config.allCookingSteps.IsEmpty())
+            {
+                newRecipeMatchList.m_cookingSteps = config.allCookingSteps.Select(x => RecipeHelper.GetCookingStepData(x)).ToArray();
+            }
+
+            List<OrderDefinitionNode> newRecipeMatchListItems = new List<OrderDefinitionNode>();
+            List<OrderDefinitionNode> optionalRecipeMatchListItems = new List<OrderDefinitionNode>();
+
+            if (!config.allIngredients.IsEmpty())
+            {
+                newRecipeMatchListItems.AddRange(config.allIngredients.Select(x => RecipeHelper.GetIngredientOrItemOrderNode(x)));
+            }
+
+            if (!config.optionalRecipeMatchListItems.IsEmpty())
+            {
+                foreach (var optionalRecipeMatchListItem in config.optionalRecipeMatchListItems)
+                {
+                    OrderDefinitionNode orderDefinitionNode = RecipeHelper.GetOrderDefinitionNode(optionalRecipeMatchListItem);
+                    optionalRecipeMatchListItems.Add(orderDefinitionNode);
+                    newRecipeMatchListItems.Add(orderDefinitionNode);
+                }
+            }
+
+            List<OrderDefinitionNode> allEntriesDeduplicated = new List<OrderDefinitionNode>();
+            foreach (var entry in allEntries)
+                if (!allEntriesDeduplicated.Any(x => x.Equals(entry.m_order)))
+                    allEntriesDeduplicated.Add(entry.m_order);
+            newRecipeMatchListItems.AddRange(allEntriesDeduplicated);
+
+            // for optional burgers/pizzas/...
+            // the preparation container prefab is built in GetOrderDefinitionNodeCustomRecipeOptional()
+            // assign the prefab back to recipeList.m_recipes[i].m_order.m_platingPrefab
+            if (!config.optionalRecipeMatchListItems.IsEmpty())
+            {
+                for (int i = 0; i < allRecipes.Count; i++)
+                {
+                    if (!(allRecipes[i] is CustomRecipeSO)) continue;
+                    CustomRecipeSO customRecipeSO = (CustomRecipeSO)allRecipes[i];
+                    for (int j = 0; j < config.optionalRecipeMatchListItems.Length; j++)
                     {
-                        OrderDefinitionNode orderDefinitionNode = RecipeHelper.GetOrderDefinitionNode(optionalRecipeMatchListItem);
-                        optionalRecipeMatchListItems.Add(orderDefinitionNode);
-                        if (!recipes.Any(x => x == optionalRecipeMatchListItem))
-                            newRecipeMatchListItems.Add(orderDefinitionNode);
-                    }
-                }
-
-                newRecipeMatchListItems.AddRange(recipeList.m_recipes.Select(x => x.m_order));
-
-                // for optional burgers/pizzas/...
-                // the preparation container prefab is built in GetOrderDefinitionNodeCustomRecipeOptional()
-                // assign the prefab back to recipeList.m_recipes[i].m_order.m_platingPrefab
-                if (!config.optionalRecipeMatchListItems.IsEmpty())
-                {
-                    for (int i = 0; i < recipes.Length; i++)
-                    {
-                        if (!(recipes[i] is CustomRecipeSO)) continue;
-                        CustomRecipeSO customRecipeSO = (CustomRecipeSO)recipes[i];
-                        for (int j = 0; j < config.optionalRecipeMatchListItems.Length; j++)
+                        if (!(config.optionalRecipeMatchListItems[j] is ICustomRecipeOptional)) continue;
+                        CustomRecipeSO optional = config.optionalRecipeMatchListItems[j] as CustomRecipeSO;
+                        if (optional == null) continue;
+                        if (optional.model != null && customRecipeSO.model != null && optional.model == customRecipeSO.model ||
+                            optional.modelSO != null && customRecipeSO.modelSO != null && optional.modelSO == customRecipeSO.modelSO)
                         {
-                            CustomRecipeSO optional = config.optionalRecipeMatchListItems[j] as CustomRecipeSO;
-                            if (optional == null) continue;
-                            if (optional.model != null && customRecipeSO.model != null && optional.model == customRecipeSO.model ||
-                                optional.modelSO != null && customRecipeSO.modelSO != null && optional.modelSO == customRecipeSO.modelSO)
-                            {
-                                recipeList.m_recipes[i].m_order.m_platingPrefab = optionalRecipeMatchListItems[j].m_platingPrefab;
-                                break;
-                            }
+                            allEntries[i].m_order.m_platingPrefab = optionalRecipeMatchListItems[j].m_platingPrefab;
+                            break;
                         }
                     }
                 }
-                newRecipeMatchList.m_recipes = newRecipeMatchListItems.ToArray();
-
-                configTemplate.m_recipeMatchingList = newRecipeMatchList;
             }
 
-            return configTemplate;
+            newRecipeMatchList.m_recipes = newRecipeMatchListItems.ToArray();
+            levelConfig.m_recipeMatchingList = newRecipeMatchList;
+            return levelConfig;
         }
 
         private static LevelConfigSetupPerPlayerCountSO GetConfigPerPlayerCount(LevelInfoSO config, int playerCount)

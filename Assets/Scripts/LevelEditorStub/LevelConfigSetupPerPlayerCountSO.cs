@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace LevelEditorStub
 {
     [CreateAssetMenu(menuName = "LevelEditor/LevelConfigSetupPerPlayerCountSO", order = -1000)]
@@ -17,5 +16,7 @@ namespace LevelEditorStub
         public int m_TwoStarScore;
         public int m_ThreeStarScore;
         public int m_FourStarScore;
+        [Tooltip("Not applicable in dynamic levels.")]
+        public ScriptableObject[] scriptedRecipes;
     }
 }

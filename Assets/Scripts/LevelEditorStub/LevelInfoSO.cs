@@ -16,8 +16,11 @@ namespace LevelEditorStub
         [SerializeField] public string sceneName;
 
         [Header("Recipe Settings")]
+        [SerializeField] public LevelType levelType = LevelType.Campaign;
         [SerializeField] public ScriptableObject[] recipes;
         [SerializeField] public int debugRecipeCount;
+        [SerializeField] public RecipeListSO[] recipeListSOs;
+        [SerializeField] public int[] roundTimes;
         [Range(1, 10)]
         [SerializeField] public int minOrderCount = 2;
         [Range(1, 10)]
@@ -47,6 +50,12 @@ namespace LevelEditorStub
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_4p;
 
         [SerializeField] public string[] dependencies;
+        
+        public enum LevelType
+        {
+            Campaign,
+            Dynamic,
+        }
 
         public enum GameLoopingAudioTag
         {

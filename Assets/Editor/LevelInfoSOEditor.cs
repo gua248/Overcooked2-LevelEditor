@@ -12,6 +12,7 @@ public class LevelInfoSOEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        SerializedProperty levelType = serializedObject.FindProperty("levelType");
 
         // 获取序列化属性的迭代器
         SerializedProperty iterator = serializedObject.GetIterator();
@@ -24,6 +25,11 @@ public class LevelInfoSOEditor : Editor
 
             // 跳过 Unity 默认自带的 "m_Script" 脚本路径字段
             if (iterator.name == "m_Script")
+            {
+                continue;
+            }
+
+            if (ShouldHideRecipeField((LevelInfoSO.LevelType)levelType.intValue, iterator.name))
             {
                 continue;
             }
@@ -65,6 +71,19 @@ public class LevelInfoSOEditor : Editor
         }
 
         serializedObject.ApplyModifiedProperties();
+    }
+
+    private static bool ShouldHideRecipeField(LevelInfoSO.LevelType levelType, string fieldName)
+    {
+        switch (levelType)
+        {
+            case LevelInfoSO.LevelType.Campaign:
+                return fieldName == "recipeListSOs" || fieldName == "roundTimes";
+            case LevelInfoSO.LevelType.Dynamic:
+                return fieldName == "recipes" || fieldName == "debugRecipeCount";
+            default:
+                return false;
+        }
     }
 
     private void AutoFillIngredients(LevelInfoSO levelInfo)
