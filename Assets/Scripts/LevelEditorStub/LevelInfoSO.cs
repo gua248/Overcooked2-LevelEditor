@@ -41,7 +41,8 @@ namespace LevelEditorStub
 
         [Header("Other Settings")]
         [SerializeField] public bool disableDynamicParenting = true;
-        
+        [SerializeField] public bool enableRespawnBounds = false;
+
         [SerializeField] public PseudoPrefabSO onDeathEffectSO;
 
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_1p;

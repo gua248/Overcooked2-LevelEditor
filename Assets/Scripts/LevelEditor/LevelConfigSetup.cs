@@ -49,7 +49,7 @@ namespace LevelEditor
             levelConfig.m_disableDynamicParenting = config.disableDynamicParenting;
             levelConfig.m_gridSelection = true;
             levelConfig.m_showIconPrompts = false;
-            levelConfig.m_enableRespawnBounds = false;
+            levelConfig.m_enableRespawnBounds = config.enableRespawnBounds;
             levelConfig.m_objectives = new LevelObjectiveBase[0];
 
             levelConfig.m_orderLifetime = configPerPlayerCount.orderLifeTime;
