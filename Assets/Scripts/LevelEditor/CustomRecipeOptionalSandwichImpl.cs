@@ -27,6 +27,11 @@ namespace LevelEditor
                 CustomRecipeOptionalSandwichImpl>();
         }
 
+        public override int GetMaxComposition()
+        {
+            return sandwichSO.ingredientContainerCapacity + 1;
+        }
+
         public override OrderDefinitionNode GetOrderDefinitionNode()
         {
             CompositeOrderNode node = ScriptableObject.CreateInstance<CompositeOrderNode>();

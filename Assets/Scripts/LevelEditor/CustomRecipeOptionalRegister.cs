@@ -10,6 +10,8 @@ namespace LevelEditor
     {
         private static readonly Dictionary<Type, Func<ICustomRecipeOptional, CustomRecipeOptionalImpl>> impls = 
             new Dictionary<Type, Func<ICustomRecipeOptional, CustomRecipeOptionalImpl>>();
+        private static Dictionary<int, int> maxCompositionDict = 
+            new Dictionary<int, int>(); // key: uid
 
         public static void Register<T, TImpl>()
             where T : CustomRecipeSO, ICustomRecipeOptional
@@ -54,6 +56,37 @@ namespace LevelEditor
                 Debug.LogWarning(recipe.GetType().Name + " not registered");
                 return null;
             }
+        }
+
+        public static void BuildMaxCompositionDict(LevelInfoSO levelInfo)
+        {
+            maxCompositionDict.Clear();
+            foreach (var optionalRecipe in levelInfo.optionalRecipeMatchListItems)
+            {
+                ICustomRecipeOptional recipe = optionalRecipe as ICustomRecipeOptional;
+                if (recipe == null) continue;
+                int uid = (recipe as CustomRecipeSO).uID;
+                if (maxCompositionDict.ContainsKey(uid)) continue;
+
+                Func<ICustomRecipeOptional, CustomRecipeOptionalImpl> creator;
+                if (impls.TryGetValue(recipe.GetType(), out creator))
+                {
+                    int capacity = creator(recipe).GetMaxComposition();
+                    if (capacity > 0)
+                        maxCompositionDict.Add(uid, capacity);
+                }
+                else
+                {
+                    Debug.LogWarning(recipe.GetType().Name + " not registered");
+                }
+            }
+        }
+
+        public static int GetMaxComposition(OrderDefinitionNode node)
+        {
+            if (maxCompositionDict.ContainsKey(node.m_uID))
+                return maxCompositionDict[node.m_uID];
+            else return 0;
         }
     }
 }

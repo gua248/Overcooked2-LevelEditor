@@ -1,4 +1,5 @@
 using AssetBundles;
+using LevelEditor;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -438,6 +439,15 @@ public static class GameUtils
 		AssembledDefinitionNode simpleNode = _node.Simpilfy();
 		if (s_LastMatchedOrderIndex >= 0 && s_LastMatchedOrderIndex < allOrderNodes.Length && allOrderNodes[s_LastMatchedOrderIndex].m_platingStep == _platingStep && AssembledDefinitionNode.MatchingAlreadySimple(simpleNode, allOrderNodesSimplified[s_LastMatchedOrderIndex]))
 		{
+			// patch
+			int capacity = CustomRecipeOptionalRegister.GetMaxComposition(allOrderNodes[s_LastMatchedOrderIndex]);
+			if (capacity > 0)
+			{
+				CompositeAssembledNode compositeAssembledNode = simpleNode as CompositeAssembledNode;
+				if (compositeAssembledNode != null && compositeAssembledNode.m_composition.Length > capacity)
+					return null;
+			}
+			// patch
 			return allOrderNodes[s_LastMatchedOrderIndex].m_platingPrefab;
 		}
 		for (int i = 0; i < allOrderNodes.Length; i++)
@@ -445,6 +455,15 @@ public static class GameUtils
 			if (allOrderNodes[i].m_platingPrefab != null && allOrderNodes[i].m_platingStep == _platingStep && AssembledDefinitionNode.MatchingAlreadySimple(simpleNode, allOrderNodesSimplified[i]))
 			{
 				s_LastMatchedOrderIndex = i;
+                // patch
+                int capacity = CustomRecipeOptionalRegister.GetMaxComposition(allOrderNodes[s_LastMatchedOrderIndex]);
+                if (capacity > 0)
+                {
+                    CompositeAssembledNode compositeAssembledNode = simpleNode as CompositeAssembledNode;
+                    if (compositeAssembledNode != null && compositeAssembledNode.m_composition.Length > capacity)
+                        return null;
+                }
+                // patch
 				return allOrderNodes[i].m_platingPrefab;
 			}
 		}

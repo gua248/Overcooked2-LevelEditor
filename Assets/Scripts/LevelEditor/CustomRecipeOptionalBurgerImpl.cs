@@ -28,6 +28,11 @@ namespace LevelEditor
                 CustomRecipeOptionalBurgerImpl>();
         }
 
+        public override int GetMaxComposition()
+        {
+            return burgerSO.ingredientContainerCapacity + 1;
+        }
+
         public override OrderDefinitionNode GetOrderDefinitionNode()
         {
             CompositeOrderNode node = ScriptableObject.CreateInstance<CompositeOrderNode>();

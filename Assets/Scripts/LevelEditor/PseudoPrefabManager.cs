@@ -107,6 +107,7 @@ namespace LevelEditor
                 }
 
                 editedMaterials.Clear();
+                CustomRecipeOptionalRegister.BuildMaxCompositionDict(stub.levelInfo);
                 ResetAllPseudoPrefabs();
             }
 

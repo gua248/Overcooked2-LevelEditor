@@ -28,6 +28,11 @@ namespace LevelEditor
                 CustomRecipeOptionalPizzaImpl>();
         }
 
+        public override int GetMaxComposition()
+        {
+            return pizzaSO.ingredientContainerCapacity + 1;
+        }
+
         public override OrderDefinitionNode GetOrderDefinitionNode()
         {
             CookedCompositeOrderNode node = ScriptableObject.CreateInstance<CookedCompositeOrderNode>();
