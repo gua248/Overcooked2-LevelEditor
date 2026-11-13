@@ -36,8 +36,10 @@ namespace LevelEditorStub
 
         [SerializeField] public GameObject KillPlaneGO;
 
-        [HideInInspector]
         [SerializeField] public PseudoPrefabSO configTemplateSO;
+
+        [SerializeField] public PseudoPrefabSO hordeModeUISO;
+        [SerializeField] public PseudoPrefabSO hordeWaveNumberUISO;
 
         private void Awake()
         {

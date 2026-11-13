@@ -1,25 +1,27 @@
-﻿using System;
+﻿using GameModes;
+using GameModes.Horde;
+using LevelEditorStub;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using LevelEditorStub;
-
 
 namespace LevelEditor
 {
     public static class LevelConfigSetup {
 
-        public static CampaignLevelConfigBase SetupConfig(PseudoPrefabSO configTemplateSO, LevelInfoSO config, int playerCount)
+        public static LevelConfigBase SetupConfig(PseudoPrefabSO configTemplateSO, LevelInfoSO config, int playerCount)
         {
-            CampaignLevelConfigBase configTemplate = PseudoPrefabManager.LoadAsset<CampaignLevelConfig>(configTemplateSO);
+            LevelConfigBase configTemplate = PseudoPrefabManager.LoadAsset<LevelConfigBase>(configTemplateSO);
             configTemplate = ScriptableObject.Instantiate(configTemplate);
             LevelConfigSetupPerPlayerCountSO configPerPlayerCount = GetConfigPerPlayerCount(config, playerCount);
-            CampaignLevelConfigBase levelConfig;
+            LevelConfigBase levelConfig;
             CampaignLevelConfig campaignLevelConfig = null;
             DynamicCampaignLevelConfig dynamicCampaignLevelConfig = null;
             ScriptedCampaignLevelConfig scriptedCampaignLevelConfig = null;
+            HordeLevelConfig hordeLevelConfig = null;
             if (config.levelType == LevelInfoSO.LevelType.Campaign)
             {
                 if (configPerPlayerCount.scriptedRecipes.IsEmpty())
@@ -38,6 +40,11 @@ namespace LevelEditor
                 dynamicCampaignLevelConfig = ScriptableObject.CreateInstance<DynamicCampaignLevelConfig>();
                 levelConfig = dynamicCampaignLevelConfig;
             }
+            else if (config.levelType == LevelInfoSO.LevelType.Horde)
+            {
+                hordeLevelConfig = ScriptableObject.CreateInstance<HordeLevelConfig>();
+                levelConfig = hordeLevelConfig;
+            }
             else
             {
                 throw new ArgumentOutOfRangeException();
@@ -52,13 +59,29 @@ namespace LevelEditor
             levelConfig.m_enableRespawnBounds = config.enableRespawnBounds;
             levelConfig.m_objectives = new LevelObjectiveBase[0];
 
-            levelConfig.m_orderLifetime = configPerPlayerCount.orderLifeTime;
-            levelConfig.m_timeBetweenOrders = configPerPlayerCount.timeBetweenOrders;
-            levelConfig.m_plateReturnTime = configPerPlayerCount.plateReturnTime;
-            levelConfig.m_campaignConfig = configTemplate.m_campaignConfig;
-            levelConfig.m_practiceConfig = configTemplate.m_practiceConfig;
-            levelConfig.m_survivalConfig = configTemplate.m_survivalConfig;
-            levelConfig.m_survivalConfig.m_timeMultiplier = configPerPlayerCount.survivalTimeMultiplier;
+            if (levelConfig is KitchenLevelConfigBase)
+            {
+                KitchenLevelConfigBase kitchenLevelConfigBaseTemplate = configTemplate as KitchenLevelConfigBase;
+                KitchenLevelConfigBase kitchenLevelConfigBase = levelConfig as KitchenLevelConfigBase;
+                kitchenLevelConfigBase.m_orderLifetime = configPerPlayerCount.orderLifeTime;
+                kitchenLevelConfigBase.m_timeBetweenOrders = configPerPlayerCount.timeBetweenOrders;
+                kitchenLevelConfigBase.m_plateReturnTime = configPerPlayerCount.plateReturnTime;
+                kitchenLevelConfigBase.m_campaignConfig = kitchenLevelConfigBaseTemplate.m_campaignConfig;
+                kitchenLevelConfigBase.m_practiceConfig = kitchenLevelConfigBaseTemplate.m_practiceConfig;
+                kitchenLevelConfigBase.m_survivalConfig = kitchenLevelConfigBaseTemplate.m_survivalConfig;
+                kitchenLevelConfigBase.m_survivalConfig.m_timeMultiplier = configPerPlayerCount.survivalTimeMultiplier;
+            }
+            if (hordeLevelConfig != null)
+            {
+                HordeLevelConfig hordeLevelConfigTemplate = configTemplate as HordeLevelConfig;
+                hordeLevelConfig.m_plateReturnTime = configPerPlayerCount.plateReturnTime;
+                hordeLevelConfig.m_targetHealth = config.targetHealth;
+                hordeLevelConfig.m_targetRepairSpeed = config.targetRepairSpeed;
+                hordeLevelConfig.m_targetRepairThreshold = config.targetRepairThreshold;
+                hordeLevelConfig.m_targetRepairCostMax = configPerPlayerCount.hordeLevelConfig.targetRepairCostMax;
+                hordeLevelConfig.m_health = config.kitchenHealth;
+                hordeLevelConfig.m_flowroutineData = hordeLevelConfigTemplate.m_flowroutineData;
+            }
 
             RecipeList recipeList = ScriptableObject.CreateInstance<RecipeList>();
             recipeList.name = levelConfig.name;
@@ -110,6 +133,37 @@ namespace LevelEditor
                     dynamicRoundData.Phases[i] = phase;
                 }
                 dynamicCampaignLevelConfig.m_data = dynamicRoundData;
+            }
+            if (hordeLevelConfig != null)
+            {
+                List<HordeWaveData> m_waves = new List<HordeWaveData>();
+                foreach (var waveDataSO in configPerPlayerCount.hordeLevelConfig.hordeWaveDataSOs)
+                {
+                    HordeWaveData wave = new HordeWaveData();
+                    RecipeList waveRecipeList = ScriptableObject.CreateInstance<RecipeList>();
+                    waveRecipeList.name = waveDataSO.name;
+                    waveRecipeList.m_recipes = waveDataSO.recipeListSO.recipes.Select(x => RecipeHelper.GetRecipe(x)).ToArray();
+                    wave.m_recipes = waveRecipeList;
+                    allRecipes.AddRange(waveDataSO.recipeListSO.recipes);
+                    allEntries.AddRange(waveRecipeList.m_recipes);
+                    wave.m_intervalSeconds = waveDataSO.intervalSeconds;
+                    wave.m_spawns = new List<HordeSpawnData>();
+                    for (int j = 0; j < waveDataSO.enemies.Length; j++)
+                    {
+                        HordeSpawnData spawnData = new HordeSpawnData();
+                        spawnData.m_spawnTimeSeconds = j < waveDataSO.spawnTimes.Length ? waveDataSO.spawnTimes[j] : 0;
+                        spawnData.m_prefab = PseudoPrefabManager.LoadAsset(waveDataSO.enemies[j]);
+                        wave.m_spawns.Add(spawnData);
+                    }
+                    m_waves.Add(wave);
+                }
+                object obj = new HordeWavesData();
+                typeof(HordeWavesData)
+                    .GetField("m_waves", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .SetValue(obj, m_waves);
+                HordeWavesData waves = (HordeWavesData)obj;
+                hordeLevelConfig.m_waves = waves;
+                hordeLevelConfig.m_recipeMoney = BuildRecipeMoneyData(hordeLevelConfig);
             }
 
             RecipeMatchList theRecipeMatchList = configTemplate.m_recipeMatchingList;
@@ -235,6 +289,29 @@ namespace LevelEditor
             }
             diyLevelSceneDirectoryData.Scenes = entries.ToArray();
             return diyLevelSceneDirectoryData;
+        }
+
+        private static RecipeMoneyData BuildRecipeMoneyData(HordeLevelConfig hordeLevelConfig)
+        {
+            HordeWavesData waves = hordeLevelConfig.m_waves;
+            RecipeMoneyData recipeMoneyData = ScriptableObject.CreateInstance<RecipeMoneyData>();
+            recipeMoneyData.name = hordeLevelConfig.name;
+            List<RecipeList.Entry> recipes = new List<RecipeList.Entry>();
+            var m_waves = (List<HordeWaveData>)typeof(HordeWavesData)
+                .GetField("m_waves", BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(waves);
+            foreach (var wave in m_waves)
+                foreach (var entry in wave.m_recipes.m_recipes)
+                    if (!recipes.Any(x => x.m_order.Equals(entry.m_order)))
+                        recipes.Add(entry);
+
+            typeof(RecipeMoneyData)
+                .GetField("m_keys", BindingFlags.Instance | BindingFlags.NonPublic)
+                .SetValue(recipeMoneyData, recipes.Select(x => x.m_order).ToList());
+            typeof(RecipeMoneyData)
+                .GetField("m_values", BindingFlags.Instance | BindingFlags.NonPublic)
+                .SetValue(recipeMoneyData, recipes.Select(x => x.m_scoreForMeal).ToList());
+            return recipeMoneyData;
         }
     }
 }

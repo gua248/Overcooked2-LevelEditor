@@ -29,7 +29,7 @@ public class LevelInfoSOEditor : Editor
                 continue;
             }
 
-            if (ShouldHideRecipeField((LevelInfoSO.LevelType)levelType.intValue, iterator.name))
+            if (ShouldHideTypeField((LevelInfoSO.LevelType)levelType.intValue, iterator.name))
             {
                 continue;
             }
@@ -73,14 +73,26 @@ public class LevelInfoSOEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    private static bool ShouldHideRecipeField(LevelInfoSO.LevelType levelType, string fieldName)
+    private static readonly string[] allTypeFields = new string[]
+    {
+        "recipes", "debugRecipeCount", "minOrderCount", "maxOrderCount",
+        "recipeListSOs", "roundTimes",
+        "targetHealth", "targetRepairSpeed", "targetRepairThreshold", "kitchenHealth"
+    };
+    private static readonly string[] campaignFields = new string[] { "recipes", "debugRecipeCount", "minOrderCount", "maxOrderCount" };
+    private static readonly string[] dynamicFields = new string[] { "recipeListSOs", "roundTimes", "minOrderCount", "maxOrderCount" };
+    private static readonly string[] hordeFields = new string[] { "targetHealth", "targetRepairSpeed", "targetRepairThreshold", "kitchenHealth" };
+
+    private static bool ShouldHideTypeField(LevelInfoSO.LevelType levelType, string fieldName)
     {
         switch (levelType)
         {
             case LevelInfoSO.LevelType.Campaign:
-                return fieldName == "recipeListSOs" || fieldName == "roundTimes";
+                return allTypeFields.Contains(fieldName) && !campaignFields.Contains(fieldName);
             case LevelInfoSO.LevelType.Dynamic:
-                return fieldName == "recipes" || fieldName == "debugRecipeCount";
+                return allTypeFields.Contains(fieldName) && !dynamicFields.Contains(fieldName);
+            case LevelInfoSO.LevelType.Horde:
+                return allTypeFields.Contains(fieldName) && !hordeFields.Contains(fieldName);
             default:
                 return false;
         }

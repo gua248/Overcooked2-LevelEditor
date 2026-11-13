@@ -1,4 +1,5 @@
-﻿using LevelEditorStub;
+﻿using GameModes.Horde;
+using LevelEditorStub;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -153,16 +154,29 @@ namespace LevelEditor
             m_data.ReadyUIPrefab = LoadAsset(stub.ReadySO);
             m_data.TutorialPopup.Prefab = LoadAsset(stub.TutorialSplashSO);
 
-            component = stub.FlowManagerGO.GetComponent<KitchenFlowControllerBase>();
-            (component as KitchenFlowControllerBase).m_maxOrdersAllowed = stub.levelInfo.maxOrderCount;
+            component = stub.FlowManagerGO.GetComponent<FlowControllerBase>();
+            if (component is KitchenFlowControllerBase)
+            {
+                KitchenFlowControllerBase kitchenFlowControllerBase = component as KitchenFlowControllerBase;
+                kitchenFlowControllerBase.m_maxOrdersAllowed = stub.levelInfo.maxOrderCount;
+            }
+            if (component is HordeFlowController)
+            {
+                HordeFlowController hordeFlowController = component as HordeFlowController;
+                hordeFlowController.m_uiPrefab = LoadAsset(stub.hordeModeUISO);
+                hordeFlowController.m_waveNumberUIPrefab = LoadAsset(stub.hordeWaveNumberUISO);
+            }
 
-            component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
-            component.GetType()
-                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, LoadAsset(stub.RecipeUISO).GetComponent<RecipeWidgetUIController>());
-            component.GetType()
-                .GetField("m_maxOrdersAllowed", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, stub.levelInfo.maxOrderCount);
+            if (stub.RecipeUIGO != null)
+            {
+                component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
+                component.GetType()
+                    .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(component, LoadAsset(stub.RecipeUISO).GetComponent<RecipeWidgetUIController>());
+                component.GetType()
+                    .GetField("m_maxOrdersAllowed", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(component, stub.levelInfo.maxOrderCount);
+            }
 
             component = stub.AudioManagerGO.GetComponent<CampaignAudioManager>();
             AudioClip music = 
@@ -262,12 +276,6 @@ namespace LevelEditor
         // unset all prefab ref in the scene
         private void UnSetAssetRef()
         {
-            if (stub.FlowManagerGO == null || stub.RecipeUIGO == null ||
-                stub.AudioManagerGO == null || stub.PlayerSwitchingManagerGO == null || stub.BootstrapManagerGO == null)
-            {
-                return;
-            }
-
             Component component = stub.FlowManagerGO.GetComponent<LevelIntroFlowroutine>();
             LevelIntroFlowroutineData m_data = (LevelIntroFlowroutineData)component.GetType()
                 .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
@@ -276,10 +284,21 @@ namespace LevelEditor
             m_data.ReadyUIPrefab = null;
             m_data.TutorialPopup.Prefab = null;
 
-            component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
-            component.GetType()
-                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, null);
+            component = stub.FlowManagerGO.GetComponent<FlowControllerBase>();
+            if (component is HordeFlowController)
+            {
+                HordeFlowController hordeFlowController = component as HordeFlowController;
+                hordeFlowController.m_uiPrefab = null;
+                hordeFlowController.m_waveNumberUIPrefab = null;
+            }
+
+            if (stub.RecipeUIGO != null)
+            {
+                component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
+                component.GetType()
+                    .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .SetValue(component, null);
+            }
 
             component = stub.AudioManagerGO.GetComponent<CampaignAudioManager>();
             component.GetType()

@@ -25,6 +25,12 @@ namespace LevelEditorStub
         [SerializeField] public int minOrderCount = 2;
         [Range(1, 10)]
         [SerializeField] public int maxOrderCount = 5;
+        
+        [Header("Horde Settings")]
+        [SerializeField] public int targetHealth = 100;
+        [SerializeField] public float targetRepairSpeed = 30f;
+        [SerializeField] public float targetRepairThreshold = 5f;
+        [SerializeField] public int kitchenHealth = 100;
 
         [Header("Recipe Match List Settings")]
         [SerializeField] public bool excludeStoryRecipeMatchList;
@@ -51,13 +57,14 @@ namespace LevelEditorStub
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_4p;
 
         [SerializeField] public string[] dependencies;
-        
+
         public enum LevelType
         {
             Campaign,
             Dynamic,
+            Horde,
         }
-
+        
         public enum GameLoopingAudioTag
         {
             RestaurantAmbience,
