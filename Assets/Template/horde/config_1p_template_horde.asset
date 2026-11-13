@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29722fa34ea4be545b2b4160dc3b3f12, type: 3}
-  m_Name: config_4p
+  m_Name: config_1p_template_horde
   m_EditorClassIdentifier: 
   orderLifeTime: 181
   timeBetweenOrders: 10
@@ -20,3 +20,5 @@ MonoBehaviour:
   m_TwoStarScore: 0
   m_ThreeStarScore: 0
   m_FourStarScore: 0
+  scriptedRecipes: []
+  hordeLevelConfig: {fileID: 11400000, guid: 2a0a742a3db85c044bca46c03fd09888, type: 2}

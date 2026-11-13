@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4861260552769070}
-  - component: {fileID: 114094545549604754}
-  - component: {fileID: 114365947823833956}
+  - component: {fileID: 114093391310995504}
+  - component: {fileID: 114929276427430450}
   m_Layer: 0
   m_Name: Service_Window
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114094545549604754
+--- !u!114 &114093391310995504
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,13 +49,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1534809876327304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b11dbf31f57bc4eb58ea3f734067e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7606aa2c2fa21d14c9a4c05bdf874247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pseudoPrefabSO: {fileID: 11400000, guid: 4d240d07db69c4c4aba37f3d1796cd54, type: 2}
   plateReturn: {fileID: 0}
   plateReturns: []
---- !u!114 &114365947823833956
+  orderUIOffset: {x: 0, y: 0, z: 0}
+  healthUIOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &114929276427430450
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -63,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1534809876327304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46066bba211b46c43b9680bdd48d9a12, type: 3}
+  m_Script: {fileID: 11500000, guid: d80d001f7499af144b138b30843077b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   childGameObject: {fileID: 0}

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613355741a1a7e429f1ad97a816f6de, type: 3}
+  m_Name: levelinfo_template_horde
+  m_EditorClassIdentifier: 
+  levelName: template_horde
+  levelNameZH: template_horde
+  screenshot: {fileID: 0}
+  sceneName: s_template_horde
+  levelType: 2
+  recipes: []
+  debugRecipeCount: 0
+  recipeListSOs: []
+  roundTimes: 
+  minOrderCount: 2
+  maxOrderCount: 5
+  targetHealth: 100
+  targetRepairSpeed: 30
+  targetRepairThreshold: 5
+  kitchenHealth: 100
+  excludeStoryRecipeMatchList: 0
+  includeRecipeMatchLists: []
+  allIngredients: []
+  optionalRecipeMatchListItems: []
+  allCookingSteps: []
+  inLevelMusicSO: {fileID: 11400000, guid: 4821c699814fc6246853b9500ac41e8a, type: 2}
+  inLevelMusic: {fileID: 0}
+  inLevelAmbiences: 
+  audioDirectorySOs:
+  - {fileID: 11400000, guid: 19922e9a5fe2a1447a090c5338e48ca3, type: 2}
+  - {fileID: 11400000, guid: dcf3b448e45a90a42ab26195a947a3da, type: 2}
+  - {fileID: 11400000, guid: 1fcaeb229df6ea646a43c7eb8608c8c3, type: 2}
+  - {fileID: 11400000, guid: 558ba4520aa08d34b83c64a76355d31e, type: 2}
+  - {fileID: 11400000, guid: 5e4c5b9e53ea39945b4223389aebdfd0, type: 2}
+  - {fileID: 11400000, guid: 318aba72e60547641adf426e9dbf82da, type: 2}
+  - {fileID: 11400000, guid: 126755661d3f0dd43a82184c8cf6c36f, type: 2}
+  disableDynamicParenting: 1
+  enableRespawnBounds: 0
+  onDeathEffectSO: {fileID: 0}
+  config_1p: {fileID: 11400000, guid: 140d06dd4668abe41ae2e435cf9d6e9c, type: 2}
+  config_2p: {fileID: 11400000, guid: 4dab04163f3c1d14ca15e478ae96e64f, type: 2}
+  config_3p: {fileID: 11400000, guid: 9b2a0f3e7c2287b419b670fecc568152, type: 2}
+  config_4p: {fileID: 11400000, guid: 00831fb50faebc044b84d8f3364543d5, type: 2}
+  dependencies:
+  - bundle47

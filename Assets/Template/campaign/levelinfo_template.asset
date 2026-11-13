@@ -15,15 +15,25 @@ MonoBehaviour:
   levelNameZH: template
   screenshot: {fileID: 0}
   sceneName: s_template
+  levelType: 0
   recipes:
   - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
   debugRecipeCount: 0
+  recipeListSOs: []
+  roundTimes: 
+  minOrderCount: 2
+  maxOrderCount: 5
+  targetHealth: 100
+  targetRepairSpeed: 30
+  targetRepairThreshold: 5
+  kitchenHealth: 100
   excludeStoryRecipeMatchList: 0
   includeRecipeMatchLists: []
   allIngredients: []
   optionalRecipeMatchListItems: []
   allCookingSteps: []
   inLevelMusicSO: {fileID: 11400000, guid: 4821c699814fc6246853b9500ac41e8a, type: 2}
+  inLevelMusic: {fileID: 0}
   inLevelAmbiences: 
   audioDirectorySOs:
   - {fileID: 11400000, guid: 45abe9378aa684144b655a71d85d422a, type: 2}
@@ -32,7 +42,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3d1d7d9880429247949bfc85cb265cd, type: 2}
   - {fileID: 11400000, guid: 193b2f9bf726f474bbcad5946bf20392, type: 2}
   disableDynamicParenting: 1
-  OnDeathEffectSO: {fileID: 0}
+  enableRespawnBounds: 0
   onDeathEffectSO: {fileID: 0}
   config_1p: {fileID: 11400000, guid: 36987697278e6c149b2cf29bfb855603, type: 2}
   config_2p: {fileID: 11400000, guid: 83bc6c2e1ca8d9b428eb0248e6740323, type: 2}

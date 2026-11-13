@@ -20,3 +20,5 @@ MonoBehaviour:
   m_TwoStarScore: 0
   m_ThreeStarScore: 0
   m_FourStarScore: 0
+  scriptedRecipes: []
+  hordeLevelConfig: {fileID: 0}
