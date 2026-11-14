@@ -9,7 +9,6 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-
 namespace LevelEditor
 {
     public enum GameEditState
@@ -236,9 +235,12 @@ namespace LevelEditor
                 .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, LevelConfigSetup.SetupConfig(stub.configTemplateSO, stub.levelInfo, 4));
 
-            component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
-            if (stub.levelInfo.onDeathEffectSO != null)
-                (component as RespawnCollider).m_onDeathEffect = LoadAsset(stub.levelInfo.onDeathEffectSO);
+            if (stub.KillPlaneGO != null)
+            {
+                component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
+                if (stub.levelInfo.onDeathEffectSO != null)
+                    (component as RespawnCollider).m_onDeathEffect = LoadAsset(stub.levelInfo.onDeathEffectSO);
+            }
         }
 
         public static void ResetAllPseudoPrefabs()
@@ -276,6 +278,15 @@ namespace LevelEditor
         // unset all prefab ref in the scene
         private void UnSetAssetRef()
         {
+            // fix: MissingReferenceException when opening another scene
+            // during scene unload or destruction, GameObject teardown order is undefined
+            // (ignoring DefaultExecutionOrder), so other GameObjects may already be destroyed
+            if (stub.FlowManagerGO == null ||
+                stub.AudioManagerGO == null ||
+                stub.PlayerSwitchingManagerGO == null ||
+                stub.BootstrapManagerGO == null)
+                return;
+
             Component component = stub.FlowManagerGO.GetComponent<LevelIntroFlowroutine>();
             LevelIntroFlowroutineData m_data = (LevelIntroFlowroutineData)component.GetType()
                 .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
@@ -349,8 +360,11 @@ namespace LevelEditor
                 .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, null);
 
-            component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
-            (component as RespawnCollider).m_onDeathEffect = null;
+            if (stub.KillPlaneGO != null)
+            {
+                component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
+                (component as RespawnCollider).m_onDeathEffect = null;
+            }
         }
 
         public static AssetBundle GetAssetBundle(string bundleName)
