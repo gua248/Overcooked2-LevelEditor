@@ -7,6 +7,7 @@ namespace LevelEditorStub
 {
     public class PseudoPrefabDispenserStub : PseudoPrefabStub 
     {
+        [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO spawnerItemPrefabSO;
     }
 }

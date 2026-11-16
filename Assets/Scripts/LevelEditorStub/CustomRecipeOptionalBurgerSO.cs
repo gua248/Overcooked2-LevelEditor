@@ -9,6 +9,7 @@ namespace LevelEditorStub
     public class CustomRecipeOptionalBurgerSO : CustomRecipeSO, ICustomRecipeOptional
     {
         [Header("Optional Burger")]
+        [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO bunSO;
         [SerializeField] public int ingredientContainerCapacity;
         [SerializeField] public PseudoPrefabSO[] ingredientModelSOs;

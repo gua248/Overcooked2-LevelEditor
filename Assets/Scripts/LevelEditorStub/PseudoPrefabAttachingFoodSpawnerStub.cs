@@ -8,6 +8,7 @@ namespace LevelEditorStub
     public class PseudoPrefabAttachingFoodSpawnerStub : PseudoPrefabStub
     {
         [SerializeField] public bool spawnInOrder = true;
+        [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO[] attachmentPrefabSOs;
         [SerializeField] public float[] weights;
         [SerializeField] public float triggerTime = 5f;

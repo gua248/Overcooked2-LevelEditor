@@ -8,11 +8,14 @@ namespace LevelEditorStub
     public class CustomRecipeOptionalSandwichSO : CustomRecipeSO, ICustomRecipeOptional
     {
         [Header("Optional Sandwich")]
+        [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO toastSO;
         [SerializeField] public int ingredientContainerCapacity;
         [SerializeField] public PseudoPrefabSO[] ingredientModelSOs;
         [SerializeField] public GameObject[] ingredientModels;
 
+        [PseudoPrefabSOCategory("Ingredient")]
+        [PseudoPrefabSOCategory("Recipe")]
         [SerializeField] public ScriptableObject[] sauceSOs;
         [SerializeField] public GameObject[] sauceInPlateModels;
         [SerializeField] public GameObject[] sauceOnToastModels;

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 4b9e27f36c53882acc77e96387ffbe91
+labels:
+- CookingStep
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

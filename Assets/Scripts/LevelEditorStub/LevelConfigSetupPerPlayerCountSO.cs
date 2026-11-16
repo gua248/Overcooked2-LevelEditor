@@ -17,6 +17,7 @@ namespace LevelEditorStub
         public int m_ThreeStarScore;
         public int m_FourStarScore;
         [Tooltip("Not applicable in dynamic levels.")]
+        [PseudoPrefabSOCategory("Recipe")]
         public ScriptableObject[] scriptedRecipes;
         [Tooltip("For horde levels.")]
         public HordeLevelConfigSO hordeLevelConfig;

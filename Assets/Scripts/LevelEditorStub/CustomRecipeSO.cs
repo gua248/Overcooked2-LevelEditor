@@ -13,6 +13,7 @@ namespace LevelEditorStub
         [SerializeField] public string recipeName;
         [SerializeField] public int uID;
         [SerializeField] public int score;
+        [PseudoPrefabSOCategory("PlatingStep")]
         [SerializeField] public PseudoPrefabSO platingStepSO;
         [SerializeField] public PseudoPrefabSO modelSO;
         [SerializeField] public GameObject model;
@@ -20,11 +21,17 @@ namespace LevelEditorStub
         [SerializeField] public Sprite icon;
 
         [Header("Composite")]
+        [PseudoPrefabSOCategory("Ingredient")]
+        [PseudoPrefabSOCategory("Recipe")]
         [SerializeField] public ScriptableObject[] compositionSOs; // CustomRecipeSO or PseudoPrefabSO
+        [PseudoPrefabSOCategory("Ingredient")]
+        [PseudoPrefabSOCategory("Recipe")]
         [SerializeField] public ScriptableObject[] optionalSOs; // CustomRecipeSO or PseudoPrefabSO
 
         [Header("Cooked")]
+        [PseudoPrefabSOCategory("CookingStep")]
         [SerializeField] public PseudoPrefabSO cookingStepSO;
+        [PseudoPrefabSOCategory("CookingStepIcon")]
         [SerializeField] public PseudoPrefabSO cookingStepIconSO;
         [SerializeField] public Sprite cookingStepIcon;
         [SerializeField] public CookingProgress cookingProgress;

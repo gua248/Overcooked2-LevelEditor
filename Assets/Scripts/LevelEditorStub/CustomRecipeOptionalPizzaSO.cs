@@ -9,6 +9,7 @@ namespace LevelEditorStub
     public class CustomRecipeOptionalPizzaSO : CustomRecipeSO, ICustomRecipeOptional
     {
         [Header("Optional Pizza")]
+        [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO doughSO;
         [SerializeField] public int ingredientContainerCapacity;
         [SerializeField] public bool cooked;

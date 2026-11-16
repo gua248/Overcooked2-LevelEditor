@@ -8,7 +8,9 @@ namespace LevelEditorStub
 	public class PseudoPrefabCookingUtensilStub : PseudoPrefabStub {
 
         [SerializeField] public int capacity;
-		[SerializeField] public ScriptableObject[] allowedIngredientSOs = new PseudoPrefabSO[0];
+        [PseudoPrefabSOCategory("Ingredient")]
+        [PseudoPrefabSOCategory("Recipe")]
+        [SerializeField] public ScriptableObject[] allowedIngredientSOs = new PseudoPrefabSO[0];
 		[SerializeField] public CookingStationType[] allowedCookingStationTypes = new CookingStationType[0];
 		[SerializeField] public PseudoPrefabSO[] modelSOs = new PseudoPrefabSO[0];
 		[SerializeField] public GameObject[] models = new GameObject[0];

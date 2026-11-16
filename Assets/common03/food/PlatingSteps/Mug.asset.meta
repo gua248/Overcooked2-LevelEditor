@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: cd51517c70ba446408c27f0227693f4b
+labels:
+- PlatingStep
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

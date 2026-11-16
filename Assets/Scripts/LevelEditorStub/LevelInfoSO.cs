@@ -17,6 +17,7 @@ namespace LevelEditorStub
 
         [Header("Recipe Settings")]
         [SerializeField] public LevelType levelType = LevelType.Campaign;
+        [PseudoPrefabSOCategory("Recipe")]
         [SerializeField] public ScriptableObject[] recipes;
         [SerializeField] public int debugRecipeCount;
         [SerializeField] public RecipeListSO[] recipeListSOs;
@@ -35,8 +36,11 @@ namespace LevelEditorStub
         [Header("Recipe Match List Settings")]
         [SerializeField] public bool excludeStoryRecipeMatchList;
         [SerializeField] public PseudoPrefabSO[] includeRecipeMatchLists;
+        [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO[] allIngredients;
+        [PseudoPrefabSOCategory("Recipe")]
         [SerializeField] public ScriptableObject[] optionalRecipeMatchListItems;
+        [PseudoPrefabSOCategory("CookingStep")]
         [SerializeField] public PseudoPrefabSO[] allCookingSteps;
 
         [Header("Audio Settings")]

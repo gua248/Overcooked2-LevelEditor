@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 846b1c72b43fac6e7fa65ac77f73a3af
+labels:
+- Recipe
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
