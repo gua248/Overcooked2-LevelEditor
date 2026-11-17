@@ -47,7 +47,11 @@ public class CustomRecipeSOEditor : Editor
         {
             case CustomRecipeSO.RecipeType.Ingredient:
             case CustomRecipeSO.RecipeType.Item:
-                return fieldName == "optionalSOs" || cookedFields.Contains(fieldName) || mixedFields.Contains(fieldName);
+                return
+                    fieldName == "optionalSOs" || fieldName == "uID" ||
+                    fieldName == "iconSO" || fieldName == "icon" ||
+                    cookedFields.Contains(fieldName) ||
+                    mixedFields.Contains(fieldName);
             case CustomRecipeSO.RecipeType.Composite:
                 return cookedFields.Contains(fieldName) || mixedFields.Contains(fieldName);
             case CustomRecipeSO.RecipeType.Cooked:

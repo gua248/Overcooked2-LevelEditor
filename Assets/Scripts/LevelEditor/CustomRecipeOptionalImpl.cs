@@ -16,7 +16,7 @@ namespace LevelEditor
 
         public abstract OrderDefinitionNode GetOrderDefinitionNode();
 
-        public abstract GameObject GetIngredientPrefab(GameObject originalPrefab);
+        public virtual GameObject GetIngredientPrefab(GameObject originalPrefab) { return null; }
 
         public virtual int GetMaxComposition() { return 0; }
     }
