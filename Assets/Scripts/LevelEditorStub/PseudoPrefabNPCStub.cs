@@ -7,6 +7,7 @@ namespace LevelEditorStub
 {
     public class PseudoPrefabNPCStub : PseudoPrefabStub
     {
+        [PseudoPrefabSOCategory("NPCAnimator")]
         [SerializeField] public PseudoPrefabSO animatorControllerSO;
     }
 }

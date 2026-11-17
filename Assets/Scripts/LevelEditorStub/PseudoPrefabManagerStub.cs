@@ -36,6 +36,7 @@ namespace LevelEditorStub
 
         [SerializeField] public GameObject KillPlaneGO;
 
+        [PseudoPrefabSOCategory("ConfigTemplate")]
         [SerializeField] public PseudoPrefabSO configTemplateSO;
 
         [SerializeField] public PseudoPrefabSO hordeModeUISO;

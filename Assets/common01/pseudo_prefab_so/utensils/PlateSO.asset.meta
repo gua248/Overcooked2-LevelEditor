@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: b8174830578736f41886d13b8474b5f0
+labels:
+- CleanPlate
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

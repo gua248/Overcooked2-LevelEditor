@@ -7,6 +7,7 @@ namespace LevelEditorStub
 {
     public class PseudoPrefabCleanPlateStackStub : PseudoPrefabStub
     {
+        [PseudoPrefabSOCategory("CleanPlate")]
         [SerializeField] public PseudoPrefabSO platePseudoPrefabSO;
         [SerializeField] public int plateCount;
     }

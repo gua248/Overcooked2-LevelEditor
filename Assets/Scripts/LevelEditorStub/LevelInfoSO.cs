@@ -35,6 +35,7 @@ namespace LevelEditorStub
 
         [Header("Recipe Match List Settings")]
         [SerializeField] public bool excludeStoryRecipeMatchList;
+        [PseudoPrefabSOCategory("RecipeMatchList")]
         [SerializeField] public PseudoPrefabSO[] includeRecipeMatchLists;
         [PseudoPrefabSOCategory("Ingredient")]
         [SerializeField] public PseudoPrefabSO[] allIngredients;
@@ -44,15 +45,18 @@ namespace LevelEditorStub
         [SerializeField] public PseudoPrefabSO[] allCookingSteps;
 
         [Header("Audio Settings")]
+        [PseudoPrefabSOCategory("Music")]
         [SerializeField] public PseudoPrefabSO inLevelMusicSO;
         [SerializeField] public AudioClip inLevelMusic;
         [SerializeField] public GameLoopingAudioTag[] inLevelAmbiences = new GameLoopingAudioTag[0];
+        [PseudoPrefabSOCategory("AudioDirectory")]
         [SerializeField] public PseudoPrefabSO[] audioDirectorySOs = new PseudoPrefabSO[0];
 
         [Header("Other Settings")]
         [SerializeField] public bool disableDynamicParenting = true;
         [SerializeField] public bool enableRespawnBounds = false;
 
+        [PseudoPrefabSOCategory("OnDeathEffect")]
         [SerializeField] public PseudoPrefabSO onDeathEffectSO;
 
         [SerializeField] public LevelConfigSetupPerPlayerCountSO config_1p;

@@ -7,7 +7,9 @@ namespace LevelEditorStub
 {
     public class PseudoPrefabPressureSwitchStub : PseudoPrefabStub
     {
+        [PseudoPrefabSOCategory("SwitchMaterial")]
         [SerializeField] public PseudoPrefabSO occupiedMaterialSO;
+        [PseudoPrefabSOCategory("SwitchMaterial")]
         [SerializeField] public PseudoPrefabSO unoccupiedMaterialSO;
         [SerializeField] public string triggerOnAnimatorEnter;
         [SerializeField] public string triggerOnAnimatorExit;

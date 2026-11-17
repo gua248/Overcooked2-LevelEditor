@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace LevelEditorStub
 {
-	public class PseudoPrefabPlateReturnStub : PseudoPrefabStub {
-
+	public class PseudoPrefabPlateReturnStub : PseudoPrefabStub
+	{
+		[PseudoPrefabSOCategory("DirtyPlateStack")]
 		[SerializeField] public PseudoPrefabSO dirtyPlateStackSO;
-		[SerializeField] public PseudoPrefabSO cleanPlateStackSO;
-        [SerializeField] public bool returnClean;
-
+        [PseudoPrefabSOCategory("CleanPlateStack")]
+        [SerializeField] public PseudoPrefabSO cleanPlateStackSO;
+		[SerializeField] public bool returnClean;
 	}
 }

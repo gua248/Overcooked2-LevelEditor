@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 128828689ccfff044987de90cbf47363
+labels:
+- OnDeathEffect
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

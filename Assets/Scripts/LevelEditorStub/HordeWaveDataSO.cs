@@ -9,6 +9,7 @@ namespace LevelEditorStub
     {
         [SerializeField] public RecipeListSO recipeListSO;
         [SerializeField] public int intervalSeconds;
+        [PseudoPrefabSOCategory("Enemy")]
         [SerializeField] public PseudoPrefabSO[] enemies;
         [SerializeField] public int[] spawnTimes;
     }

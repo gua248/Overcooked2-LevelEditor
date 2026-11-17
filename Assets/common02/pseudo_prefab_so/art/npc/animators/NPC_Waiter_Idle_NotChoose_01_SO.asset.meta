@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 54dd47e316057bf42a3ae10f00c3ac02
+labels:
+- NpcAnimator
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

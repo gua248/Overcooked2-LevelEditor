@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: c6ff9701c69cc12e1ab0a37340b74d5f
+labels:
+- CleanPlateStack
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

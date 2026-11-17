@@ -143,6 +143,10 @@ public class CategoryDrawer : PropertyDrawer
             return true;
 
         string path = AssetDatabase.GetAssetPath(asset);
+        // common 以外的资源不检查 label
+        if (!path.StartsWith("Assets/common"))
+            return true;
+
         Object mainAsset = AssetDatabase.LoadMainAssetAtPath(path);
 
         if (mainAsset == null)

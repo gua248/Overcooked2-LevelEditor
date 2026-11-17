@@ -7,6 +7,7 @@ namespace LevelEditorStub
     public class SetupCannonStub : SetupCustomPrefabStub
     {
         [SerializeField] public PseudoPrefabSO modelSO;
+        [PseudoPrefabSOCategory("CannonMaterial")]
         [SerializeField] public PseudoPrefabSO modelMatSO;
         [HideInInspector]
         [SerializeField] public Transform baseModelParent;

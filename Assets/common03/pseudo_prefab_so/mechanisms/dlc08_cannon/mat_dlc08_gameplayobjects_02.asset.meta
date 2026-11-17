@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 3c367c716616df94ebfe5675654951ff
+labels:
+- CannonMaterial
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

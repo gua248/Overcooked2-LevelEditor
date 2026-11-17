@@ -8,6 +8,7 @@ namespace LevelEditorStub
     {
         [SerializeField] public GameObject washingPart;
         [SerializeField] public GameObject dryingPart;
+        [PseudoPrefabSOCategory("CleanPlateStack")]
         [SerializeField] public PseudoPrefabSO cleanPlateStackSO;
     }
 }

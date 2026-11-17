@@ -8,7 +8,9 @@ namespace LevelEditorStub
 {
     public class PseudoPrefabMarkerStub : PseudoPrefabStub
     {
+        [PseudoPrefabSOCategory("MarkerMaterial")]
         [SerializeField] public PseudoPrefabSO activeLightstripMaterialSO;
+        [PseudoPrefabSOCategory("MarkerMaterial")]
         [SerializeField] public PseudoPrefabSO inactiveLightstripMaterialSO;
     }
 }

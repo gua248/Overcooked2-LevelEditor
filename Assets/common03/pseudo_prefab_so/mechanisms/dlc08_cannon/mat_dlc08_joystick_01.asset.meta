@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: c2697e5443c311549a5053467c78e0f7
+labels:
+- JoystickMaterial
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
